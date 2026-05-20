@@ -1,0 +1,36 @@
+from app.models.entities import (
+    Building,
+    BuildingAlias,
+    EmailVerification,
+    EntranceLink,
+    IndoorEdge,
+    IndoorMap,
+    IndoorNode,
+    OutdoorEdge,
+    OutdoorNode,
+    Report,
+    Room,
+    RoomPosition,
+    RouteWeightProfile,
+    TmiLocation,
+    User,
+)
+
+# 라우터와 seed 코드에서 app.models import Building처럼 짧게 쓰기 위한 목록이다.
+__all__ = [
+    "Building",
+    "BuildingAlias",
+    "EmailVerification",
+    "EntranceLink",
+    "IndoorEdge",
+    "IndoorMap",
+    "IndoorNode",
+    "OutdoorEdge",
+    "OutdoorNode",
+    "Report",
+    "Room",
+    "RoomPosition",
+    "RouteWeightProfile",
+    "TmiLocation",
+    "User",
+]
