@@ -1,0 +1,6 @@
+,entrance_id,building_id,floor_number,entrance_name,entrance_type,description
+,DKU_ICT_ENT_01,DKU_ICT,-1,지하주차장 출입구,parking,지하 주차장 연결
+,DKU_ICT_ENT_02,DKU_ICT,1,ICT관 정문,main,ICT관 메인 출입구
+,DKU_ICT_ENT_03,DKU_ICT,1,ICT관 후문,rear,건물 후면 연결 출입구
+,DKU_LIB_ENT_01,DKU_LIB,1,도서관 중앙 출입구,main,도서관 메인 출입구
+,DKU_LIB_ENT_02,DKU_LIB,1,도서관 후문,rear,후면 통로 연결 출입구
