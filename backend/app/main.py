@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
-from app.database import Base, SessionLocal, engine
+from app.database import Base, SessionLocal, engine, ensure_sqlite_schema
 from app.routers import buildings, indoor, rooms
 from app.seed.sample_data import seed_database
 
@@ -28,6 +28,7 @@ def create_app() -> FastAPI:
     def on_startup() -> None:
         # 서버 시작 시 테이블을 만들고, 비어 있으면 파일럿 데이터를 넣는다.
         Base.metadata.create_all(bind=engine)
+        ensure_sqlite_schema()
         db = SessionLocal()
         try:
             seed_database(db)

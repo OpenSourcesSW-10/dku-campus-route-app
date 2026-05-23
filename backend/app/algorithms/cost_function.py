@@ -1,11 +1,57 @@
 """
-Week 3 dynamic cost function skeleton.
+Week 3 dynamic cost function skeleton + Week 4 static cost selector.
 
 DCF is completed later, but the backend already exposes the intended function
 shape: edge attributes + route_weight_profiles + optional user preferences.
 """
 
 from typing import Any
+
+
+STATIC_COST_FIELDS = {
+    "FAST": "cost_fast",
+    "COMFORTABLE": "cost_comfortable",
+    "INDOOR_FOCUSED": "cost_indoor",
+}
+
+
+def get_static_edge_cost(edge: Any, route_type: str = "FAST") -> float:
+    # MVP에서는 routeType별로 미리 저장된 정적 cost를 Dijkstra에 사용한다.
+    field_name = STATIC_COST_FIELDS.get(route_type.upper(), "cost_fast")
+    cost = getattr(edge, field_name, None)
+    if cost is None or cost <= 0:
+        cost = estimate_static_edge_cost(edge, route_type)
+    return max(float(cost), 1.0)
+
+
+def estimate_static_edge_cost(edge: Any, route_type: str = "FAST") -> float:
+    # CSV에 cost_* 값이 없을 때 edge 속성으로 기본 정적 cost를 산정한다.
+    distance = float(getattr(edge, "distance", 0) or 0)
+    estimated_time = float(getattr(edge, "estimated_time", 0) or 0)
+    base = max(distance + estimated_time, 1.0)
+    route_type = route_type.upper()
+
+    if route_type == "COMFORTABLE":
+        if getattr(edge, "has_stairs", False):
+            base += 50
+        if getattr(edge, "has_slope", False):
+            base += float(getattr(edge, "slope_level", 1) or 1) * 20
+        base += float(getattr(edge, "complexity_level", 0) or 0) * 10
+        if getattr(edge, "is_elevator", False) or getattr(edge, "is_ramp", False):
+            base -= 10
+    elif route_type == "INDOOR_FOCUSED":
+        if not getattr(edge, "is_indoor", False):
+            base += 40
+        if not getattr(edge, "is_covered", False):
+            base += 30
+        if getattr(edge, "is_indoor", False):
+            base -= 15
+        if getattr(edge, "is_covered", False):
+            base -= 15
+        if getattr(edge, "edge_type", "") in {"BRIDGE", "COVERED_BRIDGE", "BUILDING_PASSAGE"}:
+            base -= 20
+
+    return max(base, 1.0)
 
 
 def calculate_edge_cost(edge: Any, weights: Any, preferences: dict | None = None) -> float:

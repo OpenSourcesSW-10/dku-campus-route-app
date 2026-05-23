@@ -42,6 +42,9 @@ class IndoorEdgeResponse(OrmModel):
     is_covered: bool
     is_accessible: bool
     complexity_level: int
+    cost_fast: float
+    cost_comfortable: float
+    cost_indoor: float
     description: str | None = None
 
 

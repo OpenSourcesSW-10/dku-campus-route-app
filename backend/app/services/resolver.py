@@ -96,9 +96,20 @@ def resolve_room_keyword(db: Session, keyword: str) -> ResolveResult:
         .filter(
             Room.building_id == building.building_id,
             Room.room_number == room_number,
+            Room.floor_number == floor_number,
         )
         .first()
     )
+    if not room:
+        room = (
+            db.query(Room)
+            .filter(
+                Room.building_id == building.building_id,
+                Room.room_number == room_number,
+            )
+            .order_by(Room.floor_number.asc())
+            .first()
+        )
     if not room:
         return ResolveResult(error_code="ROOM_NOT_FOUND")
 

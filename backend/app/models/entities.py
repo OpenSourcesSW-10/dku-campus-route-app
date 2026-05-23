@@ -130,6 +130,9 @@ class IndoorEdge(Base):
     is_covered: Mapped[bool] = mapped_column(Boolean, default=True)
     is_accessible: Mapped[bool] = mapped_column(Boolean, default=True)
     complexity_level: Mapped[int] = mapped_column(Integer, default=0)
+    cost_fast: Mapped[float] = mapped_column(Float, default=1.0)
+    cost_comfortable: Mapped[float] = mapped_column(Float, default=1.0)
+    cost_indoor: Mapped[float] = mapped_column(Float, default=1.0)
     description: Mapped[str | None] = mapped_column(Text)
 
     indoor_map: Mapped[IndoorMap] = relationship(back_populates="indoor_edges")
@@ -166,6 +169,9 @@ class OutdoorEdge(Base):
     complexity_level: Mapped[int] = mapped_column(Integer, default=0)
     accessibility_level: Mapped[int] = mapped_column(Integer, default=0)
     is_shortcut: Mapped[bool] = mapped_column(Boolean, default=False)
+    cost_fast: Mapped[float] = mapped_column(Float, default=1.0)
+    cost_comfortable: Mapped[float] = mapped_column(Float, default=1.0)
+    cost_indoor: Mapped[float] = mapped_column(Float, default=1.0)
     description: Mapped[str | None] = mapped_column(Text)
 
 
