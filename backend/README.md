@@ -1,6 +1,6 @@
-# DKU Campus Map Backend - Week 3~4
+# DKU Campus Map Backend - Week 3~5
 
-이 백엔드는 `DKU_Map_W3toW8.docx`의 **3~4주차 백엔드 범위**를 구현한 FastAPI 프로젝트입니다.
+이 백엔드는 `DKU_Map_W3toW8.docx`의 **3~5주차 백엔드 범위**를 구현한 FastAPI 프로젝트입니다.
 
 ## 3주차 범위
 
@@ -33,6 +33,19 @@
 - 기존 SQLite DB에도 새 cost 컬럼이 자동 추가되도록 스키마 보정 함수 작성
 - `httpx`를 추가해 FastAPI `TestClient` 기반 API 확인 가능
 
+## 5주차 범위
+
+5주차에는 프론트엔드가 실제 DB 데이터를 받아 Kakao Map, 강의실 검색, 층별 실내 지도 화면을 구성할 수 있도록 API와 좌표 import 구조를 확장했습니다.
+
+- `GET /api/buildings` 프론트 지도 마커용 건물 목록 유지
+- `GET /api/buildings/{building_id}/floors` 층 선택 UI용 API 추가
+- `GET /api/rooms/search?keyword=ICT401` 검색 응답 구조 정리
+- `GET /api/buildings/{building_id}/floors/{floor}/indoor-map` 응답에 rooms 포함
+- `room_positions.csv` 또는 `room_positions.xlsx` 검증 코드 추가
+- `room_positions` DB import 코드 추가
+- 검색 실패 응답을 `errorCode`, `message` 형태로 정리
+- 프론트엔드 연동용 API 계약 문서 추가
+
 ## 아직 구현하지 않는 범위
 
 - 실내 Dijkstra 완성
@@ -47,7 +60,7 @@
 - `outdoor_nodes.csv`, `outdoor_edges.csv`, `entrance_links.csv` 기반 실외/실내 연결 그래프 import
 - 건물 출입구, 후문 층수, 구름다리 연결처럼 층수가 바뀌는 연결 정보 반영
 
-위 기능들은 문서 기준 4주차 후반~7주차 작업이며, 관련 데이터가 추가되면 백엔드 import/API/경로 계산에 연결합니다.
+위 기능들은 문서 기준 5주차 후반~7주차 작업이며, 관련 데이터가 추가되면 백엔드 import/API/경로 계산에 연결합니다.
 
 ## 실행
 
@@ -135,3 +148,56 @@ CSV에 cost 값이 없으면 백엔드가 기본 추정값을 계산할 수 있�
 
 현재 강의실 좌표와 실내 경로 노드/간선 데이터는 아직 없기 때문에,
 API 응답에서 `position`, `nearestIndoorNodeId`, `indoorNodes`, `indoorEdges`는 비어 있을 수 있습니다.
+
+## 5주차 room_positions 검증/import
+
+강의실 좌표 파일을 받으면 아래 명령으로 검증하고 DB에 넣을 수 있습니다.
+
+필요 파일:
+
+```text
+room_positions.csv 또는 room_positions.xlsx
+```
+
+필수 컬럼:
+
+```text
+room_id
+x
+y
+width
+height
+```
+
+선택 컬럼:
+
+```text
+position_id 또는 room_position_id
+indoor_map_id
+polygon_points
+center_x 또는 label_x
+center_y 또는 label_y
+```
+
+검증:
+
+```powershell
+cd backend
+python tools/validate_week5_positions.py "D:\과제\3-2\오픈소스SW기초\#Project\W5"
+```
+
+DB import:
+
+```powershell
+cd backend
+python tools/import_week5_positions.py "D:\과제\3-2\오픈소스SW기초\#Project\W5" --replace
+```
+
+5주차 API 확인:
+
+```text
+GET /api/buildings
+GET /api/buildings/DKU_ICT/floors
+GET /api/rooms/search?keyword=ICT401
+GET /api/buildings/DKU_ICT/floors/4/indoor-map
+```

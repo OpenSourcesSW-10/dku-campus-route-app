@@ -18,6 +18,7 @@ def get_floor_indoor_map(building_id: str, floor: int, db: Session = Depends(get
     indoor_map = (
         db.query(IndoorMap)
         .options(
+            selectinload(IndoorMap.rooms),
             selectinload(IndoorMap.room_positions),
             selectinload(IndoorMap.indoor_nodes),
             selectinload(IndoorMap.indoor_edges),

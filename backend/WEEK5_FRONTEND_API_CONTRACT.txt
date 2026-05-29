@@ -1,0 +1,215 @@
+DKU Campus Map Backend - 5주차 프론트엔드 연동 API 계약
+
+1. 목적
+
+5주차 백엔드의 목적은 프론트엔드가 실제 DB 데이터를 받아 화면에 표시할 수 있게 만드는 것이다.
+
+프론트엔드에서 필요한 화면은 다음과 같다.
+
+- Kakao Map 위 건물 마커 표시
+- 건물 선택 후 층 목록 표시
+- 강의실 검색
+- 검색 결과로 건물/층/실내 지도 이동
+- room_positions 데이터가 있을 경우 강의실 하이라이트 표시
+
+
+2. 건물 목록 API
+
+요청:
+
+GET /api/buildings
+
+용도:
+
+- Kakao Map 위에 건물 마커를 표시한다.
+- 건물 선택 리스트를 만든다.
+
+응답 주요 필드:
+
+building_id
+name
+short_code
+latitude
+longitude
+main_outdoor_node_id
+description
+aliases
+
+프론트 사용 예:
+
+- latitude, longitude로 Kakao Map marker 생성
+- name을 marker label 또는 카드 제목으로 표시
+- building_id를 이후 층 목록 API 호출에 사용
+
+
+3. 건물별 층 목록 API
+
+요청:
+
+GET /api/buildings/{building_id}/floors
+
+예시:
+
+GET /api/buildings/DKU_ICT/floors
+
+용도:
+
+- 건물 선택 후 층 버튼 또는 드롭다운을 만든다.
+
+응답 예시:
+
+[
+  {
+    "indoor_map_id": "MAP_DKU_ICT_4F",
+    "building_id": "DKU_ICT",
+    "floor_number": 4,
+    "floor_label": "4F",
+    "map_file_url": "/maps/ICT_4Fa.svg",
+    "status": "draft"
+  }
+]
+
+
+4. 강의실 검색 API
+
+요청:
+
+GET /api/rooms/search?keyword=ICT401
+
+지원하는 검색 예시:
+
+- ICT401
+- 소프트401
+- 소프트웨어ICT관401
+- ICT-4F-401
+- DKU_ICT_4_401
+
+성공 응답 예시:
+
+{
+  "type": "ROOM",
+  "roomId": "DKU_ICT_4_401",
+  "roomCode": "ICT-4F-401",
+  "buildingId": "DKU_ICT",
+  "buildingName": "소프트웨어 ICT관",
+  "floorNumber": 4,
+  "floorLabel": "4F",
+  "roomNumber": "401",
+  "indoorMap": {
+    "indoorMapId": "MAP_DKU_ICT_4F",
+    "mapFileUrl": "/maps/ICT_4Fa.svg",
+    "canvasWidth": 1000,
+    "canvasHeight": 700
+  },
+  "position": null,
+  "nearestIndoorNodeId": null
+}
+
+position은 room_positions.csv가 import된 뒤부터 좌표 객체로 반환된다.
+
+실패 응답 예시:
+
+{
+  "detail": {
+    "errorCode": "ROOM_NOT_FOUND",
+    "message": "검색한 강의실을 찾을 수 없습니다."
+  }
+}
+
+가능한 errorCode:
+
+- EMPTY_KEYWORD
+- ROOM_NUMBER_NOT_FOUND
+- BUILDING_NOT_FOUND
+- ROOM_NOT_FOUND
+- INDOOR_MAP_NOT_FOUND
+
+
+5. 층별 실내 지도 API
+
+요청:
+
+GET /api/buildings/{building_id}/floors/{floor}/indoor-map
+
+예시:
+
+GET /api/buildings/DKU_ICT/floors/4/indoor-map
+
+용도:
+
+- 실내 지도 이미지 표시
+- 해당 층 강의실 목록 표시
+- room_positions가 있으면 지도 위 하이라이트 표시
+- 6주차 이후 indoor_nodes, indoor_edges가 있으면 경로선 표시
+
+응답 주요 필드:
+
+indoor_map_id
+building_id
+floor_number
+floor_label
+map_file_url
+canvas_width
+canvas_height
+rooms
+room_positions
+indoor_nodes
+indoor_edges
+
+rooms는 해당 층에 속한 강의실 목록이다.
+room_positions는 지도 위 좌표 목록이다.
+indoor_nodes와 indoor_edges는 6주차 실내 경로 계산 데이터가 들어오면 채워진다.
+
+
+6. room_positions.csv 형식
+
+필수 컬럼:
+
+room_id
+x
+y
+width
+height
+
+선택 컬럼:
+
+position_id
+room_position_id
+indoor_map_id
+polygon_points
+center_x
+center_y
+label_x
+label_y
+
+예시:
+
+position_id,room_id,x,y,width,height,polygon_points,center_x,center_y
+POS_DKU_ICT_4_401,DKU_ICT_4_401,320,180,80,45,,360,202
+
+
+7. 프론트엔드 연결 순서
+
+1. GET /api/buildings 호출
+2. Kakao Map에 건물 marker 표시
+3. 사용자가 건물 선택
+4. GET /api/buildings/{building_id}/floors 호출
+5. 사용자가 층 선택
+6. GET /api/buildings/{building_id}/floors/{floor}/indoor-map 호출
+7. map_file_url로 실내 지도 표시
+8. rooms와 room_positions를 이용해 강의실 하이라이트 표시
+9. 검색창에서는 GET /api/rooms/search?keyword=... 호출
+10. 검색 결과의 buildingId, floorNumber, indoorMap, position으로 화면 이동
+
+
+8. 5주차 기준 한계
+
+아직 아래 데이터가 없으면 경로 계산은 불가능하다.
+
+- indoor_nodes.csv
+- indoor_edges.csv
+- outdoor_nodes.csv
+- outdoor_edges.csv
+- entrance_links.csv
+
+따라서 5주차는 경로 계산이 아니라 실제 데이터 표시와 API 응답 구조 확정이 목표다.

@@ -2,10 +2,10 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session, selectinload
 
 from app.database import get_db
-from app.models import Building
-from app.schemas.buildings import BuildingResponse
+from app.models import Building, IndoorMap
+from app.schemas.buildings import BuildingFloorResponse, BuildingResponse
 
-router = APIRouter(prefix="/api/buildings", tags=["week3-buildings"])
+router = APIRouter(prefix="/api/buildings", tags=["buildings"])
 
 
 @router.get("", response_model=list[BuildingResponse])
@@ -15,6 +15,20 @@ def list_buildings(db: Session = Depends(get_db)):
         db.query(Building)
         .options(selectinload(Building.aliases))
         .order_by(Building.name)
+        .all()
+    )
+
+
+@router.get("/{building_id}/floors", response_model=list[BuildingFloorResponse])
+def list_building_floors(building_id: str, db: Session = Depends(get_db)):
+    # 프론트엔드가 건물 선택 후 층 선택 UI를 만들 수 있게 층 목록을 반환한다.
+    building = db.get(Building, building_id)
+    if not building:
+        raise HTTPException(status_code=404, detail="BUILDING_NOT_FOUND")
+    return (
+        db.query(IndoorMap)
+        .filter(IndoorMap.building_id == building_id)
+        .order_by(IndoorMap.floor_number.asc())
         .all()
     )
 

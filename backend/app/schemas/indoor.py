@@ -5,6 +5,7 @@ class RoomPositionResponse(OrmModel):
     # 실내 지도 위 강의실 하이라이트 좌표이다.
     position_id: str
     room_id: str
+    indoor_map_id: str
     x: float
     y: float
     width: float
@@ -12,6 +13,19 @@ class RoomPositionResponse(OrmModel):
     polygon_points: str | None = None
     center_x: float | None = None
     center_y: float | None = None
+
+
+class IndoorRoomResponse(OrmModel):
+    # 실내 지도 화면에서 방 목록과 좌표를 연결할 때 쓰는 강의실 요약 정보이다.
+    room_id: str
+    building_id: str
+    indoor_map_id: str
+    room_code: str
+    room_number: str
+    floor_number: int
+    room_type: str
+    nearest_indoor_node_id: str | None = None
+    description: str | None = None
 
 
 class IndoorNodeResponse(OrmModel):
@@ -60,6 +74,7 @@ class IndoorMapResponse(OrmModel):
     canvas_height: int
     version: str
     status: str
+    rooms: list[IndoorRoomResponse] = []
     room_positions: list[RoomPositionResponse] = []
     indoor_nodes: list[IndoorNodeResponse] = []
     indoor_edges: list[IndoorEdgeResponse] = []

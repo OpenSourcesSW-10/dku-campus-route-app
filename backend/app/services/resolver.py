@@ -81,6 +81,19 @@ def resolve_building_alias(db: Session, alias_text: str) -> Building | None:
 
 def resolve_room_keyword(db: Session, keyword: str) -> ResolveResult:
     # 검색어를 room, indoor_map, position까지 이어지는 응답으로 조립한다.
+    if not normalize_keyword(keyword):
+        return ResolveResult(error_code="EMPTY_KEYWORD")
+
+    exact_room = resolve_exact_room(db, keyword)
+    if exact_room:
+        indoor_map = db.get(IndoorMap, exact_room.indoor_map_id)
+        if not indoor_map:
+            return ResolveResult(error_code="INDOOR_MAP_NOT_FOUND")
+        building = db.get(Building, exact_room.building_id)
+        if not building:
+            return ResolveResult(error_code="BUILDING_NOT_FOUND")
+        return ResolveResult(payload=build_room_search_response(db, building, exact_room, indoor_map))
+
     room_number = extract_room_number(keyword)
     if not room_number:
         return ResolveResult(error_code="ROOM_NUMBER_NOT_FOUND")
@@ -117,28 +130,49 @@ def resolve_room_keyword(db: Session, keyword: str) -> ResolveResult:
     if not indoor_map:
         return ResolveResult(error_code="INDOOR_MAP_NOT_FOUND")
 
+    return ResolveResult(payload=build_room_search_response(db, building, room, indoor_map))
+
+
+def resolve_exact_room(db: Session, keyword: str) -> Room | None:
+    # room_id나 room_code를 그대로 입력한 경우를 우선 처리한다.
+    normalized_keyword = normalize_keyword(keyword).lower()
+    if not normalized_keyword:
+        return None
+    for room in db.query(Room).all():
+        if normalize_keyword(room.room_id).lower() == normalized_keyword:
+            return room
+        if normalize_keyword(room.room_code).lower() == normalized_keyword:
+            return room
+    return None
+
+
+def build_room_search_response(
+    db: Session,
+    building: Building,
+    room: Room,
+    indoor_map: IndoorMap,
+) -> RoomSearchResponse:
+    # Room, Building, IndoorMap, RoomPosition을 프론트엔드 검색 응답으로 묶는다.
     position = (
         db.query(RoomPosition)
         .filter(RoomPosition.room_id == room.room_id)
         .first()
     )
 
-    return ResolveResult(
-        payload=RoomSearchResponse(
-            roomId=room.room_id,
-            roomCode=room.room_code,
-            buildingId=building.building_id,
-            buildingName=building.name,
-            floorNumber=room.floor_number or floor_number,
-            floorLabel=indoor_map.floor_label,
-            roomNumber=room.room_number,
-            indoorMap=IndoorMapSummary(
-                indoorMapId=indoor_map.indoor_map_id,
-                mapFileUrl=indoor_map.map_file_url,
-                canvasWidth=indoor_map.canvas_width,
-                canvasHeight=indoor_map.canvas_height,
-            ),
-            position=position,
-            nearestIndoorNodeId=room.nearest_indoor_node_id,
-        )
+    return RoomSearchResponse(
+        roomId=room.room_id,
+        roomCode=room.room_code,
+        buildingId=building.building_id,
+        buildingName=building.name,
+        floorNumber=room.floor_number,
+        floorLabel=indoor_map.floor_label,
+        roomNumber=room.room_number,
+        indoorMap=IndoorMapSummary(
+            indoorMapId=indoor_map.indoor_map_id,
+            mapFileUrl=indoor_map.map_file_url,
+            canvasWidth=indoor_map.canvas_width,
+            canvasHeight=indoor_map.canvas_height,
+        ),
+        position=position,
+        nearestIndoorNodeId=room.nearest_indoor_node_id,
     )

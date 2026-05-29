@@ -50,6 +50,7 @@ class IndoorMap(Base):
     created_at: Mapped[str | None] = mapped_column(String(30))
 
     building: Mapped[Building] = relationship(back_populates="indoor_maps")
+    rooms: Mapped[list["Room"]] = relationship(back_populates="indoor_map")
     room_positions: Mapped[list["RoomPosition"]] = relationship(back_populates="indoor_map")
     indoor_nodes: Mapped[list["IndoorNode"]] = relationship(back_populates="indoor_map")
     indoor_edges: Mapped[list["IndoorEdge"]] = relationship(back_populates="indoor_map")
@@ -70,6 +71,7 @@ class Room(Base):
     description: Mapped[str | None] = mapped_column(Text)
 
     building: Mapped[Building] = relationship(back_populates="rooms")
+    indoor_map: Mapped[IndoorMap] = relationship(back_populates="rooms")
     positions: Mapped[list["RoomPosition"]] = relationship(back_populates="room")
 
 
