@@ -8,8 +8,13 @@ export default function Login() {
   const login = useApp((s) => s.login)
   const [email, setEmail] = useState('')
   const [pw, setPw] = useState('')
+  const [showPwError, setShowPwError] = useState(false)
 
   const submit = () => {
+    if (pw.length < 8 || pw.length > 20) {
+      setShowPwError(true)
+      return
+    }
     // 목업: 형식만 맞으면 통과
     login(email || 'user@dankook.ac.kr')
     nav('/home')
@@ -30,9 +35,14 @@ export default function Login() {
           type="password"
           placeholder="비밀번호"
           value={pw}
-          onChange={(e) => setPw(e.target.value)}
+          onChange={(e) => {
+            setPw(e.target.value)
+            if (showPwError) setShowPwError(false)
+          }}
         />
-        <p className="mt-1.5 text-[13px] text-primary">비밀번호는 8~20자 내로 입력해주세요</p>
+        {showPwError && (
+          <p className="mt-1.5 text-[13px] text-primary">비밀번호는 8~20자 내로 입력해주세요</p>
+        )}
         <button className="btn-primary mt-4" onClick={submit}>
           로그인
         </button>
