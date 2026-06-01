@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { HeartIcon } from '../components/Icons'
 
 export default function Splash() {
   const nav = useNavigate()
@@ -17,7 +16,7 @@ export default function Splash() {
         aria-label="시작"
       >
         <div className="flex h-28 w-28 items-center justify-center rounded-3xl bg-primary">
-          <HeartIcon className="h-12 w-12 text-white" />
+          <img src="/heart-white.svg" alt="" className="h-14 w-14" />
         </div>
       </button>
     </div>

@@ -1,4 +1,9 @@
 import { useEffect, useRef } from 'react'
+import {
+  TransformWrapper,
+  TransformComponent,
+  type ReactZoomPanPinchRef,
+} from 'react-zoom-pan-pinch'
 import type { IndoorMap as IndoorMapType, Room } from '../../lib/data'
 
 interface Props {
@@ -12,102 +17,137 @@ interface Props {
 
 /**
  * 실내 안내도 뷰어.
- * 배경 PNG(1000x707) 위에 SVG viewBox로 강의실 좌표를 그려, 화면 크기에 맞춰 자동 정렬된다.
+ * 배경 PNG(1000x707) 위에 SVG로 강의실 좌표를 그린다.
+ * 가로로 긴 도면이라 모바일에서 핀치줌/드래그로 이동·확대할 수 있게 했고,
+ * 하이라이트된 강의실로는 자동 확대된다.
  */
 export default function IndoorMap({ map, rooms, highlightRoomId, onSelectRoom, routePoints }: Props) {
   const W = map.canvasWidth
   const H = map.canvasHeight
-  const hlRef = useRef<SVGGElement>(null)
+  const ref = useRef<ReactZoomPanPinchRef | null>(null)
 
-  // 하이라이트된 강의실로 스크롤 (가로 스크롤 컨테이너 기준)
+  // 하이라이트된 강의실로 자동 확대/이동
   useEffect(() => {
-    hlRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' })
-  }, [highlightRoomId])
+    if (!highlightRoomId) return
+    const t = setTimeout(() => {
+      try {
+        ref.current?.zoomToElement(`room-${highlightRoomId}`, 2.4, 500)
+      } catch {
+        /* 요소를 못 찾으면 무시 */
+      }
+    }, 300)
+    return () => clearTimeout(t)
+  }, [highlightRoomId, map.image])
+
+  const hlRoom = highlightRoomId ? rooms.find((r) => r.id === highlightRoomId) : undefined
 
   return (
-    <div className="no-scrollbar h-full w-full overflow-auto bg-[#f7f9fc]">
-      <svg
-        viewBox={`0 0 ${W} ${H}`}
-        className="block h-auto w-full min-w-[640px]"
-        preserveAspectRatio="xMidYMid meet"
+    <div className="relative h-full w-full bg-[#f7f9fc]">
+      <TransformWrapper
+        ref={ref}
+        minScale={1}
+        maxScale={6}
+        centerOnInit
+        doubleClick={{ mode: 'zoomIn', step: 0.7 }}
+        wheel={{ step: 0.08 }}
       >
-        <image href={map.image} x={0} y={0} width={W} height={H} />
+        {({ zoomIn, zoomOut, resetTransform }) => (
+          <>
+            <TransformComponent
+              wrapperStyle={{ width: '100%', height: '100%' }}
+              contentStyle={{ width: '100%', height: '100%' }}
+            >
+              <svg
+                viewBox={`0 0 ${W} ${H}`}
+                className="h-full w-full"
+                preserveAspectRatio="xMidYMid meet"
+              >
+                <image href={map.image} x={0} y={0} width={W} height={H} />
 
-        {/* 강의실 클릭 영역 + 하이라이트 */}
-        {rooms.map((r) => {
-          if (!r.pos) return null
-          const active = r.id === highlightRoomId
-          const common = {
-            onClick: () => onSelectRoom?.(r),
-            style: { cursor: 'pointer' as const },
-          }
-          if (r.pos.polygon && r.pos.polygon.length >= 3) {
-            const pts = r.pos.polygon.map((p) => p.join(',')).join(' ')
-            return (
-              <g key={r.id} ref={active ? hlRef : undefined} {...common}>
-                <polygon
-                  points={pts}
-                  fill={active ? 'rgba(190,58,96,0.38)' : 'transparent'}
-                  stroke={active ? '#BE3A60' : 'transparent'}
-                  strokeWidth={active ? 3 : 0}
-                />
-              </g>
-            )
-          }
-          return (
-            <g key={r.id} ref={active ? hlRef : undefined} {...common}>
-              <rect
-                x={r.pos.x}
-                y={r.pos.y}
-                width={r.pos.width}
-                height={r.pos.height}
-                rx={2}
-                fill={active ? 'rgba(190,58,96,0.38)' : 'transparent'}
-                stroke={active ? '#BE3A60' : 'transparent'}
-                strokeWidth={active ? 3 : 0}
-              />
-            </g>
-          )
-        })}
+                {rooms.map((r) => {
+                  if (!r.pos) return null
+                  const active = r.id === highlightRoomId
+                  if (r.pos.polygon && r.pos.polygon.length >= 3) {
+                    return (
+                      <polygon
+                        key={r.id}
+                        id={`room-${r.id}`}
+                        points={r.pos.polygon.map((p) => p.join(',')).join(' ')}
+                        onClick={() => onSelectRoom?.(r)}
+                        style={{ cursor: 'pointer' }}
+                        fill={active ? 'rgba(190,58,96,0.38)' : 'transparent'}
+                        stroke={active ? '#BE3A60' : 'transparent'}
+                        strokeWidth={active ? 3 : 0}
+                      />
+                    )
+                  }
+                  return (
+                    <rect
+                      key={r.id}
+                      id={`room-${r.id}`}
+                      x={r.pos.x}
+                      y={r.pos.y}
+                      width={r.pos.width}
+                      height={r.pos.height}
+                      rx={2}
+                      onClick={() => onSelectRoom?.(r)}
+                      style={{ cursor: 'pointer' }}
+                      fill={active ? 'rgba(190,58,96,0.38)' : 'transparent'}
+                      stroke={active ? '#BE3A60' : 'transparent'}
+                      strokeWidth={active ? 3 : 0}
+                    />
+                  )
+                })}
 
-        {/* 하이라이트 라벨 */}
-        {highlightRoomId &&
-          (() => {
-            const r = rooms.find((x) => x.id === highlightRoomId)
-            if (!r?.pos) return null
-            return (
-              <g pointerEvents="none">
-                <rect
-                  x={r.pos.cx - 26}
-                  y={r.pos.y - 26}
-                  width={52}
-                  height={20}
-                  rx={10}
-                  fill="#BE3A60"
-                />
-                <text x={r.pos.cx} y={r.pos.y - 12} fontSize={12} fill="#fff" textAnchor="middle" fontWeight={700}>
-                  {r.number}
-                </text>
-              </g>
-            )
-          })()}
+                {/* 하이라이트 라벨 */}
+                {hlRoom?.pos && (
+                  <g pointerEvents="none">
+                    <rect x={hlRoom.pos.cx - 26} y={hlRoom.pos.y - 26} width={52} height={20} rx={10} fill="#BE3A60" />
+                    <text x={hlRoom.pos.cx} y={hlRoom.pos.y - 12} fontSize={12} fill="#fff" textAnchor="middle" fontWeight={700}>
+                      {hlRoom.number}
+                    </text>
+                  </g>
+                )}
 
-        {/* 실내 경로선 (목업) */}
-        {routePoints && routePoints.length >= 2 && (
-          <g pointerEvents="none">
-            <polyline
-              points={routePoints.map((p) => p.join(',')).join(' ')}
-              fill="none"
-              stroke="#5B6BE8"
-              strokeWidth={5}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeDasharray="2 10"
-            />
-            <circle cx={routePoints[0][0]} cy={routePoints[0][1]} r={7} fill="#5B6BE8" />
-          </g>
+                {/* 실내 경로선 (목업) */}
+                {routePoints && routePoints.length >= 2 && (
+                  <g pointerEvents="none">
+                    <polyline
+                      points={routePoints.map((p) => p.join(',')).join(' ')}
+                      fill="none"
+                      stroke="#5B6BE8"
+                      strokeWidth={5}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeDasharray="2 10"
+                    />
+                    <circle cx={routePoints[0][0]} cy={routePoints[0][1]} r={7} fill="#5B6BE8" />
+                  </g>
+                )}
+              </svg>
+            </TransformComponent>
+
+            {/* 줌 컨트롤 */}
+            <div className="absolute right-3 top-3 z-10 flex flex-col overflow-hidden rounded-xl border border-line bg-white shadow-card">
+              <button onClick={() => zoomIn()} className="flex h-10 w-10 items-center justify-center text-xl text-ink" aria-label="확대">
+                +
+              </button>
+              <button onClick={() => zoomOut()} className="flex h-10 w-10 items-center justify-center border-t border-line text-xl text-ink" aria-label="축소">
+                −
+              </button>
+              <button onClick={() => resetTransform()} className="flex h-10 w-10 items-center justify-center border-t border-line text-ink" aria-label="전체보기">
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <path d="M4 9V5h4M20 9V5h-4M4 15v4h4M20 15v4h-4" />
+                </svg>
+              </button>
+            </div>
+
+            <p className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-black/40 px-3 py-1 text-[11px] text-white">
+              두 손가락으로 확대 · 드래그로 이동
+            </p>
+          </>
         )}
-      </svg>
+      </TransformWrapper>
     </div>
   )
 }
