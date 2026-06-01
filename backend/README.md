@@ -1,6 +1,6 @@
-# DKU Campus Map Backend - Week 3~5
+# DKU Campus Map Backend - Week 3~6
 
-이 백엔드는 `DKU_Map_W3toW8.docx`의 **3~5주차 백엔드 범위**를 구현한 FastAPI 프로젝트입니다.
+이 백엔드는 `DKU_Map_W3toW8.docx`의 **3~6주차 백엔드 범위**를 구현한 FastAPI 프로젝트입니다.
 
 ## 3주차 범위
 
@@ -46,17 +46,28 @@
 - 검색 실패 응답을 `errorCode`, `message` 형태로 정리
 - 프론트엔드 연동용 API 계약 문서 추가
 
+## 6주차 범위
+
+6주차부터는 정적 cost 컬럼만 선택하는 방식에서 **사용자 옵션 기반 동적 DCF** 구조로 전환했습니다.
+
+- `DEFAULT`, `COMFORTABLE`, `RAINY` 3가지 경로 타입 정의
+- `avoidStairs`, `avoidSlope`, `preferIndoor`, `rainMode`, `accessibilityMode` 사용자 옵션 추가
+- Dijkstra가 경로 계산 중 각 간선의 비용을 동적으로 계산하도록 수정
+- 기존 `cost_fast`, `cost_comfortable`, `cost_indoor`는 fallback 호환용으로 유지
+- `indoor_nodes.csv` 또는 `indoor_nodes.xlsx` 검증/import 구조 추가
+- `indoor_edges.csv` 또는 `indoor_edges.xlsx` 검증/import 구조 추가
+- `room_nearest_nodes.csv` 또는 `room_nearest_nodes.xlsx`를 통한 강의실-노드 연결 지원
+- 같은 건물 내부에서 `POST /api/routes/indoor` 실내 경로 계산 API 추가
+- 같은 건물 검색어 기반 `POST /api/routes` 3가지 경로 응답 구조 추가
+
 ## 아직 구현하지 않는 범위
 
-- 실내 Dijkstra 완성
 - 실외 길찾기 완성
-- 통합 `POST /api/routes`
+- 서로 다른 건물 간 통합 `POST /api/routes`
 - JWT 로그인
 - 이메일 인증
 - TMI 제보 API
 - 관리자 승인 API
-- `room_positions.csv` 기반 강의실 좌표 import
-- `indoor_nodes.csv`, `indoor_edges.csv` 기반 실내 그래프 import
 - `outdoor_nodes.csv`, `outdoor_edges.csv`, `entrance_links.csv` 기반 실외/실내 연결 그래프 import
 - 건물 출입구, 후문 층수, 구름다리 연결처럼 층수가 바뀌는 연결 정보 반영
 
@@ -117,21 +128,29 @@ python tools/import_week4_excel.py "D:\과제\3-2\오픈소스SW기초\#Project\
 현재 DB 자료에는 `room_positions.csv`가 없으므로 실내 지도 API의 `room_positions`는 비어 있을 수 있습니다.
 좌표 파일이 추가되면 같은 방식으로 import 대상에 연결합니다.
 
-## 4주차 정적 cost 방식
+## 6주차 동적 DCF 방식
 
-8주차 MVP에서는 요청마다 복잡한 DCF를 계산하기보다 edge별 정적 비용을 우선 사용합니다.
+6주차부터는 edge의 고정 비용만 읽지 않고, 요청 시점의 routeType과 사용자 옵션을 기준으로 비용을 계산합니다.
 
-`indoor_edges`, `outdoor_edges`에는 아래 비용 컬럼을 사용합니다.
+지원 routeType:
 
 ```text
-cost_fast
-cost_comfortable
-cost_indoor
+DEFAULT: 거리와 예상 시간 중심의 기본 경로
+COMFORTABLE: 계단/경사 비용을 크게 반영하고 엘리베이터/램프를 선호하는 편한 길
+RAINY: 실외/비가림 없는 구간 비용을 크게 반영하는 비 오는 날 경로
 ```
 
-경로 계산 시 `FAST`, `COMFORTABLE`, `INDOOR_FOCUSED` routeType에 맞는 cost 컬럼을 선택합니다.
-기존 `distance`, `has_stairs`, `has_slope`, `is_covered`, `is_indoor` 같은 속성은 유지하며,
-CSV에 cost 값이 없으면 백엔드가 기본 추정값을 계산할 수 있게 준비했습니다.
+요청 옵션:
+
+```text
+avoidStairs
+avoidSlope
+preferIndoor
+rainMode
+accessibilityMode
+```
+
+기존 `cost_fast`, `cost_comfortable`, `cost_indoor` 컬럼은 과거 데이터와의 호환 및 fallback을 위해 유지합니다.
 
 ## 4주차 확인 결과
 
@@ -200,4 +219,59 @@ GET /api/buildings
 GET /api/buildings/DKU_ICT/floors
 GET /api/rooms/search?keyword=ICT401
 GET /api/buildings/DKU_ICT/floors/4/indoor-map
+```
+
+## 6주차 indoor graph 검증/import
+
+실내 경로 계산을 위해 아래 파일을 받으면 검증하고 DB에 넣을 수 있습니다.
+
+필요 파일:
+
+```text
+indoor_nodes.csv 또는 indoor_nodes.xlsx
+indoor_edges.csv 또는 indoor_edges.xlsx
+```
+
+권장 파일:
+
+```text
+room_nearest_nodes.csv 또는 room_nearest_nodes.xlsx
+```
+
+검증:
+
+```powershell
+cd backend
+python tools/validate_week6_indoor_graph.py "D:\과제\3-2\오픈소스SW기초\#Project\DB"
+```
+
+DB import:
+
+```powershell
+cd backend
+python tools/import_week6_indoor_graph.py "D:\과제\3-2\오픈소스SW기초\#Project\DB" --replace
+```
+
+실내 경로 API:
+
+```text
+POST /api/routes/indoor
+POST /api/routes
+```
+
+요청 예시:
+
+```json
+{
+  "start": "ICT401",
+  "destination": "ICT305",
+  "routeTypes": ["DEFAULT", "COMFORTABLE", "RAINY"],
+  "preferences": {
+    "avoidStairs": false,
+    "avoidSlope": false,
+    "preferIndoor": false,
+    "accessibilityMode": false,
+    "rainMode": false
+  }
+}
 ```

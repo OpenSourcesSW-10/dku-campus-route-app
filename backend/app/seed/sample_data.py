@@ -168,10 +168,10 @@ def seed_database(db: Session) -> None:
 
     db.add_all(
         [
-            # 6주차 경로 옵션 계산에 사용할 기본 가중치 프로필이다.
-            RouteWeightProfile(profile_id="WEIGHT_FAST", route_type="FAST", weight_distance=1.0, weight_time=1.0),
+            # 6주차 동적 DCF 옵션 계산에 사용할 기본 가중치 프로필이다.
+            RouteWeightProfile(profile_id="WEIGHT_DEFAULT", route_type="DEFAULT", weight_distance=1.0, weight_time=1.2),
             RouteWeightProfile(profile_id="WEIGHT_COMFORTABLE", route_type="COMFORTABLE", weight_distance=1.0, weight_time=1.0, penalty_stairs=80),
-            RouteWeightProfile(profile_id="WEIGHT_INDOOR", route_type="INDOOR_FOCUSED", weight_distance=1.0, weight_time=1.0, penalty_outdoor=60, bonus_indoor=30),
+            RouteWeightProfile(profile_id="WEIGHT_RAINY", route_type="RAINY", weight_distance=1.0, weight_time=1.0, penalty_outdoor=60, bonus_indoor=30),
         ]
     )
 

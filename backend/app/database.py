@@ -42,6 +42,14 @@ def ensure_sqlite_schema() -> None:
         "cost_comfortable": "FLOAT DEFAULT 1.0",
         "cost_indoor": "FLOAT DEFAULT 1.0",
     }
+    extra_columns = {
+        "indoor_edges": {
+            "is_bidirectional": "BOOLEAN DEFAULT 1",
+        },
+        "outdoor_edges": {
+            "is_bidirectional": "BOOLEAN DEFAULT 1",
+        },
+    }
 
     with engine.begin() as connection:
         for table_name in ("indoor_edges", "outdoor_edges"):
@@ -49,5 +57,13 @@ def ensure_sqlite_schema() -> None:
                 continue
             existing_columns = {column["name"] for column in inspector.get_columns(table_name)}
             for column_name, column_type in static_cost_columns.items():
+                if column_name not in existing_columns:
+                    connection.execute(text(f"ALTER TABLE {table_name} ADD COLUMN {column_name} {column_type}"))
+
+        for table_name, columns in extra_columns.items():
+            if table_name not in existing_tables:
+                continue
+            existing_columns = {column["name"] for column in inspector.get_columns(table_name)}
+            for column_name, column_type in columns.items():
                 if column_name not in existing_columns:
                     connection.execute(text(f"ALTER TABLE {table_name} ADD COLUMN {column_name} {column_type}"))

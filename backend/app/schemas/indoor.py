@@ -44,6 +44,7 @@ class IndoorEdgeResponse(OrmModel):
     indoor_edge_id: str
     from_node_id: str
     to_node_id: str
+    is_bidirectional: bool = True
     distance: float
     estimated_time: float
     edge_type: str

@@ -1,0 +1,189 @@
+DKU Campus Map Backend - 6주차 동적 DCF 작업 내용 정리
+
+1. 작업 목표
+
+6주차부터는 5주차까지 준비된 건물/강의실/층별 지도 API 위에 실내 경로 탐색을 추가한다.
+또한 기존 정적 cost 선택 방식에서 사용자 옵션 기반 동적 DCF 방식으로 전환한다.
+
+
+2. 경로 타입 변경
+
+기존 정적 DCF 기준:
+
+- FAST
+- COMFORTABLE
+- INDOOR_FOCUSED
+
+6주차 동적 DCF 기준:
+
+- DEFAULT
+- COMFORTABLE
+- RAINY
+
+각 경로 의미:
+
+- DEFAULT: 거리와 예상 시간을 중심으로 계산하는 기본 경로
+- COMFORTABLE: 계단과 경사를 피하고 엘리베이터/램프를 선호하는 편한 길
+- RAINY: 실외와 비가림 없는 구간을 피하고 실내/지붕 있는 구간을 선호하는 비 오는 날 경로
+
+
+3. 동적 DCF 구현
+
+수정 파일:
+
+- app/algorithms/cost_function.py
+
+추가한 핵심 구조:
+
+- RouteCostContext
+- normalize_route_type()
+- build_route_cost_context()
+- calculate_dynamic_edge_cost()
+
+동적 DCF는 DB에 저장된 cost_fast 같은 고정 비용을 그대로 쓰지 않고, 요청 시점에 아래 정보를 조합해서 비용을 계산한다.
+
+- distance
+- estimated_time
+- has_stairs
+- has_slope
+- slope_level
+- is_indoor
+- is_covered
+- is_elevator
+- is_ramp
+- is_accessible
+- complexity_level
+- 사용자 옵션
+
+기존 cost_fast, cost_comfortable, cost_indoor는 삭제하지 않고 fallback 호환용으로 유지했다.
+
+
+4. 사용자 옵션
+
+수정 파일:
+
+- app/schemas/routes.py
+
+지원 옵션:
+
+- avoidStairs
+- avoidSlope
+- preferIndoor
+- rainMode
+- accessibilityMode
+
+이 옵션은 길찾기 요청 시 DCF context에 반영된다.
+
+
+5. Dijkstra 구현
+
+수정 파일:
+
+- app/algorithms/pathfinding.py
+
+구현 내용:
+
+- Dijkstra 최단 경로 계산
+- PathResult 응답 구조
+- nodeIds, edgeIds, totalCost, totalDistance, totalEstimatedTime 계산
+- 각 edge 비용은 calculate_dynamic_edge_cost()로 요청 시점에 계산
+
+
+6. 실내 그래프 import
+
+추가 파일:
+
+- app/seed/table_reader.py
+- app/seed/week6_indoor_graph.py
+- tools/validate_week6_indoor_graph.py
+- tools/import_week6_indoor_graph.py
+
+지원 파일:
+
+- indoor_nodes.csv 또는 indoor_nodes.xlsx
+- indoor_edges.csv 또는 indoor_edges.xlsx
+- room_nearest_nodes.csv 또는 room_nearest_nodes.xlsx
+
+필수 컬럼:
+
+indoor_nodes:
+- indoor_node_id
+- building_id
+- indoor_map_id
+- floor_number
+- node_type
+- x
+- y
+
+indoor_edges:
+- indoor_edge_id
+- indoor_map_id
+- from_node_id
+- to_node_id
+- distance
+- estimated_time
+- edge_type
+
+권장 컬럼:
+- is_bidirectional
+- has_stairs
+- has_slope
+- slope_level
+- is_elevator
+- is_ramp
+- is_indoor
+- is_covered
+- is_accessible
+- complexity_level
+
+
+7. 실내 경로 API
+
+추가 파일:
+
+- app/services/indoor_graph.py
+- app/routers/routes.py
+
+추가 API:
+
+- POST /api/routes/indoor
+- POST /api/routes
+
+6주차 기준으로는 같은 건물 내부 경로를 계산한다.
+서로 다른 건물 간 외부 경로는 7주차 outdoor_nodes, outdoor_edges, entrance_links 연결 후 확장한다.
+
+
+8. 프론트 응답 구조
+
+경로 응답은 아래 정보를 포함한다.
+
+- routeType
+- title
+- totalCost
+- totalDistance
+- totalEstimatedTime
+- reason
+- segments
+- nodeIds
+- edgeIds
+- pathPoints
+
+프론트는 pathPoints를 이용해 SVG 실내 지도 위에 경로선을 그릴 수 있다.
+
+
+9. 아직 필요한 DB 자료
+
+실제 경로 계산을 하려면 DB 담당자에게 아래 자료가 필요하다.
+
+- room_positions.csv/xlsx
+- indoor_nodes.csv/xlsx
+- indoor_edges.csv/xlsx
+- room_nearest_nodes.csv/xlsx
+
+6주차 코드는 위 자료가 들어오면 바로 검증/import해서 경로 API에 연결할 수 있도록 작성했다.
+
+
+10. GitHub 업로드 전 주의
+
+현재 작업은 로컬 브랜치 feature/backend-week6-dynamic-dcf에서만 진행했다.
+아직 GitHub에 push하지 않았다.
