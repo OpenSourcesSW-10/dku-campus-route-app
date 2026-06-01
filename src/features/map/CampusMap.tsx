@@ -43,11 +43,18 @@ export default function CampusMap({
   useEffect(() => {
     if (!ready || !boxRef.current || mapRef.current) return
     const kakao = window.kakao
-    mapRef.current = new kakao.maps.Map(boxRef.current, {
+    const map = new kakao.maps.Map(boxRef.current, {
       center: new kakao.maps.LatLng(CAMPUS_CENTER.lat, CAMPUS_CENTER.lng),
-      level: 4,
+      level: 3,
     })
-  }, [ready])
+    mapRef.current = map
+    // 건물 마커 모드면 모든 건물이 보이도록 캠퍼스에 맞춰 화면 조정
+    if (showBuildings) {
+      const bounds = new kakao.maps.LatLngBounds()
+      ALL_BUILDINGS.forEach((b) => bounds.extend(new kakao.maps.LatLng(b.lat, b.lng)))
+      map.setBounds(bounds, 80, 50, 50, 50)
+    }
+  }, [ready, showBuildings])
 
   // 오버레이(마커/경로) 갱신
   useEffect(() => {
@@ -66,8 +73,7 @@ export default function CampusMap({
         const active = b.id === selectedId
         const el = document.createElement('div')
         el.className = 'dku-pin'
-        el.innerHTML = `<div style="
-          transform:translate(-50%,-100%);cursor:pointer;display:flex;flex-direction:column;align-items:center;">
+        el.innerHTML = `<div style="cursor:pointer;display:flex;flex-direction:column;align-items:center;">
           <div style="background:${active ? '#A32E50' : '#BE3A60'};color:#fff;font-size:12px;font-weight:700;
             padding:5px 10px;border-radius:14px;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.3);
             ${active ? 'transform:scale(1.08);' : ''}">${b.name}</div>
@@ -78,6 +84,7 @@ export default function CampusMap({
         const ov = new kakao.maps.CustomOverlay({
           position: new kakao.maps.LatLng(b.lat, b.lng),
           content: el,
+          xAnchor: 0.5,
           yAnchor: 1,
           zIndex: active ? 10 : 3,
         })
@@ -89,13 +96,14 @@ export default function CampusMap({
     // TMI 마커
     tmi?.forEach((t) => {
       const el = document.createElement('div')
-      el.innerHTML = `<div style="transform:translate(-50%,-50%);cursor:pointer;">
-        <div style="width:22px;height:22px;border-radius:50%;background:${tmiColor(t.category)};
-          border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4);"></div></div>`
+      el.innerHTML = `<div style="cursor:pointer;width:22px;height:22px;border-radius:50%;background:${tmiColor(t.category)};
+        border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4);"></div>`
       el.onclick = () => onSelectTmi?.(t)
       const ov = new kakao.maps.CustomOverlay({
         position: new kakao.maps.LatLng(t.lat, t.lng),
         content: el,
+        xAnchor: 0.5,
+        yAnchor: 0.5,
         zIndex: 5,
       })
       ov.setMap(map)
@@ -133,12 +141,13 @@ export default function CampusMap({
     // 현재 위치
     if (myLocation) {
       const el = document.createElement('div')
-      el.innerHTML = `<div style="transform:translate(-50%,-50%);">
-        <div style="width:18px;height:18px;border-radius:50%;background:#2C7BE5;border:3px solid #fff;
-          box-shadow:0 0 0 6px rgba(44,123,229,.25);"></div></div>`
+      el.innerHTML = `<div style="width:18px;height:18px;border-radius:50%;background:#2C7BE5;border:3px solid #fff;
+        box-shadow:0 0 0 6px rgba(44,123,229,.25);"></div>`
       const ov = new kakao.maps.CustomOverlay({
         position: new kakao.maps.LatLng(myLocation.lat, myLocation.lng),
         content: el,
+        xAnchor: 0.5,
+        yAnchor: 0.5,
         zIndex: 8,
       })
       ov.setMap(map)
@@ -178,13 +187,14 @@ function addEndpoint(
   add: (o: unknown) => void,
 ) {
   const el = document.createElement('div')
-  el.innerHTML = `<div style="transform:translate(-50%,-100%);display:flex;flex-direction:column;align-items:center;">
+  el.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;">
     <div style="background:${color};color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:10px;">${label}</div>
     <div style="width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:6px solid ${color};"></div>
   </div>`
   const ov = new kakao.maps.CustomOverlay({
     position: new kakao.maps.LatLng(pos.lat, pos.lng),
     content: el,
+    xAnchor: 0.5,
     yAnchor: 1,
     zIndex: 9,
   })
