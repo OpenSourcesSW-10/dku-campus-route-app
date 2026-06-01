@@ -19,7 +19,7 @@ body {
 @layer components {
   /* 모바일 우선: 데스크톱에서도 폰 비율 컨테이너로 중앙 정렬 */
   .app-shell {
-    @apply relative mx-auto flex h-screen w-full max-w-[430px] flex-col overflow-hidden bg-white shadow-xl;
+    @apply relative mx-auto flex h-[100dvh] w-full max-w-[430px] flex-col overflow-hidden bg-white shadow-xl;
   }
   .field {
     @apply w-full rounded-lg border border-line px-4 py-3.5 text-[15px] outline-none placeholder:text-ink-faint focus:border-primary;
