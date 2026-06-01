@@ -13,8 +13,14 @@ export default function MapHome() {
   const nav = useNavigate()
   const [drawer, setDrawer] = useState(false)
   const [selected, setSelected] = useState<Building | null>(null)
+  const [showFloors, setShowFloors] = useState(false)
   const [myLoc, setMyLoc] = useState<LatLng | null>(null)
   const setRoute = useApp((s) => s.setRoute)
+
+  const selectBuilding = (b: Building) => {
+    setSelected(b)
+    setShowFloors(false)
+  }
 
   const locate = () => {
     if (!navigator.geolocation) {
@@ -56,7 +62,7 @@ export default function MapHome() {
           className="absolute inset-0"
           showBuildings
           selectedId={selected?.id ?? null}
-          onSelectBuilding={setSelected}
+          onSelectBuilding={selectBuilding}
           myLocation={myLoc}
         />
 
@@ -76,8 +82,11 @@ export default function MapHome() {
           key={selected.id}
           className="absolute inset-x-0 bottom-0 z-20 animate-sheet-up rounded-t-2xl bg-white px-5 pb-7 pt-4 shadow-sheet"
         >
-          <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+          <button
+            onClick={() => setShowFloors((v) => !v)}
+            className="flex w-full items-center gap-3 text-left"
+          >
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
               <PinIcon className="h-6 w-6" />
             </div>
             <div className="min-w-0 flex-1">
@@ -86,14 +95,35 @@ export default function MapHome() {
                 {hasIndoor ? '강의실 · TMI · 길찾기 가능' : 'TMI · 길찾기 가능'}
               </p>
             </div>
-            <button
-              onClick={() => hasIndoor && nav(`/indoor/${selected.id}/${indoorMapsOf(selected.id)[0].floor}`)}
-              className="flex h-9 w-9 items-center justify-center text-ink-faint"
-              aria-label="자세히"
-            >
-              <ChevronRight className="h-6 w-6" />
-            </button>
-          </div>
+            <ChevronRight
+              className={`h-6 w-6 shrink-0 text-ink-faint transition-transform duration-200 ${
+                showFloors ? 'rotate-90' : ''
+              }`}
+            />
+          </button>
+
+          {/* 층 목록 (실내 안내도가 있는 건물만) */}
+          {showFloors &&
+            (hasIndoor ? (
+              <div className="mt-4 animate-fade-up">
+                <p className="mb-2 text-[13px] font-semibold text-ink-soft">층을 선택하세요</p>
+                <div className="grid grid-cols-4 gap-2">
+                  {indoorMapsOf(selected.id).map((m) => (
+                    <button
+                      key={m.floor}
+                      onClick={() => nav(`/indoor/${selected.id}/${m.floor}`)}
+                      className="press rounded-lg border border-line py-2.5 text-center text-[15px] font-semibold text-ink active:border-primary active:text-primary"
+                    >
+                      {m.floorLabel}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <p className="mt-4 animate-fade-up rounded-lg bg-gray-50 py-3 text-center text-[13px] text-ink-faint">
+                실내 안내도가 제공되지 않는 건물입니다
+              </p>
+            ))}
 
           <div className="mt-4 flex gap-2">
             <button
@@ -107,7 +137,7 @@ export default function MapHome() {
             </button>
             {hasIndoor && (
               <button
-                onClick={() => nav(`/indoor/${selected.id}/${indoorMapsOf(selected.id)[0].floor}`)}
+                onClick={() => setShowFloors((v) => !v)}
                 className="press flex-1 rounded-lg border border-primary py-3 text-center text-[15px] font-semibold text-primary"
               >
                 강의실 정보
