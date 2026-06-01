@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 export default function Splash() {
   const nav = useNavigate()
   useEffect(() => {
-    const t = setTimeout(() => nav('/landing'), 1400)
+    const t = setTimeout(() => nav('/landing'), 2900)
     return () => clearTimeout(t)
   }, [nav])
 
