@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import TopBar from '../components/TopBar'
 import { SearchIcon, PinIcon } from '../components/Icons'
-import { search, buildings, indoorMapsOf, defaultFloor, type SearchHit } from '../lib/data'
+import { search, buildings, defaultFloor, type SearchHit } from '../lib/data'
 
 const PAGE = 7
 
