@@ -72,7 +72,10 @@ export default function MapHome() {
 
       {/* 선택된 건물 카드 */}
       {selected && (
-        <div className="absolute inset-x-0 bottom-0 z-20 rounded-t-2xl bg-white px-5 pb-7 pt-4 shadow-sheet">
+        <div
+          key={selected.id}
+          className="absolute inset-x-0 bottom-0 z-20 animate-sheet-up rounded-t-2xl bg-white px-5 pb-7 pt-4 shadow-sheet"
+        >
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
               <PinIcon className="h-6 w-6" />
@@ -98,14 +101,14 @@ export default function MapHome() {
                 setRoute('내 위치', selected.name)
                 nav('/route')
               }}
-              className="flex-1 rounded-lg bg-primary py-3 text-center text-[15px] font-semibold text-white"
+              className="press flex-1 rounded-lg bg-primary py-3 text-center text-[15px] font-semibold text-white"
             >
               길찾기
             </button>
             {hasIndoor && (
               <button
                 onClick={() => nav(`/indoor/${selected.id}/${indoorMapsOf(selected.id)[0].floor}`)}
-                className="flex-1 rounded-lg border border-primary py-3 text-center text-[15px] font-semibold text-primary"
+                className="press flex-1 rounded-lg border border-primary py-3 text-center text-[15px] font-semibold text-primary"
               >
                 강의실 정보
               </button>

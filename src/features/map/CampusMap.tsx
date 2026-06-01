@@ -73,10 +73,10 @@ export default function CampusMap({
         const active = b.id === selectedId
         const el = document.createElement('div')
         el.className = 'dku-pin'
-        el.innerHTML = `<div style="cursor:pointer;display:flex;flex-direction:column;align-items:center;">
-          <div style="background:${active ? '#A32E50' : '#BE3A60'};color:#fff;font-size:12px;font-weight:700;
+        el.innerHTML = `<div class="pin-drop" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;">
+          <div class="${active ? 'pin-pulse' : ''}" style="background:${active ? '#A32E50' : '#BE3A60'};color:#fff;font-size:12px;font-weight:700;
             padding:5px 10px;border-radius:14px;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.3);
-            ${active ? 'transform:scale(1.08);' : ''}">${b.name}</div>
+            transition:transform .15s;${active ? 'transform:scale(1.08);' : ''}">${b.name}</div>
           <div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;
             border-top:7px solid ${active ? '#A32E50' : '#BE3A60'};"></div>
         </div>`

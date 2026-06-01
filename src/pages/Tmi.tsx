@@ -36,7 +36,7 @@ export default function Tmi() {
 
         {/* 마커 팝업 */}
         {picked && (
-          <div className="absolute inset-x-4 bottom-4 z-20 rounded-2xl bg-white p-4 shadow-sheet">
+          <div key={picked.id} className="absolute inset-x-4 bottom-4 z-20 animate-sheet-up rounded-2xl bg-white p-4 shadow-sheet">
             <div className="flex items-start gap-2">
               <div className="min-w-0 flex-1">
                 <p className="text-[16px] font-bold text-ink">{picked.name}</p>

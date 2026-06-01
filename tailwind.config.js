@@ -25,6 +25,32 @@ export default {
         sheet: '0 -4px 24px rgba(0,0,0,0.10)',
         card: '0 2px 12px rgba(0,0,0,0.08)',
       },
+      keyframes: {
+        'fade-in': { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+        'fade-up': {
+          '0%': { opacity: '0', transform: 'translateY(14px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'sheet-up': {
+          '0%': { opacity: '0', transform: 'translateY(100%)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'pop-in': {
+          '0%': { opacity: '0', transform: 'scale(0.85)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        'heart-beat': {
+          '0%,100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.12)' },
+        },
+      },
+      animation: {
+        'fade-in': 'fade-in 0.4s ease both',
+        'fade-up': 'fade-up 0.45s cubic-bezier(0.22,1,0.36,1) both',
+        'sheet-up': 'sheet-up 0.35s cubic-bezier(0.22,1,0.36,1) both',
+        'pop-in': 'pop-in 0.3s cubic-bezier(0.34,1.56,0.64,1) both',
+        'heart-beat': 'heart-beat 1.1s ease-in-out infinite',
+      },
     },
   },
   plugins: [],

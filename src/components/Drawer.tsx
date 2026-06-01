@@ -48,11 +48,10 @@ export default function Drawer({ open, onClose }: Props) {
                 onClose()
                 nav(m.to)
               }}
-              className={`rounded-xl px-5 py-4 text-left text-[17px] ${
-                i === 0
-                  ? 'bg-primary font-semibold text-white'
-                  : 'bg-gray-100 text-ink'
-              }`}
+              style={{ animationDelay: open ? `${i * 60 + 100}ms` : '0ms' }}
+              className={`press rounded-xl px-5 py-4 text-left text-[17px] ${
+                open ? 'animate-fade-up' : ''
+              } ${i === 0 ? 'bg-primary font-semibold text-white' : 'bg-gray-100 text-ink'}`}
             >
               {m.label}
             </button>

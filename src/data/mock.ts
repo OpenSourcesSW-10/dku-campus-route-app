@@ -147,19 +147,34 @@ interface PosLike {
   cy: number
 }
 
-/** ICT 3층에서만 동작. 그 외 건물/층은 null (경로선 미표시). */
+// 도서관 2층: 중앙 코어(계단/엘리베이터)에서 가로 복도(y≈404)를 따라 각 열람실로
+const LIB2_ELEV: number[] = [568, 404]
+const LIB2_CORRIDOR_Y = 404
+
+/** 실내 경로 지원: 소프트웨어 ICT관 3층 + 도서관 2층 (그 외 null). */
 export function indoorRoute(buildingId: string, floor: number, pos: PosLike): number[][] | null {
-  if (buildingId !== 'DKU_ICT' || floor !== 3) return null
   const { cx, cy, x, y, width, height } = pos
-  // 상단 바깥쪽 방(305~310): 복도에서 아래→위로 진입
-  if (cy < ICT3_CORRIDOR_Y) {
-    return [ICT3_ELEV, [ICT3_CORRIDOR_X, ICT3_CORRIDOR_Y], [cx, ICT3_CORRIDOR_Y], [cx, y + height]]
+
+  // 소프트웨어 ICT관 3층
+  if (buildingId === 'DKU_ICT' && floor === 3) {
+    // 상단 바깥쪽 방(305~310): 복도에서 아래→위로 진입
+    if (cy < ICT3_CORRIDOR_Y) {
+      return [ICT3_ELEV, [ICT3_CORRIDOR_X, ICT3_CORRIDOR_Y], [cx, ICT3_CORRIDOR_Y], [cx, y + height]]
+    }
+    // 상단 안쪽 방(301~304, 332): 상단 복도에서 위→아래로 진입
+    if (cx > 460) {
+      return [ICT3_ELEV, [ICT3_CORRIDOR_X, ICT3_CORRIDOR_Y], [cx, ICT3_CORRIDOR_Y], [cx, y]]
+    }
+    // 좌측 윙: 좌측 복도에서 가로로 진입
+    const enterX = cx < ICT3_CORRIDOR_X ? x + width : x
+    return [ICT3_ELEV, [ICT3_CORRIDOR_X, cy], [enterX, cy]]
   }
-  // 상단 안쪽 방(301~304, 332): 상단 복도에서 위→아래로 진입
-  if (cx > 460) {
-    return [ICT3_ELEV, [ICT3_CORRIDOR_X, ICT3_CORRIDOR_Y], [cx, ICT3_CORRIDOR_Y], [cx, y]]
+
+  // 퇴계기념중앙도서관 2층
+  if (buildingId === 'DKU_LIB' && floor === 2) {
+    const enterY = cy > LIB2_CORRIDOR_Y ? y : y + height
+    return [LIB2_ELEV, [cx, LIB2_CORRIDOR_Y], [cx, enterY]]
   }
-  // 좌측 윙(311~318 / 319~331): 좌측 복도에서 가로로 진입
-  const enterX = cx < ICT3_CORRIDOR_X ? x + width : x
-  return [ICT3_ELEV, [ICT3_CORRIDOR_X, cy], [enterX, cy]]
+
+  return null
 }

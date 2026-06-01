@@ -64,7 +64,8 @@ export default function PlaceSearch() {
           <button
             key={(h.room?.id ?? h.building.id) + i}
             onClick={() => go(h)}
-            className="flex w-full items-center gap-3 border-b border-line py-4 text-left"
+            style={{ animationDelay: `${Math.min(i, 7) * 45}ms` }}
+            className="flex w-full animate-fade-up items-center gap-3 border-b border-line py-4 text-left transition-colors active:bg-primary/5"
           >
             <PinIcon className="h-5 w-5 shrink-0 text-primary" />
             <div className="min-w-0">

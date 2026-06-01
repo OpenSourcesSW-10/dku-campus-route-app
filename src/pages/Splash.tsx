@@ -15,8 +15,8 @@ export default function Splash() {
         className="flex flex-1 items-center justify-center"
         aria-label="시작"
       >
-        <div className="flex h-28 w-28 items-center justify-center rounded-3xl bg-primary">
-          <img src="/heart-white.svg" alt="" className="h-14 w-14" />
+        <div className="flex h-28 w-28 animate-pop-in items-center justify-center rounded-3xl bg-primary shadow-lg shadow-primary/30">
+          <img src="/heart-white.svg" alt="" className="h-14 w-14 animate-heart-beat" />
         </div>
       </button>
     </div>

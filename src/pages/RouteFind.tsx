@@ -61,14 +61,15 @@ export default function RouteFind() {
           {routeStart} → {routeDest || '도착지'}
         </p>
         <div className="flex flex-col gap-2">
-          {ROUTE_OPTIONS.map((o) => {
+          {ROUTE_OPTIONS.map((o, i) => {
             const on = o.type === selected
             return (
               <button
                 key={o.type}
                 onClick={() => setSelected(o.type)}
-                className={`flex items-center gap-3 rounded-xl border px-4 py-3 text-left ${
-                  on ? 'border-primary bg-primary/5' : 'border-line'
+                style={{ animationDelay: `${i * 80}ms` }}
+                className={`flex animate-fade-up items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all duration-200 active:scale-[0.98] ${
+                  on ? 'border-primary bg-primary/5 shadow-card' : 'border-line'
                 }`}
               >
                 <span className="h-3 w-3 rounded-full" style={{ background: o.color }} />

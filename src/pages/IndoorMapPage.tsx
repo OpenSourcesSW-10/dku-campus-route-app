@@ -132,7 +132,10 @@ function IndoorView({
 
       {/* 선택된 강의실 정보 */}
       {hlRoom && (
-        <div className="rounded-t-2xl border-t border-line bg-white px-5 pb-7 pt-4 shadow-sheet">
+        <div
+          key={hlRoom.id}
+          className="animate-sheet-up rounded-t-2xl border-t border-line bg-white px-5 pb-7 pt-4 shadow-sheet"
+        >
           <div className="flex items-start gap-3">
             <div className="min-w-0 flex-1">
               <p className="text-[17px] font-bold text-ink">

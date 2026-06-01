@@ -72,10 +72,11 @@ export default function IndoorMap({ map, rooms, highlightRoomId, onSelectRoom, r
                       <polygon
                         key={r.id}
                         id={`room-${r.id}`}
+                        className={active ? 'room-hl' : undefined}
                         points={r.pos.polygon.map((p) => p.join(',')).join(' ')}
                         onClick={() => onSelectRoom?.(r)}
                         style={{ cursor: 'pointer' }}
-                        fill={active ? 'rgba(190,58,96,0.38)' : 'transparent'}
+                        fill={active ? '#BE3A60' : 'transparent'}
                         stroke={active ? '#BE3A60' : 'transparent'}
                         strokeWidth={active ? 3 : 0}
                       />
@@ -85,6 +86,7 @@ export default function IndoorMap({ map, rooms, highlightRoomId, onSelectRoom, r
                     <rect
                       key={r.id}
                       id={`room-${r.id}`}
+                      className={active ? 'room-hl' : undefined}
                       x={r.pos.x}
                       y={r.pos.y}
                       width={r.pos.width}
@@ -92,7 +94,7 @@ export default function IndoorMap({ map, rooms, highlightRoomId, onSelectRoom, r
                       rx={2}
                       onClick={() => onSelectRoom?.(r)}
                       style={{ cursor: 'pointer' }}
-                      fill={active ? 'rgba(190,58,96,0.38)' : 'transparent'}
+                      fill={active ? '#BE3A60' : 'transparent'}
                       stroke={active ? '#BE3A60' : 'transparent'}
                       strokeWidth={active ? 3 : 0}
                     />
