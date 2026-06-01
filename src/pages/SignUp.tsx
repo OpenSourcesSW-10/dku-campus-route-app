@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import StatusBar from '../components/StatusBar'
 import TopBar from '../components/TopBar'
 
 export default function SignUp() {
@@ -15,7 +14,6 @@ export default function SignUp() {
 
   return (
     <div className="flex h-full flex-col bg-white">
-      <StatusBar />
       <TopBar title="회원가입" onBack={() => nav('/landing')} />
       <div className="flex-1 px-5 pt-10">
         <input

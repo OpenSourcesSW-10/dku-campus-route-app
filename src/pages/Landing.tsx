@@ -1,11 +1,9 @@
 import { useNavigate } from 'react-router-dom'
-import StatusBar from '../components/StatusBar'
 
 export default function Landing() {
   const nav = useNavigate()
   return (
     <div className="flex h-full flex-col bg-white">
-      <StatusBar />
       <div className="flex flex-1 items-center justify-center">
         <h1 className="text-[44px] font-extrabold tracking-tight text-ink-soft">DKU WAY</h1>
       </div>

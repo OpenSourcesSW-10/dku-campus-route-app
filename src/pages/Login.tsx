@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import StatusBar from '../components/StatusBar'
 import TopBar from '../components/TopBar'
 import { useApp } from '../store/useApp'
 
@@ -18,7 +17,6 @@ export default function Login() {
 
   return (
     <div className="flex h-full flex-col bg-white">
-      <StatusBar />
       <TopBar title="로그인" onBack={() => nav('/landing')} />
       <div className="flex-1 px-5 pt-10">
         <input

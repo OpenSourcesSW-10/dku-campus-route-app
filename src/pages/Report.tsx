@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import StatusBar from '../components/StatusBar'
 import TopBar from '../components/TopBar'
 
 const TYPES = ['TMI 정보', '강의실 정보'] as const
@@ -17,7 +16,6 @@ export default function Report() {
 
   return (
     <div className="flex h-full flex-col bg-white">
-      <StatusBar />
       <TopBar title="제보하기" onBack={() => nav('/home')} />
 
       <div className="no-scrollbar flex-1 overflow-y-auto px-5 pt-5">

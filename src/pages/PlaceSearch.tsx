@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import StatusBar from '../components/StatusBar'
 import TopBar from '../components/TopBar'
 import { SearchIcon, PinIcon } from '../components/Icons'
 import { search, buildings, indoorMapsOf, type SearchHit } from '../lib/data'
@@ -43,7 +42,6 @@ export default function PlaceSearch() {
 
   return (
     <div className="flex h-full flex-col bg-white">
-      <StatusBar />
       <TopBar title="장소 검색" />
       <div className="px-5 pt-6">
         <div className="flex items-center gap-2 rounded-lg border border-line px-4 py-3">

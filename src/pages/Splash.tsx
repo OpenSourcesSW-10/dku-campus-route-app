@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import StatusBar from '../components/StatusBar'
 import { HeartIcon } from '../components/Icons'
 
 export default function Splash() {
@@ -12,7 +11,6 @@ export default function Splash() {
 
   return (
     <div className="flex h-full flex-col bg-white">
-      <StatusBar />
       <button
         onClick={() => nav('/landing')}
         className="flex flex-1 items-center justify-center"

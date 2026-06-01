@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import StatusBar from '../components/StatusBar'
 import CampusMap from '../features/map/CampusMap'
 import { BackIcon } from '../components/Icons'
 import { buildings } from '../lib/data'
@@ -27,10 +26,8 @@ export default function RouteFind() {
 
   return (
     <div className="relative flex h-full flex-col bg-white">
-      <StatusBar />
-
       {/* 출발/도착 헤더 */}
-      <div className="absolute inset-x-0 top-11 z-30 px-4 pt-2">
+      <div className="absolute inset-x-0 top-0 z-30 px-4 pt-3">
         <div className="flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-card">
           <button onClick={() => nav('/home')} aria-label="뒤로" className="text-ink">
             <BackIcon className="h-6 w-6" />

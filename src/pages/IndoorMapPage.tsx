@@ -1,6 +1,5 @@
 import { useMemo, useState, useEffect } from 'react'
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
-import StatusBar from '../components/StatusBar'
 import TopBar from '../components/TopBar'
 import IndoorMap from '../features/indoor/IndoorMap'
 import { ChevronRight, CloseIcon } from '../components/Icons'
@@ -39,7 +38,6 @@ function BuildingPicker() {
   const indoorBuildings = buildings.filter((b) => indoorMapsOf(b.id).length > 0)
   return (
     <div className="flex h-full flex-col bg-white">
-      <StatusBar />
       <TopBar title="강의실 정보" onBack={() => nav('/home')} />
       <div className="flex-1 px-5 pt-4">
         <p className="mb-2 px-1 text-[14px] text-ink-faint">실내 안내도가 있는 건물</p>
@@ -92,7 +90,6 @@ function IndoorView({
   if (!map) {
     return (
       <div className="flex h-full flex-col bg-white">
-        <StatusBar />
         <TopBar title={building?.name ?? '실내 지도'} onBack={() => nav('/home')} />
         <p className="mt-16 text-center text-ink-faint">해당 층 안내도가 없습니다.</p>
       </div>
@@ -101,7 +98,6 @@ function IndoorView({
 
   return (
     <div className="flex h-full flex-col bg-white">
-      <StatusBar />
       <TopBar title={building?.name ?? '실내 지도'} onBack={() => nav('/home')} />
 
       <div className="relative flex flex-1 overflow-hidden">

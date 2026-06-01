@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import StatusBar from '../components/StatusBar'
 import Drawer from '../components/Drawer'
 import CampusMap from '../features/map/CampusMap'
 import { MenuIcon, SearchIcon, ChevronRight, LocateIcon, PinIcon } from '../components/Icons'
@@ -33,10 +32,8 @@ export default function MapHome() {
 
   return (
     <div className="relative flex h-full flex-col bg-white">
-      <StatusBar />
-
       {/* 상단 검색/메뉴 */}
-      <div className="absolute inset-x-0 top-11 z-30 flex items-center gap-2 px-4 pt-2">
+      <div className="absolute inset-x-0 top-0 z-30 flex items-center gap-2 px-4 pt-3">
         <button
           onClick={() => setDrawer(true)}
           className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-ink shadow-card"
