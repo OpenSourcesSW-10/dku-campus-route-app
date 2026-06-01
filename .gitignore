@@ -15,6 +15,9 @@ dist-ssr
 # 환경변수 (카카오 키) — .env.example 참고
 .env
 
+# Vercel
+.vercel
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
