@@ -6,6 +6,7 @@ import { ChevronRight, CloseIcon } from '../components/Icons'
 import {
   buildings,
   indoorMapsOf,
+  defaultFloor,
   indoorMap,
   roomsOf,
   roomById,
@@ -44,7 +45,7 @@ function BuildingPicker() {
         {indoorBuildings.map((b) => (
           <button
             key={b.id}
-            onClick={() => nav(`/indoor/${b.id}/${indoorMapsOf(b.id)[0].floor}`)}
+            onClick={() => nav(`/indoor/${b.id}/${defaultFloor(b.id)}`)}
             className="flex w-full items-center justify-between rounded-xl border border-line px-4 py-4 text-left [&+&]:mt-3"
           >
             <div>

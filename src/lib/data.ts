@@ -67,7 +67,13 @@ export const buildingById = (id: string) => buildings.find((b) => b.id === id)
 export const indoorMapsOf = (buildingId: string) =>
   indoorMaps
     .filter((m) => m.buildingId === buildingId)
-    .sort((a, b) => b.floor - a.floor)
+    .sort((a, b) => a.floor - b.floor)
+
+/** 건물 진입 시 기본 층: 1층이 있으면 1층, 없으면 가장 낮은 층 */
+export const defaultFloor = (buildingId: string) => {
+  const maps = indoorMapsOf(buildingId)
+  return (maps.find((m) => m.floor === 1) ?? maps[0])?.floor
+}
 
 export const indoorMap = (buildingId: string, floor: number) =>
   indoorMaps.find((m) => m.buildingId === buildingId && m.floor === floor)

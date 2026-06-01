@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import TopBar from '../components/TopBar'
 import { SearchIcon, PinIcon } from '../components/Icons'
-import { search, buildings, indoorMapsOf, type SearchHit } from '../lib/data'
+import { search, buildings, indoorMapsOf, defaultFloor, type SearchHit } from '../lib/data'
 
 const PAGE = 7
 
@@ -34,8 +34,8 @@ export default function PlaceSearch() {
     if (h.kind === 'room' && h.room) {
       nav(`/indoor/${h.building.id}/${h.room.floor}?room=${h.room.id}`)
     } else {
-      const maps = indoorMapsOf(h.building.id)
-      if (maps.length) nav(`/indoor/${h.building.id}/${maps[0].floor}`)
+      const fl = defaultFloor(h.building.id)
+      if (fl !== undefined) nav(`/indoor/${h.building.id}/${fl}`)
       else nav('/home')
     }
   }
