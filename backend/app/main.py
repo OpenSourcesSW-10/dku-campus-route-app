@@ -1,5 +1,8 @@
+from pathlib import Path
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from app.config import settings
 from app.database import Base, SessionLocal, engine, ensure_sqlite_schema
@@ -24,6 +27,7 @@ def create_app() -> FastAPI:
     app.include_router(rooms.router)
     app.include_router(indoor.router)
     app.include_router(routes.router)
+    _mount_map_files(app)
 
     @app.on_event("startup")
     def on_startup() -> None:
@@ -41,6 +45,16 @@ def create_app() -> FastAPI:
         return {"message": "DKU Campus Map Week 3 API is running"}
 
     return app
+
+
+def _mount_map_files(app: FastAPI) -> None:
+    # MAPS_DIR을 지정하면 DB가 제공한 SVG/PNG 실내 지도 파일을 /maps 경로로 제공한다.
+    if not settings.maps_dir:
+        return
+
+    maps_path = Path(settings.maps_dir)
+    if maps_path.exists() and maps_path.is_dir():
+        app.mount("/maps", StaticFiles(directory=maps_path), name="maps")
 
 
 app = create_app()

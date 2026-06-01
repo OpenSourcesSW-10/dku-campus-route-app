@@ -6,7 +6,7 @@ from typing import Any
 from app.seed.xlsx_reader import read_first_sheet
 
 
-POSITION_FILES = ("room_positions.csv", "room_positions.xlsx")
+POSITION_FILES = ("room_positions.csv", "room_positions.xlsx", "rooms_positions.csv", "rooms_positions.xlsx")
 
 
 @dataclass
@@ -22,7 +22,7 @@ class Week5PositionReport:
 
 
 def load_room_positions(data_dir: Path) -> list[dict[str, str]]:
-    # room_positions.csv 또는 room_positions.xlsx를 읽어 dict row 목록으로 반환한다.
+    # room_positions/rooms_positions CSV 또는 XLSX를 읽어 dict row 목록으로 반환한다.
     path = _find_existing_file(data_dir, POSITION_FILES)
     if path is None:
         candidates = ", ".join(str(data_dir / filename) for filename in POSITION_FILES)
@@ -36,7 +36,7 @@ def validate_room_positions(db: Any, data_dir: Path) -> Week5PositionReport:
 
     report = Week5PositionReport()
     rows = load_room_positions(data_dir)
-    report.stats = {"room_positions": len(rows)}
+    report.stats = {"room_positions": len(rows), "valid_room_positions": 0, "skipped_room_positions": 0}
 
     _require_columns(report, "room_positions", rows, ["room_id", "x", "y", "width", "height"])
     if report.errors:
@@ -56,27 +56,41 @@ def validate_room_positions(db: Any, data_dir: Path) -> Week5PositionReport:
     for index, row in enumerate(rows, start=2):
         room_id = row.get("room_id", "")
         if room_id not in room_ids:
-            report.errors.append(f"Row {index}: unknown room_id: {room_id}")
+            report.warnings.append(f"Row {index}: skipped unknown room_id: {room_id}")
+            report.stats["skipped_room_positions"] += 1
             continue
 
         room = db.get(Room, room_id)
         indoor_map_id = _indoor_map_id(row, room)
         if indoor_map_id not in indoor_map_ids:
-            report.errors.append(f"Row {index}: unknown indoor_map_id: {indoor_map_id}")
-        elif room and indoor_map_id != room.indoor_map_id:
+            report.warnings.append(f"Row {index}: skipped unknown indoor_map_id: {indoor_map_id}")
+            report.stats["skipped_room_positions"] += 1
+            continue
+        if room and indoor_map_id != room.indoor_map_id:
             report.warnings.append(
                 f"Row {index}: indoor_map_id {indoor_map_id} differs from room.indoor_map_id {room.indoor_map_id}"
             )
 
+        row_has_invalid_coordinates = False
         for column in ("x", "y", "width", "height"):
             value = _float_or_none(row.get(column))
             if value is None:
-                report.errors.append(f"Row {index}: {column} must be a number")
+                report.warnings.append(f"Row {index}: skipped because {column} must be a number")
+                row_has_invalid_coordinates = True
             elif column in {"width", "height"} and value <= 0:
-                report.errors.append(f"Row {index}: {column} must be greater than 0")
+                report.warnings.append(f"Row {index}: skipped because {column} must be greater than 0")
+                row_has_invalid_coordinates = True
+
+        if row_has_invalid_coordinates:
+            report.stats["skipped_room_positions"] += 1
+            continue
+
+        report.stats["valid_room_positions"] += 1
 
     if not rows:
         report.warnings.append("room_positions has no data rows.")
+    elif report.stats["valid_room_positions"] == 0:
+        report.errors.append("room_positions has no valid rows to import.")
 
     return report
 
@@ -98,6 +112,8 @@ def import_room_positions(db: Any, data_dir: Path, replace: bool = False) -> Wee
         room = db.get(Room, row["room_id"])
         if room is None:
             continue
+        if not _is_valid_position_row(row, room):
+            continue
 
         x = _float(row.get("x"), 0.0)
         y = _float(row.get("y"), 0.0)
@@ -117,6 +133,10 @@ def import_room_positions(db: Any, data_dir: Path, replace: bool = False) -> Wee
                 center_y=_float_or_none(row.get("center_y") or row.get("label_y")) or y + height / 2,
             )
         )
+
+        nearest_indoor_node_id = _optional_text(row.get("nearest_indoor_node_id"))
+        if nearest_indoor_node_id:
+            room.nearest_indoor_node_id = nearest_indoor_node_id
 
     db.commit()
     return report
@@ -171,8 +191,29 @@ def _indoor_map_id(row: dict[str, str], room: Any) -> str:
     return row.get("indoor_map_id") or room.indoor_map_id
 
 
+def _is_valid_position_row(row: dict[str, str], room: Any) -> bool:
+    if not row.get("room_id"):
+        return False
+    if not _indoor_map_id(row, room):
+        return False
+    for column in ("x", "y", "width", "height"):
+        value = _float_or_none(row.get(column))
+        if value is None:
+            return False
+        if column in {"width", "height"} and value <= 0:
+            return False
+    return True
+
+
 def _normalize_header(value: str) -> str:
     return value.strip().lower()
+
+
+def _optional_text(value: str | None) -> str | None:
+    text = str(value or "").strip()
+    if text.lower() in {"", "nan", "none", "null"}:
+        return None
+    return text
 
 
 def _float_or_none(value: str | None) -> float | None:

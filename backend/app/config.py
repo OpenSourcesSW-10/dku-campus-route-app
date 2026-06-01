@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     app_name: str = "DKU Campus Map Week 3 API"
     database_url: str = "sqlite:///./week3_backend.db"
     debug: bool = True
+    maps_dir: str | None = None
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

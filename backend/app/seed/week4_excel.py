@@ -1,4 +1,5 @@
 import csv
+import struct
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -88,7 +89,7 @@ def validate_week4_excel(data_dir: Path) -> Week4DataReport:
 
     if data["rooms"]:
         report.warnings.append(
-            "room_positions.csv is not provided yet, so indoor-map API will return empty room_positions until coordinates are added."
+            "Import room_positions/rooms_positions separately to include room highlight coordinates in indoor-map API responses."
         )
 
     return report
@@ -144,8 +145,8 @@ def import_week4_excel(db: Any, data_dir: Path, replace: bool = False) -> Week4D
                 floor_label=row["floor_label"],
                 source_pdf_name=source_pdf,
                 map_file_url=_map_file_url(source_pdf),
-                canvas_width=1000,
-                canvas_height=700,
+                canvas_width=_canvas_width(data_dir, source_pdf, row),
+                canvas_height=_canvas_height(data_dir, source_pdf, row),
                 version="week4-excel",
                 status="converted" if _truthy(row.get("has_map_data")) else "draft",
                 created_at=None,
@@ -258,9 +259,67 @@ def _map_file_url(source_pdf: str) -> str:
     return f"/maps/{Path(source_pdf).stem}.svg"
 
 
+def _canvas_width(data_dir: Path, source_pdf: str, row: dict[str, str]) -> int:
+    width, _ = _canvas_size(data_dir, source_pdf, row)
+    return width
+
+
+def _canvas_height(data_dir: Path, source_pdf: str, row: dict[str, str]) -> int:
+    _, height = _canvas_size(data_dir, source_pdf, row)
+    return height
+
+
+def _canvas_size(data_dir: Path, source_pdf: str, row: dict[str, str]) -> tuple[int, int]:
+    # DB가 제공한 ICT/LIB 좌표는 1000x707 PNG 기준이므로, 실제 PNG가 있으면 그 크기를 우선 사용한다.
+    explicit_width = _int_or_none(row.get("canvas_width") or row.get("page_width"))
+    explicit_height = _int_or_none(row.get("canvas_height") or row.get("page_height"))
+    if explicit_width and explicit_height:
+        return explicit_width, explicit_height
+
+    png_size = _find_png_size(data_dir, source_pdf)
+    if png_size is not None:
+        return png_size
+
+    return 1000, 707
+
+
+def _find_png_size(data_dir: Path, source_pdf: str) -> tuple[int, int] | None:
+    if not source_pdf:
+        return None
+
+    stem = Path(source_pdf).stem
+    candidates = [
+        data_dir / "PNG(1000X707)" / "ICT(1000X707)" / f"{stem}-1.png",
+        data_dir / "PNG(1000X707)" / "LIB(1000X707)" / f"{stem}-1.png",
+        data_dir / "PNG" / "ICT" / f"{stem}-1.png",
+        data_dir / "PNG" / "LIB" / f"{stem}-1.png",
+    ]
+    for candidate in candidates:
+        size = _read_png_size(candidate)
+        if size is not None:
+            return size
+    return None
+
+
+def _read_png_size(path: Path) -> tuple[int, int] | None:
+    if not path.exists():
+        return None
+    with path.open("rb") as png_file:
+        header = png_file.read(24)
+    if header[:8] != b"\x89PNG\r\n\x1a\n":
+        return None
+    return struct.unpack(">II", header[16:24])
+
+
 def _int(value: str | None, default: int) -> int:
     if value in (None, ""):
         return default
+    return int(float(value))
+
+
+def _int_or_none(value: str | None) -> int | None:
+    if value in (None, ""):
+        return None
     return int(float(value))
 
 
