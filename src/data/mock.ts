@@ -130,17 +130,36 @@ export function mockRoute(start: LatLng, dest: LatLng, type: RouteType): LatLng[
   return [start, bend1, mid, bend2, dest]
 }
 
-// ---- 실내 경로선 (목업) : 안내도 좌표계(1000x707) 기준 폴리라인 ----
-// ICT 3층: 엘리베이터 부근 → 305호 앞 복도 (대략값, 시연용)
-export const INDOOR_ROUTE_DEMO: Record<string, { from: string; points: number[][] }> = {
-  'DKU_ICT:3': {
-    from: '엘리베이터',
-    points: [
-      [470, 470], // 엘리베이터 앞
-      [470, 360],
-      [560, 360], // 복도 합류
-      [620, 230],
-      [690, 150], // 305호 앞
-    ],
-  },
+// ---- 실내 경로선 (목업) : 안내도 좌표계(1000x707) 기준 ----
+// ICT 3층 도면의 복도 중심선 기준값. 엘리베이터에서 대상 강의실까지
+// 복도(좌측 세로 x≈404, 상단 가로 y≈226)를 따라 꺾어 들어가는 경로를 생성한다.
+export const INDOOR_ROUTE_FROM = '엘리베이터'
+const ICT3_ELEV: number[] = [404, 470] // 좌측 복도의 엘리베이터 위치(시연용)
+const ICT3_CORRIDOR_X = 404 // 좌측 세로 복도
+const ICT3_CORRIDOR_Y = 226 // 상단 가로 복도
+
+interface PosLike {
+  x: number
+  y: number
+  width: number
+  height: number
+  cx: number
+  cy: number
+}
+
+/** ICT 3층에서만 동작. 그 외 건물/층은 null (경로선 미표시). */
+export function indoorRoute(buildingId: string, floor: number, pos: PosLike): number[][] | null {
+  if (buildingId !== 'DKU_ICT' || floor !== 3) return null
+  const { cx, cy, x, y, width, height } = pos
+  // 상단 바깥쪽 방(305~310): 복도에서 아래→위로 진입
+  if (cy < ICT3_CORRIDOR_Y) {
+    return [ICT3_ELEV, [ICT3_CORRIDOR_X, ICT3_CORRIDOR_Y], [cx, ICT3_CORRIDOR_Y], [cx, y + height]]
+  }
+  // 상단 안쪽 방(301~304, 332): 상단 복도에서 위→아래로 진입
+  if (cx > 460) {
+    return [ICT3_ELEV, [ICT3_CORRIDOR_X, ICT3_CORRIDOR_Y], [cx, ICT3_CORRIDOR_Y], [cx, y]]
+  }
+  // 좌측 윙(311~318 / 319~331): 좌측 복도에서 가로로 진입
+  const enterX = cx < ICT3_CORRIDOR_X ? x + width : x
+  return [ICT3_ELEV, [ICT3_CORRIDOR_X, cy], [enterX, cy]]
 }

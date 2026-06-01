@@ -13,7 +13,7 @@ import {
   type Building,
   type Room,
 } from '../lib/data'
-import { INDOOR_ROUTE_DEMO } from '../data/mock'
+import { indoorRoute, INDOOR_ROUTE_FROM } from '../data/mock'
 
 export default function IndoorMapPage() {
   const { buildingId, floor } = useParams()
@@ -84,8 +84,7 @@ function IndoorView({
   }, [initialRoom, buildingId, floor])
 
   const hlRoom: Room | undefined = highlight ? roomById(highlight) : undefined
-  const routeKey = `${buildingId}:${floor}`
-  const routeDemo = INDOOR_ROUTE_DEMO[routeKey]
+  const routePoints = hlRoom?.pos ? indoorRoute(buildingId, floor, hlRoom.pos) : null
 
   if (!map) {
     return (
@@ -126,7 +125,7 @@ function IndoorView({
               setHighlight(r.id)
               setShowRoute(false)
             }}
-            routePoints={showRoute && routeDemo ? routeDemo.points : null}
+            routePoints={showRoute ? routePoints : null}
           />
         </div>
       </div>
@@ -147,14 +146,14 @@ function IndoorView({
               <CloseIcon className="h-5 w-5" />
             </button>
           </div>
-          {routeDemo && (
+          {routePoints && (
             <button
               onClick={() => setShowRoute((v) => !v)}
               className={`mt-3 w-full rounded-lg py-3 text-center text-[15px] font-semibold ${
                 showRoute ? 'border border-primary text-primary' : 'bg-primary text-white'
               }`}
             >
-              {showRoute ? '실내 경로 숨기기' : `실내 경로 보기 (${routeDemo.from} → ${hlRoom.number})`}
+              {showRoute ? '실내 경로 숨기기' : `실내 경로 보기 (${INDOOR_ROUTE_FROM} → ${hlRoom.number})`}
             </button>
           )}
         </div>
