@@ -89,9 +89,22 @@ def _cell_value(cell: ET.Element, shared_strings: list[str]) -> str:
 
 
 def _find_header_index(rows: list[list[str]]) -> int | None:
+    header_markers = {
+        "building_id",
+        "candidate_id",
+        "edge_id",
+        "entrance_id",
+        "from_node_id",
+        "indoor_edge_id",
+        "indoor_node_id",
+        "node_id",
+        "outdoor_node_id",
+        "pdf_id",
+        "room_id",
+    }
     for index, row in enumerate(rows):
         lowered = {_normalize_header(value) for value in row}
-        if "building_id" in lowered or "room_id" in lowered or "pdf_id" in lowered:
+        if lowered & header_markers:
             return index
     return None
 

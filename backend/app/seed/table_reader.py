@@ -28,22 +28,26 @@ def normalize_header(value: str) -> str:
 
 
 def bool_value(value: str | None, default: bool = False) -> bool:
-    if value in (None, ""):
+    if _is_blank(value):
         return default
     return str(value).strip().lower() in {"1", "true", "yes", "y", "t"}
 
 
 def int_value(value: str | None, default: int = 0) -> int:
-    if value in (None, ""):
+    if _is_blank(value):
         return default
     return int(float(value))
 
 
 def float_value(value: str | None, default: float = 0.0) -> float:
-    if value in (None, ""):
+    if _is_blank(value):
         return default
     return float(value)
 
 
 def optional_str(value: str | None) -> str | None:
-    return value if value not in (None, "") else None
+    return value if not _is_blank(value) else None
+
+
+def _is_blank(value: str | None) -> bool:
+    return value is None or str(value).strip().lower() in {"", "null", "none", "nan"}

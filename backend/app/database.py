@@ -46,6 +46,10 @@ def ensure_sqlite_schema() -> None:
         "indoor_edges": {
             "is_bidirectional": "BOOLEAN DEFAULT 1",
         },
+        "outdoor_nodes": {
+            "map_x": "FLOAT",
+            "map_y": "FLOAT",
+        },
         "outdoor_edges": {
             "is_bidirectional": "BOOLEAN DEFAULT 1",
         },

@@ -6,7 +6,7 @@ from typing import Any
 from app.seed.xlsx_reader import read_first_sheet
 
 
-POSITION_FILES = ("room_positions.csv", "room_positions.xlsx", "rooms_positions.csv", "rooms_positions.xlsx")
+POSITION_FILES = ("room_positions.csv", "room_positions.xlsx", "rooms_positions.csv", "rooms_positions.xlsx", "csv/rooms_positions.csv")
 
 
 @dataclass

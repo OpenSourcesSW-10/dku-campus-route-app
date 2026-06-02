@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from math import hypot
 from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
@@ -7,9 +8,18 @@ from app.algorithms.cost_function import estimate_static_edge_cost
 from app.seed.table_reader import bool_value, find_existing_file, float_value, int_value, optional_str, read_table
 
 
-INDOOR_NODE_FILES = ("indoor_nodes.csv", "indoor_nodes.xlsx")
-INDOOR_EDGE_FILES = ("indoor_edges.csv", "indoor_edges.xlsx")
-ROOM_NODE_FILES = ("room_nearest_nodes.csv", "room_nearest_nodes.xlsx", "rooms_master.csv", "rooms_master.xlsx")
+INDOOR_NODE_FILES = ("indoor_nodes.csv", "indoor_nodes.xlsx", "indoor_node.csv", "indoor_node.xlsx", "csv/indoor_nodes.csv", "csv/indoor_node.csv")
+INDOOR_EDGE_FILES = ("indoor_edges.csv", "indoor_edges.xlsx", "indoor_edge.csv", "indoor_edge.xlsx", "csv/indoor_edges.csv", "csv/indoor_edge.csv")
+ROOM_NODE_FILES = (
+    "room_nearest_nodes.csv",
+    "room_nearest_nodes.xlsx",
+    "csv/room_nearest_nodes.csv",
+    "rooms_positions.csv",
+    "rooms_positions.xlsx",
+    "csv/rooms_positions.csv",
+    "room_positions.csv",
+    "room_positions.xlsx",
+)
 
 
 @dataclass
@@ -32,9 +42,9 @@ def load_week6_indoor_graph(data_dir: Path) -> dict[str, list[dict[str, str]]]:
         raise FileNotFoundError(f"Missing required file: one of {INDOOR_EDGE_FILES}")
     room_node_path = find_existing_file(data_dir, ROOM_NODE_FILES)
     return {
-        "indoor_nodes": read_table(node_path),
-        "indoor_edges": read_table(edge_path),
-        "room_nodes": read_table(room_node_path) if room_node_path else [],
+        "indoor_nodes": [_normalize_indoor_node(row) for row in read_table(node_path)],
+        "indoor_edges": [_normalize_indoor_edge(row) for row in read_table(edge_path)],
+        "room_nodes": [_normalize_room_node(row) for row in read_table(room_node_path)] if room_node_path else [],
     }
 
 
@@ -43,6 +53,7 @@ def validate_week6_indoor_graph(db: Any, data_dir: Path) -> Week6IndoorGraphRepo
 
     report = Week6IndoorGraphReport()
     data = load_week6_indoor_graph(data_dir)
+    _enrich_indoor_graph_rows(db, data, report)
     report.stats = {key: len(rows) for key, rows in data.items()}
     _require_columns(report, "indoor_nodes", data["indoor_nodes"], ["indoor_node_id", "building_id", "indoor_map_id", "floor_number", "node_type", "x", "y"])
     _require_columns(report, "indoor_edges", data["indoor_edges"], ["indoor_edge_id", "indoor_map_id", "from_node_id", "to_node_id", "distance", "estimated_time", "edge_type"])
@@ -90,6 +101,7 @@ def import_week6_indoor_graph(db: Any, data_dir: Path, replace: bool = False) ->
     if not report.ok:
         return report
     data = load_week6_indoor_graph(data_dir)
+    _enrich_indoor_graph_rows(db, data, report)
     if replace:
         db.query(IndoorEdge).delete()
         db.query(IndoorNode).delete()
@@ -177,3 +189,88 @@ def _duplicates(values) -> list[str]:
             duplicated.add(value)
         seen.add(value)
     return sorted(duplicated)
+
+
+def _normalize_indoor_node(row: dict[str, str]) -> dict[str, str]:
+    normalized = dict(row)
+    _copy_alias(normalized, "indoor_node_id", "node_id")
+    _copy_alias(normalized, "floor_number", "floor")
+    return normalized
+
+
+def _normalize_indoor_edge(row: dict[str, str]) -> dict[str, str]:
+    normalized = dict(row)
+    _copy_alias(normalized, "indoor_edge_id", "edge_id")
+    _copy_alias(normalized, "distance", "distance_m")
+    _copy_alias(normalized, "estimated_time", "estimated_time_sec")
+    edge_type = (normalized.get("edge_type") or "").lower()
+    if edge_type == "stair" and not normalized.get("has_stairs"):
+        normalized["has_stairs"] = "TRUE"
+    if edge_type == "elevator" and not normalized.get("is_elevator"):
+        normalized["is_elevator"] = "TRUE"
+    return normalized
+
+
+def _normalize_room_node(row: dict[str, str]) -> dict[str, str]:
+    normalized = dict(row)
+    _copy_alias(normalized, "nearest_indoor_node_id", "nearest_node_id")
+    _copy_alias(normalized, "nearest_indoor_node_id", "node_id")
+    return normalized
+
+
+def _copy_alias(row: dict[str, str], target: str, *aliases: str) -> None:
+    if row.get(target):
+        return
+    for alias in aliases:
+        if row.get(alias):
+            row[target] = row[alias]
+            return
+
+
+def _enrich_indoor_graph_rows(db: Any, data: dict[str, list[dict[str, str]]], report: Week6IndoorGraphReport) -> None:
+    from app.models import IndoorMap
+
+    map_lookup = {
+        (building_id, int(floor_number)): indoor_map_id
+        for indoor_map_id, building_id, floor_number in db.query(
+            IndoorMap.indoor_map_id,
+            IndoorMap.building_id,
+            IndoorMap.floor_number,
+        ).all()
+    }
+
+    for row in data["indoor_nodes"]:
+        if not row.get("indoor_map_id") and row.get("building_id") and row.get("floor_number"):
+            row["indoor_map_id"] = map_lookup.get((row["building_id"], int_value(row.get("floor_number"))), "")
+
+    node_by_id = {row.get("indoor_node_id", ""): row for row in data["indoor_nodes"] if row.get("indoor_node_id")}
+    for row in data["indoor_edges"]:
+        from_node = node_by_id.get(row.get("from_node_id", ""))
+        to_node = node_by_id.get(row.get("to_node_id", ""))
+        if from_node and not row.get("indoor_map_id"):
+            row["indoor_map_id"] = from_node.get("indoor_map_id", "")
+        if from_node and to_node:
+            if not row.get("distance"):
+                row["distance"] = str(_estimate_distance(from_node, to_node, row.get("edge_type", "")))
+            if not row.get("estimated_time"):
+                row["estimated_time"] = str(_estimate_time(float_value(row.get("distance")), row.get("edge_type", "")))
+
+    missing_map_nodes = [row.get("indoor_node_id", "") for row in data["indoor_nodes"] if not row.get("indoor_map_id")]
+    if missing_map_nodes:
+        report.errors.append(f"Indoor nodes could not infer indoor_map_id: {', '.join(missing_map_nodes[:10])}")
+
+
+def _estimate_distance(from_node: dict[str, str], to_node: dict[str, str], edge_type: str) -> float:
+    floor_delta = abs(int_value(to_node.get("floor_number")) - int_value(from_node.get("floor_number")))
+    if floor_delta:
+        return max(8.0 * floor_delta, hypot(float_value(to_node.get("x")) - float_value(from_node.get("x")), float_value(to_node.get("y")) - float_value(from_node.get("y"))))
+    return hypot(float_value(to_node.get("x")) - float_value(from_node.get("x")), float_value(to_node.get("y")) - float_value(from_node.get("y")))
+
+
+def _estimate_time(distance: float, edge_type: str) -> float:
+    normalized = edge_type.lower()
+    if normalized == "elevator":
+        return max(10.0, distance / 1.0)
+    if normalized == "stair":
+        return max(6.0, distance / 0.8)
+    return distance / 1.2 if distance else 0.0

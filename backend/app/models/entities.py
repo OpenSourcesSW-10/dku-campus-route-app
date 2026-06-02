@@ -150,6 +150,8 @@ class OutdoorNode(Base):
     building_id: Mapped[str | None] = mapped_column(ForeignKey("buildings.building_id"))
     latitude: Mapped[float | None] = mapped_column(Float)
     longitude: Mapped[float | None] = mapped_column(Float)
+    map_x: Mapped[float | None] = mapped_column(Float)
+    map_y: Mapped[float | None] = mapped_column(Float)
     label: Mapped[str | None] = mapped_column(String(100))
     description: Mapped[str | None] = mapped_column(Text)
 
