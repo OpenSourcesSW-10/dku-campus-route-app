@@ -9,13 +9,13 @@ export default function Landing() {
       </div>
       <div className="animate-fade-in px-6 pb-10" style={{ animationDelay: '0.2s' }}>
         <button className="btn-primary" onClick={() => nav('/login')}>
-          이메일 로그인
+          학번으로 로그인
         </button>
         <button
           onClick={() => nav('/signup')}
           className="mt-5 w-full text-center text-[15px] text-ink transition-colors active:text-primary"
         >
-          단국대 이메일로 가입하기
+          단국대 학번으로 가입하기
         </button>
       </div>
     </div>

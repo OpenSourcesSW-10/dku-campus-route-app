@@ -4,13 +4,13 @@ import TopBar from '../components/TopBar'
 
 export default function SignUp() {
   const nav = useNavigate()
-  const [email, setEmail] = useState('')
+  const [sid, setSid] = useState('')
   const [pw, setPw] = useState('')
   const [pw2, setPw2] = useState('')
 
   const pwValid = pw.length >= 8 && pw.length <= 20
   const match = pw2.length === 0 || pw === pw2
-  const canSubmit = email.includes('@') && pwValid && pw === pw2
+  const canSubmit = sid.length > 0 && pwValid && pw === pw2
 
   return (
     <div className="flex h-full flex-col bg-white">
@@ -18,9 +18,10 @@ export default function SignUp() {
       <div className="flex-1 px-5 pt-10">
         <input
           className="field"
-          placeholder="이메일"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          inputMode="numeric"
+          placeholder="학번"
+          value={sid}
+          onChange={(e) => setSid(e.target.value.replace(/\D/g, ''))}
         />
 
         <input

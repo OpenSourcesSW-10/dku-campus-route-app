@@ -18,6 +18,9 @@ dist-ssr
 # Vercel
 .vercel
 
+# 전달용 git 번들
+*.bundle
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
