@@ -5,6 +5,8 @@ React + Vite + TypeScript + Tailwind CSS 기반 **모바일 반응형 웹 목업
 
 ## 실행
 
+> Node 20 이상 환경을 권장합니다.
+
 ```bash
 npm install
 cp .env.example .env      # .env에 카카오 JS 키 입력
@@ -38,6 +40,7 @@ npm run dev               # http://localhost:5190
 | 제보하기 | 제보 폼 (목업) |
 
 - **실내 하이라이트는 ICT관·도서관 전 층** 동작 (받은 좌표 기준).
+- **실내 경로선은 ICT 3층·도서관 2층** 데모로 표시됩니다 (목업).
 - 길찾기/실내 경로 계산 로직은 백엔드 담당이며, 여기서는 표시만 합니다.
 
 ## 데이터
