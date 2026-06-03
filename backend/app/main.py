@@ -60,9 +60,17 @@ app = create_app()
 
 def _find_map_asset(map_file_name: str) -> Path | None:
     safe_name = Path(map_file_name).name
+    backend_root = Path(__file__).resolve().parents[1]
     project_root = Path(__file__).resolve().parents[4]
+    deployment_data_root = _resolve_data_root(backend_root)
     configured_roots = [Path(root.strip()) for root in settings.map_asset_roots.split(",") if root.strip()]
     default_roots = [
+        deployment_data_root / "내부 구조 설계" / "SVG",
+        deployment_data_root / "내부 구조 설계" / "PNG(1000X707)",
+        deployment_data_root / "외부 구조 설계_최종" / "PNG",
+        deployment_data_root / "외부 구조 설계_최종" / "SVG",
+        deployment_data_root / "PNG(1000X707)",
+        deployment_data_root,
         project_root / "DB" / "내부 구조 설계" / "SVG",
         project_root / "DB" / "내부 구조 설계" / "PNG(1000X707)",
         project_root / "DB" / "외부 구조 설계_최종" / "PNG",
@@ -77,6 +85,8 @@ def _find_map_asset(map_file_name: str) -> Path | None:
 
     if safe_name == "campus-map.png":
         for campus_map in (
+            deployment_data_root / "외부 구조 설계_최종" / "PNG" / "캠퍼스 지도.png",
+            deployment_data_root / "외부 구조 설계_최종" / "캠퍼스 지도.png",
             project_root / "DB" / "외부 구조 설계_최종" / "PNG" / "캠퍼스 지도.png",
             project_root / "DB" / "외부 구조 설계_최종" / "캠퍼스 지도.png",
             project_root / "DB" / "외부 구조 설계" / "PNG" / "캠퍼스 지도.png",
@@ -95,3 +105,10 @@ def _find_map_asset(map_file_name: str) -> Path | None:
             if candidate.is_file():
                 return candidate
     return None
+
+
+def _resolve_data_root(backend_root: Path) -> Path:
+    data_root = Path(settings.deployment_data_root)
+    if data_root.is_absolute():
+        return data_root
+    return backend_root / data_root
