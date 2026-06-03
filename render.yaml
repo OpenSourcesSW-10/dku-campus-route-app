@@ -19,3 +19,27 @@ services:
         value: data/week7
       - key: IMPORT_DATA_ON_START
         value: true
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 60
+      - key: EMAIL_VERIFICATION_EXPIRE_MINUTES
+        value: 10
+      - key: ENFORCE_DANKOOK_EMAIL
+        value: true
+      - key: EMAIL_DELIVERY_MODE
+        value: console
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: 587
+      - key: SMTP_USERNAME
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: SMTP_FROM_EMAIL
+        sync: false
+      - key: SMTP_USE_TLS
+        value: true

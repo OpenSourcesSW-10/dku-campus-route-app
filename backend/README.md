@@ -62,11 +62,14 @@
 - `GET /api/outdoor/map` 외부 지도/노드/간선/출입구 링크 조회 API 추가
 - `/maps/campus-map.png`로 최종 외부 캠퍼스 지도 이미지 제공
 - `외부 구조 설계_최종` 폴더를 통합 import에서 우선 사용
+- JWT 기반 로그인 토큰 발급 API 추가
+- Passlib/bcrypt 기반 비밀번호 해싱 적용
+- 단국대 이메일 인증 요청/검증 API 추가
+- SMTP 설정 시 실제 메일 발송, 미설정 시 로컬/시연용 콘솔 인증코드 출력
+- `GET /api/auth/me`로 JWT 기반 현재 사용자 조회
 
 ## 아직 구현하지 않는 범위
 
-- JWT 로그인
-- 이메일 인증
 - TMI 제보 API
 - 관리자 승인 API
 - ICT관/도서관 외 건물의 실내/외부 경로 데이터 확장
@@ -244,3 +247,18 @@ GET /api/outdoor/map
 POST /api/routes
 GET /maps/campus-map.png
 ```
+
+## 7주차 인증 API 확인
+
+회원가입, 로그인, 이메일 인증, JWT 사용자 조회를 확인할 수 있습니다.
+
+```text
+POST /api/auth/register
+POST /api/auth/login
+POST /api/auth/email/request
+POST /api/auth/email/verify
+GET /api/auth/me
+```
+
+로컬/시연 환경에서는 `.env`의 `EMAIL_DELIVERY_MODE=console`을 사용하면 인증 코드가 서버 로그와 응답의 `devCode`에 표시됩니다.
+실제 SMTP 발송을 사용하려면 `EMAIL_DELIVERY_MODE=smtp`로 바꾸고 SMTP 환경변수를 설정해야 합니다.

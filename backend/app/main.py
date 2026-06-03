@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
 from app.database import Base, SessionLocal, engine, ensure_sqlite_schema
-from app.routers import buildings, indoor, outdoor, rooms, routes
+from app.routers import auth, buildings, indoor, outdoor, rooms, routes
 from app.seed.sample_data import seed_database
 
 
@@ -24,6 +24,7 @@ def create_app() -> FastAPI:
     )
 
     app.include_router(buildings.router)
+    app.include_router(auth.router)
     app.include_router(rooms.router)
     app.include_router(indoor.router)
     app.include_router(outdoor.router)
