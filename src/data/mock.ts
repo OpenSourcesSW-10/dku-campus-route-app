@@ -131,12 +131,19 @@ export function mockRoute(start: LatLng, dest: LatLng, type: RouteType): LatLng[
 }
 
 // ---- 실내 경로선 (목업) : 안내도 좌표계(1000x707) 기준 ----
-// ICT 3층 도면의 복도 중심선 기준값. 엘리베이터에서 대상 강의실까지
-// 복도(좌측 세로 x≈404, 상단 가로 y≈226)를 따라 꺾어 들어가는 경로를 생성한다.
+// 건물 코어(복도/엘리베이터)가 층마다 거의 동일하다는 가정으로,
+// ICT관·도서관 전 층에서 엘리베이터→복도→강의실 경로를 생성한다.
+// (실제 경로 계산은 백엔드 담당이며, 여기서는 시연용 데모 라인이다.)
 export const INDOOR_ROUTE_FROM = '엘리베이터'
-const ICT3_ELEV: number[] = [404, 470] // 좌측 복도의 엘리베이터 위치(시연용)
-const ICT3_CORRIDOR_X = 404 // 좌측 세로 복도
-const ICT3_CORRIDOR_Y = 226 // 상단 가로 복도
+
+// 소프트웨어 ICT관: 좌측 세로 복도(x≈404) + 상단 가로 복도(y≈226), 엘리베이터(404,470)
+const ICT_ELEV: number[] = [404, 470]
+const ICT_CORRIDOR_X = 404
+const ICT_CORRIDOR_Y = 226
+
+// 퇴계기념중앙도서관: 중앙 코어(계단/엘리베이터)에서 가로 복도(y≈404)
+const LIB_ELEV: number[] = [568, 404]
+const LIB_CORRIDOR_Y = 404
 
 interface PosLike {
   x: number
@@ -147,33 +154,29 @@ interface PosLike {
   cy: number
 }
 
-// 도서관 2층: 중앙 코어(계단/엘리베이터)에서 가로 복도(y≈404)를 따라 각 열람실로
-const LIB2_ELEV: number[] = [568, 404]
-const LIB2_CORRIDOR_Y = 404
-
-/** 실내 경로 지원: 소프트웨어 ICT관 3층 + 도서관 2층 (그 외 null). */
-export function indoorRoute(buildingId: string, floor: number, pos: PosLike): number[][] | null {
+/** 실내 경로 지원: 소프트웨어 ICT관 · 퇴계기념중앙도서관 전 층 (그 외 null). */
+export function indoorRoute(buildingId: string, _floor: number, pos: PosLike): number[][] | null {
   const { cx, cy, x, y, width, height } = pos
 
-  // 소프트웨어 ICT관 3층
-  if (buildingId === 'DKU_ICT' && floor === 3) {
-    // 상단 바깥쪽 방(305~310): 복도에서 아래→위로 진입
-    if (cy < ICT3_CORRIDOR_Y) {
-      return [ICT3_ELEV, [ICT3_CORRIDOR_X, ICT3_CORRIDOR_Y], [cx, ICT3_CORRIDOR_Y], [cx, y + height]]
+  // 소프트웨어 ICT관 (전 층)
+  if (buildingId === 'DKU_ICT') {
+    // 상단 바깥쪽 방: 상단 복도에서 아래→위로 진입
+    if (cy < ICT_CORRIDOR_Y) {
+      return [ICT_ELEV, [ICT_CORRIDOR_X, ICT_CORRIDOR_Y], [cx, ICT_CORRIDOR_Y], [cx, y + height]]
     }
-    // 상단 안쪽 방(301~304, 332): 상단 복도에서 위→아래로 진입
+    // 상단 안쪽 방: 상단 복도에서 위→아래로 진입
     if (cx > 460) {
-      return [ICT3_ELEV, [ICT3_CORRIDOR_X, ICT3_CORRIDOR_Y], [cx, ICT3_CORRIDOR_Y], [cx, y]]
+      return [ICT_ELEV, [ICT_CORRIDOR_X, ICT_CORRIDOR_Y], [cx, ICT_CORRIDOR_Y], [cx, y]]
     }
-    // 좌측 윙: 좌측 복도에서 가로로 진입
-    const enterX = cx < ICT3_CORRIDOR_X ? x + width : x
-    return [ICT3_ELEV, [ICT3_CORRIDOR_X, cy], [enterX, cy]]
+    // 좌측 윙: 좌측 세로 복도에서 가로로 진입
+    const enterX = cx < ICT_CORRIDOR_X ? x + width : x
+    return [ICT_ELEV, [ICT_CORRIDOR_X, cy], [enterX, cy]]
   }
 
-  // 퇴계기념중앙도서관 2층
-  if (buildingId === 'DKU_LIB' && floor === 2) {
-    const enterY = cy > LIB2_CORRIDOR_Y ? y : y + height
-    return [LIB2_ELEV, [cx, LIB2_CORRIDOR_Y], [cx, enterY]]
+  // 퇴계기념중앙도서관 (전 층)
+  if (buildingId === 'DKU_LIB') {
+    const enterY = cy > LIB_CORRIDOR_Y ? y : y + height
+    return [LIB_ELEV, [cx, LIB_CORRIDOR_Y], [cx, enterY]]
   }
 
   return null
