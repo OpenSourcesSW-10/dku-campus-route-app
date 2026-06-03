@@ -152,6 +152,8 @@ class OutdoorNode(Base):
     longitude: Mapped[float | None] = mapped_column(Float)
     map_x: Mapped[float | None] = mapped_column(Float)
     map_y: Mapped[float | None] = mapped_column(Float)
+    outdoor_level: Mapped[str | None] = mapped_column(String(50))
+    altitude_m: Mapped[float | None] = mapped_column(Float)
     label: Mapped[str | None] = mapped_column(String(100))
     description: Mapped[str | None] = mapped_column(Text)
 
@@ -172,6 +174,7 @@ class OutdoorEdge(Base):
     has_stairs: Mapped[bool] = mapped_column(Boolean, default=False)
     has_slope: Mapped[bool] = mapped_column(Boolean, default=False)
     slope_level: Mapped[int] = mapped_column(Integer, default=0)
+    altitude_gain: Mapped[float | None] = mapped_column(Float)
     complexity_level: Mapped[int] = mapped_column(Integer, default=0)
     accessibility_level: Mapped[int] = mapped_column(Integer, default=0)
     is_shortcut: Mapped[bool] = mapped_column(Boolean, default=False)
@@ -190,6 +193,7 @@ class EntranceLink(Base):
     outdoor_node_id: Mapped[str] = mapped_column(String(80), index=True)
     indoor_node_id: Mapped[str] = mapped_column(String(80), index=True)
     entrance_name: Mapped[str] = mapped_column(String(100))
+    floor_number: Mapped[int | None] = mapped_column(Integer)
     is_main: Mapped[bool] = mapped_column(Boolean, default=False)
 
 

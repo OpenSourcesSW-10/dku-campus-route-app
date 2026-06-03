@@ -122,13 +122,14 @@ def build_route_cost_context(
 def calculate_dynamic_edge_cost(edge: Any, context: RouteCostContext) -> float:
     if getattr(edge, "is_closed", False):
         return BLOCKED_COST
-    if context.accessibility_mode and not getattr(edge, "is_accessible", True):
+    if context.accessibility_mode and (not getattr(edge, "is_accessible", True) or getattr(edge, "has_stairs", False)):
         return BLOCKED_COST
 
     distance = float(getattr(edge, "distance", 0) or 0)
     estimated_time = float(getattr(edge, "estimated_time", 0) or 0)
     slope_level = float(getattr(edge, "slope_level", 0) or 0)
     complexity_level = float(getattr(edge, "complexity_level", 0) or 0)
+    edge_type = str(getattr(edge, "edge_type", "") or "").upper()
 
     cost = max(distance, 0.0) * context.weight_distance
     cost += max(estimated_time, 0.0) * context.weight_time
@@ -150,12 +151,11 @@ def calculate_dynamic_edge_cost(edge: Any, context: RouteCostContext) -> float:
         cost -= context.bonus_covered
     if getattr(edge, "is_elevator", False):
         cost -= context.bonus_elevator
-    if getattr(edge, "is_ramp", False):
+    if getattr(edge, "is_ramp", False) or edge_type == "RAMP":
         cost -= context.bonus_ramp
     if getattr(edge, "is_shortcut", False):
         cost -= context.bonus_shortcut
 
-    edge_type = str(getattr(edge, "edge_type", "") or "").upper()
     if edge_type == "BUILDING_PASSAGE":
         cost -= context.bonus_building_passage
     if edge_type in {"BRIDGE", "COVERED_BRIDGE"}:

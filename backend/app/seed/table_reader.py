@@ -6,9 +6,10 @@ from app.seed.xlsx_reader import read_first_sheet
 
 def find_existing_file(data_dir: Path, filenames: tuple[str, ...]) -> Path | None:
     for filename in filenames:
-        path = data_dir / filename
-        if path.exists():
-            return path
+        for root in (data_dir, data_dir / "csv"):
+            path = root / filename
+            if path.exists():
+                return path
     return None
 
 

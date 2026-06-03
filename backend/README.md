@@ -1,6 +1,6 @@
-# DKU Campus Map Backend - Week 3~6
+# DKU Campus Map Backend - Week 3~7
 
-이 백엔드는 `DKU_Map_W3toW8.docx`의 **3~6주차 백엔드 범위**를 구현한 FastAPI 프로젝트입니다.
+이 백엔드는 `DKU_Map_W3toW8.docx`의 **3~7주차 백엔드 범위**를 구현한 FastAPI 프로젝트입니다.
 
 ## 3주차 범위
 
@@ -46,32 +46,33 @@
 - 검색 실패 응답을 `errorCode`, `message` 형태로 정리
 - 프론트엔드 연동용 API 계약 문서 추가
 
-## 6주차 범위
+## 6~7주차 범위
 
-6주차부터는 정적 cost 컬럼만 선택하는 방식에서 **사용자 옵션 기반 동적 DCF** 구조로 전환했습니다.
+6~7주차에는 ICT관/도서관 실내 그래프와 외부 그래프를 연결해 통합 길찾기가 가능하도록 확장했습니다.
 
-- `DEFAULT`, `COMFORTABLE`, `RAINY` 3가지 경로 타입 정의
-- `avoidStairs`, `avoidSlope`, `preferIndoor`, `rainMode`, `accessibilityMode` 사용자 옵션 추가
-- Dijkstra가 경로 계산 중 각 간선의 비용을 동적으로 계산하도록 수정
-- 기존 `cost_fast`, `cost_comfortable`, `cost_indoor`는 fallback 호환용으로 유지
-- `indoor_nodes.csv` 또는 `indoor_nodes.xlsx` 검증/import 구조 추가
-- `indoor_edges.csv` 또는 `indoor_edges.xlsx` 검증/import 구조 추가
-- `room_nearest_nodes.csv` 또는 `room_nearest_nodes.xlsx`를 통한 강의실-노드 연결 지원
-- 같은 건물 내부에서 `POST /api/routes/indoor` 실내 경로 계산 API 추가
-- 같은 건물 검색어 기반 `POST /api/routes` 3가지 경로 응답 구조 추가
+- `indoor_nodes`, `indoor_edges`, `room_nearest_nodes` 기반 실내 Dijkstra 경로 계산
+- `outdoor_node`, `outdoor_edge`, `entrance_links` 기반 외부 Dijkstra 경로 계산
+- `POST /api/routes` 통합 경로 API 구현
+- 기본 경로, 편한 길, 비 오는 날 경로를 동적 DCF로 계산
+- `has_ramp`를 `has_slope`로 자동 해석
+- `distance_m`이 비어 있으면 외부 노드 `x`, `y` 좌표로 거리 자동 계산
+- 외부 예상 시간 자동 계산
+- 모든 외부 간선은 기본적으로 양방향 이동 가능하도록 처리
+- 출입구가 실제 내부 몇 층 노드와 연결되는지 `entrance_links`와 `indoor_nodes` 기준으로 반영
+- `GET /api/outdoor/map` 외부 지도/노드/간선/출입구 링크 조회 API 추가
+- `/maps/campus-map.png`로 최종 외부 캠퍼스 지도 이미지 제공
+- `외부 구조 설계_최종` 폴더를 통합 import에서 우선 사용
 
 ## 아직 구현하지 않는 범위
 
-- 실외 길찾기 완성
-- 서로 다른 건물 간 통합 `POST /api/routes`
 - JWT 로그인
 - 이메일 인증
 - TMI 제보 API
 - 관리자 승인 API
-- `outdoor_nodes.csv`, `outdoor_edges.csv`, `entrance_links.csv` 기반 실외/실내 연결 그래프 import
-- 건물 출입구, 후문 층수, 구름다리 연결처럼 층수가 바뀌는 연결 정보 반영
+- ICT관/도서관 외 건물의 실내/외부 경로 데이터 확장
+- 실제 측정 기반 `distance_m`, 고도, 비가림 구간 정밀 보정
 
-위 기능들은 문서 기준 5주차 후반~7주차 작업이며, 관련 데이터가 추가되면 백엔드 import/API/경로 계산에 연결합니다.
+위 기능들은 문서 기준 7주차 이후 작업이며, 관련 데이터가 추가되면 백엔드 import/API/경로 계산에 연결합니다.
 
 ## 실행
 
@@ -128,29 +129,21 @@ python tools/import_week4_excel.py "D:\과제\3-2\오픈소스SW기초\#Project\
 현재 DB 자료에는 `room_positions.csv`가 없으므로 실내 지도 API의 `room_positions`는 비어 있을 수 있습니다.
 좌표 파일이 추가되면 같은 방식으로 import 대상에 연결합니다.
 
-## 6주차 동적 DCF 방식
+## 4주차 정적 cost 방식
 
-6주차부터는 edge의 고정 비용만 읽지 않고, 요청 시점의 routeType과 사용자 옵션을 기준으로 비용을 계산합니다.
+8주차 MVP에서는 요청마다 복잡한 DCF를 계산하기보다 edge별 정적 비용을 우선 사용합니다.
 
-지원 routeType:
-
-```text
-DEFAULT: 거리와 예상 시간 중심의 기본 경로
-COMFORTABLE: 계단/경사 비용을 크게 반영하고 엘리베이터/램프를 선호하는 편한 길
-RAINY: 실외/비가림 없는 구간 비용을 크게 반영하는 비 오는 날 경로
-```
-
-요청 옵션:
+`indoor_edges`, `outdoor_edges`에는 아래 비용 컬럼을 사용합니다.
 
 ```text
-avoidStairs
-avoidSlope
-preferIndoor
-rainMode
-accessibilityMode
+cost_fast
+cost_comfortable
+cost_indoor
 ```
 
-기존 `cost_fast`, `cost_comfortable`, `cost_indoor` 컬럼은 과거 데이터와의 호환 및 fallback을 위해 유지합니다.
+경로 계산 시 `FAST`, `COMFORTABLE`, `INDOOR_FOCUSED` routeType에 맞는 cost 컬럼을 선택합니다.
+기존 `distance`, `has_stairs`, `has_slope`, `is_covered`, `is_indoor` 같은 속성은 유지하며,
+CSV에 cost 값이 없으면 백엔드가 기본 추정값을 계산할 수 있게 준비했습니다.
 
 ## 4주차 확인 결과
 
@@ -221,57 +214,33 @@ GET /api/rooms/search?keyword=ICT401
 GET /api/buildings/DKU_ICT/floors/4/indoor-map
 ```
 
-## 6주차 indoor graph 검증/import
+## 7주차 외부 그래프 검증/import
 
-실내 경로 계산을 위해 아래 파일을 받으면 검증하고 DB에 넣을 수 있습니다.
+최종 외부 구조 자료는 아래 폴더를 우선 사용합니다.
+
+```text
+D:\과제\3-2\오픈소스SW기초\#Project\DB\외부 구조 설계_최종
+```
 
 필요 파일:
 
 ```text
-indoor_nodes.csv 또는 indoor_nodes.xlsx
-indoor_edges.csv 또는 indoor_edges.xlsx
+outdoor_node.csv 또는 outdoor_node.xlsx
+outdoor_edge.csv 또는 outdoor_edge.xlsx
+entrance_links.csv 또는 entrance_links.xlsx
 ```
 
-권장 파일:
-
-```text
-room_nearest_nodes.csv 또는 room_nearest_nodes.xlsx
-```
-
-검증:
+통합 import:
 
 ```powershell
 cd backend
-python tools/validate_week6_indoor_graph.py "D:\과제\3-2\오픈소스SW기초\#Project\DB"
+python tools/import_available_week7_data.py "D:\과제\3-2\오픈소스SW기초\#Project\DB" --replace
 ```
 
-DB import:
-
-```powershell
-cd backend
-python tools/import_week6_indoor_graph.py "D:\과제\3-2\오픈소스SW기초\#Project\DB" --replace
-```
-
-실내 경로 API:
+7주차 API 확인:
 
 ```text
-POST /api/routes/indoor
+GET /api/outdoor/map
 POST /api/routes
-```
-
-요청 예시:
-
-```json
-{
-  "start": "ICT401",
-  "destination": "ICT305",
-  "routeTypes": ["DEFAULT", "COMFORTABLE", "RAINY"],
-  "preferences": {
-    "avoidStairs": false,
-    "avoidSlope": false,
-    "preferIndoor": false,
-    "accessibilityMode": false,
-    "rainMode": false
-  }
-}
+GET /maps/campus-map.png
 ```

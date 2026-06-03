@@ -49,9 +49,15 @@ def ensure_sqlite_schema() -> None:
         "outdoor_nodes": {
             "map_x": "FLOAT",
             "map_y": "FLOAT",
+            "outdoor_level": "VARCHAR(50)",
+            "altitude_m": "FLOAT",
         },
         "outdoor_edges": {
             "is_bidirectional": "BOOLEAN DEFAULT 1",
+            "altitude_gain": "FLOAT",
+        },
+        "entrance_links": {
+            "floor_number": "INTEGER",
         },
     }
 

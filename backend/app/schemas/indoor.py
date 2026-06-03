@@ -31,6 +31,7 @@ class IndoorRoomResponse(OrmModel):
 class IndoorNodeResponse(OrmModel):
     # 실내 경로 계산과 표시 기준점이다.
     indoor_node_id: str
+    floor_number: int
     node_type: str
     x: float
     y: float
@@ -44,7 +45,7 @@ class IndoorEdgeResponse(OrmModel):
     indoor_edge_id: str
     from_node_id: str
     to_node_id: str
-    is_bidirectional: bool = True
+    is_bidirectional: bool
     distance: float
     estimated_time: float
     edge_type: str

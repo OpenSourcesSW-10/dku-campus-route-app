@@ -14,7 +14,7 @@ class RouteRequest(BaseModel):
     # 6주차 통합 길찾기 API에서 받을 요청 본문 초안이다.
     start: str
     destination: str
-    routeTypes: list[str] = ["DEFAULT", "COMFORTABLE", "RAINY"]
+    routeTypes: list[str] = Field(default_factory=lambda: ["DEFAULT", "COMFORTABLE", "RAINY"])
     preferences: RoutePreferences = Field(default_factory=RoutePreferences)
 
 
@@ -50,9 +50,9 @@ class RouteSegmentResponse(BaseModel):
     buildingId: str | None = None
     floorNumber: int | None = None
     indoorMapId: str | None = None
-    nodeIds: list[str] = []
-    edgeIds: list[str] = []
-    pathPoints: list[RoutePoint] = []
+    nodeIds: list[str] = Field(default_factory=list)
+    edgeIds: list[str] = Field(default_factory=list)
+    pathPoints: list[RoutePoint] = Field(default_factory=list)
 
 
 class RouteDetailResponse(BaseModel):
