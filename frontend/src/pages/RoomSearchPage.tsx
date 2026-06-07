@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import { mapAssetUrl, searchRoom, type RoomSearchResult } from "../api/backend";
 
