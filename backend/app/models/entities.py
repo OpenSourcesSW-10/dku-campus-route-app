@@ -5,7 +5,7 @@ from app.database import Base
 
 
 class Building(Base):
-    # 캠퍼스 건물의 기본 정보와 대표 위치를 저장한다.
+    # 캠퍼스 건물의 기본 정보와 대표 위치 저장.
     __tablename__ = "buildings"
 
     building_id: Mapped[str] = mapped_column(String(50), primary_key=True)
@@ -22,7 +22,7 @@ class Building(Base):
 
 
 class BuildingAlias(Base):
-    # "소프트", "ICT" 같은 검색용 건물 별칭을 저장한다.
+    # "소프트", "ICT" 같은 검색용 건물 별칭 저장.
     __tablename__ = "building_aliases"
 
     alias_id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
@@ -33,8 +33,47 @@ class BuildingAlias(Base):
     building: Mapped[Building] = relationship(back_populates="aliases")
 
 
+class EdgeType(Base):
+    # 실내/외 간선 edge_type의 표시명과 의미 저장.
+    __tablename__ = "edge_types"
+
+    edge_type: Mapped[str] = mapped_column(String(50), primary_key=True)
+    display_name: Mapped[str] = mapped_column(String(100))
+    description: Mapped[str | None] = mapped_column(Text)
+
+
+class IndoorNodeType(Base):
+    # 실내 노드 node_type의 표시명과 의미 저장.
+    __tablename__ = "indoor_node_types"
+
+    node_type: Mapped[str] = mapped_column(String(50), primary_key=True)
+    display_name: Mapped[str] = mapped_column(String(100))
+    description: Mapped[str | None] = mapped_column(Text)
+
+
+class RoomCategory(Base):
+    # 강의실/공간 room_type의 표시명과 의미 저장.
+    __tablename__ = "room_categories"
+
+    room_type: Mapped[str] = mapped_column(String(50), primary_key=True)
+    display_name: Mapped[str] = mapped_column(String(100))
+    description: Mapped[str | None] = mapped_column(Text)
+
+
+class EntranceMaster(Base):
+    # 건물별 출입구 기본 목록 저장. 실제 경로 연결은 entrance_links가 담당.
+    __tablename__ = "entrance_master"
+
+    entrance_id: Mapped[str] = mapped_column(String(80), primary_key=True)
+    building_id: Mapped[str] = mapped_column(ForeignKey("buildings.building_id"), index=True)
+    floor_number: Mapped[int] = mapped_column(Integer, index=True)
+    entrance_name: Mapped[str] = mapped_column(String(100))
+    entrance_type: Mapped[str] = mapped_column(String(50), index=True)
+    description: Mapped[str | None] = mapped_column(Text)
+
+
 class IndoorMap(Base):
-    # 건물별/층별 실내 지도 파일과 기준 좌표계를 저장한다.
+    # 건물별/층별 실내 지도 파일과 기준 좌표계 저장.
     __tablename__ = "indoor_maps"
 
     indoor_map_id: Mapped[str] = mapped_column(String(80), primary_key=True)
@@ -57,7 +96,7 @@ class IndoorMap(Base):
 
 
 class Room(Base):
-    # 강의실의 건물, 층, 호실, 가까운 실내 노드 정보를 저장한다.
+    # 강의실의 건물, 층, 호실, 가까운 실내 노드 정보 저장.
     __tablename__ = "rooms"
 
     room_id: Mapped[str] = mapped_column(String(80), primary_key=True)
@@ -76,7 +115,7 @@ class Room(Base):
 
 
 class RoomPosition(Base):
-    # 실내 지도 위에서 강의실을 하이라이트할 좌표를 저장한다.
+    # 실내 지도 위에서 강의실을 하이라이트할 좌표 저장.
     __tablename__ = "room_positions"
 
     position_id: Mapped[str] = mapped_column(String(80), primary_key=True)
@@ -95,7 +134,7 @@ class RoomPosition(Base):
 
 
 class IndoorNode(Base):
-    # 실내 경로 계산에 사용할 출입구, 복도, 계단, 엘리베이터 기준점이다.
+    # 실내 경로 계산에 사용할 출입구, 복도, 계단, 엘리베이터 기준점.
     __tablename__ = "indoor_nodes"
 
     indoor_node_id: Mapped[str] = mapped_column(String(80), primary_key=True)
@@ -113,7 +152,7 @@ class IndoorNode(Base):
 
 
 class IndoorEdge(Base):
-    # 실내 노드 사이의 연결선과 경로 비용 계산 속성을 저장한다.
+    # 실내 노드 사이의 연결선과 경로 비용 계산 속성 저장.
     __tablename__ = "indoor_edges"
 
     indoor_edge_id: Mapped[str] = mapped_column(String(80), primary_key=True)
@@ -142,7 +181,7 @@ class IndoorEdge(Base):
 
 
 class OutdoorNode(Base):
-    # 캠퍼스 외부 길찾기에 사용할 건물 입구와 보행로 기준점이다.
+    # 캠퍼스 외부 길찾기에 사용할 건물 입구와 보행로 기준점.
     __tablename__ = "outdoor_nodes"
 
     outdoor_node_id: Mapped[str] = mapped_column(String(80), primary_key=True)
@@ -159,7 +198,7 @@ class OutdoorNode(Base):
 
 
 class OutdoorEdge(Base):
-    # 실외 노드 사이의 연결선과 DCF 속성을 저장한다.
+    # 실외 노드 사이의 연결선과 DCF 속성 저장.
     __tablename__ = "outdoor_edges"
 
     outdoor_edge_id: Mapped[str] = mapped_column(String(80), primary_key=True)
@@ -181,11 +220,12 @@ class OutdoorEdge(Base):
     cost_fast: Mapped[float] = mapped_column(Float, default=1.0)
     cost_comfortable: Mapped[float] = mapped_column(Float, default=1.0)
     cost_indoor: Mapped[float] = mapped_column(Float, default=1.0)
+    polyline_points: Mapped[str | None] = mapped_column(Text)
     description: Mapped[str | None] = mapped_column(Text)
 
 
 class EntranceLink(Base):
-    # 실외 입구 노드와 실내 출입구 노드를 연결한다.
+    # 실외 입구 노드와 실내 출입구 노드 연결.
     __tablename__ = "entrance_links"
 
     link_id: Mapped[str] = mapped_column(String(80), primary_key=True)
@@ -198,7 +238,7 @@ class EntranceLink(Base):
 
 
 class User(Base):
-    # 추후 로그인과 제보 권한에 사용할 사용자 계정이다.
+    # 추후 로그인과 제보 권한에 사용할 사용자 계정.
     __tablename__ = "users"
 
     user_id: Mapped[str] = mapped_column(String(80), primary_key=True)
@@ -211,7 +251,7 @@ class User(Base):
 
 
 class EmailVerification(Base):
-    # 단국대 이메일 인증 코드의 해시와 만료 시간을 저장한다.
+    # 단국대 이메일 인증 코드의 해시와 만료 시간 저장.
     __tablename__ = "email_verifications"
 
     verification_id: Mapped[str] = mapped_column(String(80), primary_key=True)
@@ -223,7 +263,7 @@ class EmailVerification(Base):
 
 
 class TmiLocation(Base):
-    # 지도 위에 표시될 TMI 마커의 위치와 승인 상태를 저장한다.
+    # 지도 위에 표시될 TMI 마커의 위치와 승인 상태 저장.
     __tablename__ = "tmi_locations"
 
     tmi_location_id: Mapped[str] = mapped_column(String(80), primary_key=True)
@@ -245,7 +285,7 @@ class TmiLocation(Base):
 
 
 class Report(Base):
-    # 강의실 정보나 TMI에 대한 사용자 제보 내용을 저장한다.
+    # 강의실 정보나 TMI에 대한 사용자 제보 내용 저장.
     __tablename__ = "reports"
 
     report_id: Mapped[str] = mapped_column(String(80), primary_key=True)
@@ -265,7 +305,7 @@ class Report(Base):
 
 
 class RouteWeightProfile(Base):
-    # 빠른 길, 편한 길, 실내 위주별 DCF 가중치를 저장한다.
+    # 빠른 길, 편한 길, 실내 위주별 DCF 가중치 저장.
     __tablename__ = "route_weight_profiles"
 
     profile_id: Mapped[str] = mapped_column(String(80), primary_key=True)

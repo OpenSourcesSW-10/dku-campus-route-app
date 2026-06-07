@@ -5,7 +5,7 @@ from app.schemas.indoor import RoomPositionResponse
 
 
 class IndoorMapSummary(BaseModel):
-    # 강의실 검색 결과에서 필요한 실내 지도 요약 정보이다.
+    # 강의실 검색 결과에서 필요한 실내 지도 요약 정보.
     indoorMapId: str
     mapFileUrl: str
     canvasWidth: int
@@ -13,7 +13,7 @@ class IndoorMapSummary(BaseModel):
 
 
 class RoomResponse(OrmModel):
-    # 일반 강의실 데이터 응답이다.
+    # 일반 강의실 데이터 응답.
     room_id: str
     building_id: str
     indoor_map_id: str
@@ -26,7 +26,7 @@ class RoomResponse(OrmModel):
 
 
 class RoomSearchResponse(BaseModel):
-    # 검색어 하나를 실내 지도 하이라이트까지 연결한 응답이다.
+    # 검색어 하나를 실내 지도 하이라이트까지 연결한 응답.
     type: str = "ROOM"
     roomId: str
     roomCode: str

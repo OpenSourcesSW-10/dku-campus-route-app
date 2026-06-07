@@ -2,7 +2,7 @@ from app.schemas.common import OrmModel
 
 
 class RoomPositionResponse(OrmModel):
-    # 실내 지도 위 강의실 하이라이트 좌표이다.
+    # 실내 지도 위 강의실 하이라이트 좌표.
     position_id: str
     room_id: str
     indoor_map_id: str
@@ -16,7 +16,7 @@ class RoomPositionResponse(OrmModel):
 
 
 class IndoorRoomResponse(OrmModel):
-    # 실내 지도 화면에서 방 목록과 좌표를 연결할 때 쓰는 강의실 요약 정보이다.
+    # 실내 지도 화면에서 방 목록과 좌표를 연결할 때 쓰는 강의실 요약 정보.
     room_id: str
     building_id: str
     indoor_map_id: str
@@ -29,7 +29,7 @@ class IndoorRoomResponse(OrmModel):
 
 
 class IndoorNodeResponse(OrmModel):
-    # 실내 경로 계산과 표시 기준점이다.
+    # 실내 경로 계산과 표시 기준점.
     indoor_node_id: str
     floor_number: int
     node_type: str
@@ -41,7 +41,7 @@ class IndoorNodeResponse(OrmModel):
 
 
 class IndoorEdgeResponse(OrmModel):
-    # 실내 노드 사이 연결선과 비용 계산 속성이다.
+    # 실내 노드 사이 연결선과 비용 계산 속성.
     indoor_edge_id: str
     from_node_id: str
     to_node_id: str
@@ -65,7 +65,7 @@ class IndoorEdgeResponse(OrmModel):
 
 
 class IndoorMapResponse(OrmModel):
-    # 한 층의 지도 파일, 강의실 좌표, 실내 그래프 데이터를 묶은 응답이다.
+    # 한 층의 지도 파일, 강의실 좌표, 실내 그래프 데이터를 묶은 응답.
     indoor_map_id: str
     building_id: str
     floor_number: int

@@ -20,11 +20,11 @@ def seed_database(db: Session) -> None:
     The pilot verifies this flow:
     소프트305 -> SOFT_ICT -> 3F indoor map -> room position highlight.
     """
-    # 이미 데이터가 있으면 중복 입력을 막기 위해 seed를 건너뛴다.
+    # 이미 데이터가 있으면 중복 입력 방지를 위해 seed 건너뜀.
     if db.query(Building).first():
         return
 
-    # 3주차 검증에 필요한 대표 건물과 출발지 샘플을 만든다.
+    # 3주차 검증에 필요한 대표 건물과 출발지 샘플 생성.
     soft = Building(
         building_id="SOFT_ICT",
         name="소프트웨어 ICT관",
@@ -45,7 +45,7 @@ def seed_database(db: Session) -> None:
     )
     db.add_all([soft, library])
 
-    # resolver.py가 건물 약칭을 정식 건물로 찾을 수 있게 별칭을 넣는다.
+    # resolver.py가 건물 약칭을 정식 건물로 찾을 수 있게 별칭 삽입.
     db.add_all(
         [
             BuildingAlias(building_id="SOFT_ICT", alias="소프트", priority=1),
@@ -70,7 +70,7 @@ def seed_database(db: Session) -> None:
     )
     db.add(indoor_map)
 
-    # 소프트305 검색 결과에 연결될 강의실과 지도 좌표이다.
+    # 소프트305 검색 결과에 연결될 강의실과 지도 좌표.
     room = Room(
         room_id="ROOM_SOFT_ICT_305",
         building_id="SOFT_ICT",
@@ -100,7 +100,7 @@ def seed_database(db: Session) -> None:
 
     db.add_all(
         [
-            # 실내 경로선 검증을 위한 최소 노드 샘플이다.
+            # 실내 경로선 검증을 위한 최소 노드 샘플.
             IndoorNode(
                 indoor_node_id="SOFT_ICT_3F_ENTRANCE_01",
                 building_id="SOFT_ICT",
@@ -124,7 +124,7 @@ def seed_database(db: Session) -> None:
         ]
     )
     db.add(
-        # 5주차 실내 Dijkstra 구현 전까지 구조 검증용으로 쓰는 간선이다.
+        # 5주차 실내 Dijkstra 구현 전까지 구조 검증용 간선.
         IndoorEdge(
             indoor_edge_id="IN_EDGE_SOFT_ICT_3F_001",
             indoor_map_id="MAP_SOFT_ICT_3F",
@@ -144,7 +144,7 @@ def seed_database(db: Session) -> None:
     )
 
     db.add(
-        # 실외-실내 연결을 위한 대표 입구 노드 샘플이다.
+        # 실외-실내 연결을 위한 대표 입구 노드 샘플.
         OutdoorNode(
             outdoor_node_id="OUT_SOFT_ICT_ENTRANCE_MAIN",
             node_type="BUILDING_ENTRANCE",
@@ -155,7 +155,7 @@ def seed_database(db: Session) -> None:
         )
     )
     db.add(
-        # 실외 입구와 실내 출입구를 연결하는 샘플 링크이다.
+        # 실외 입구와 실내 출입구를 연결하는 샘플 링크.
         EntranceLink(
             link_id="LINK_SOFT_ICT_MAIN_3F",
             building_id="SOFT_ICT",
@@ -168,7 +168,7 @@ def seed_database(db: Session) -> None:
 
     db.add_all(
         [
-            # 6주차 동적 DCF 옵션 계산에 사용할 기본 가중치 프로필이다.
+            # 6주차 동적 DCF 옵션 계산에 사용할 기본 가중치 프로필.
             RouteWeightProfile(profile_id="WEIGHT_DEFAULT", route_type="DEFAULT", weight_distance=1.0, weight_time=1.2),
             RouteWeightProfile(profile_id="WEIGHT_COMFORTABLE", route_type="COMFORTABLE", weight_distance=1.0, weight_time=1.0, penalty_stairs=80),
             RouteWeightProfile(profile_id="WEIGHT_RAINY", route_type="RAINY", weight_distance=1.0, weight_time=1.0, penalty_outdoor=60, bonus_indoor=30),

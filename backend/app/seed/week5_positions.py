@@ -11,7 +11,7 @@ POSITION_FILES = ("room_positions.csv", "room_positions.xlsx", "rooms_positions.
 
 @dataclass
 class Week5PositionReport:
-    # 5주차 강의실 좌표 데이터 검증/import 결과를 담는다.
+    # 5주차 강의실 좌표 데이터 검증/import 결과 보관.
     stats: dict[str, int] = field(default_factory=dict)
     errors: list[str] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
@@ -22,7 +22,7 @@ class Week5PositionReport:
 
 
 def load_room_positions(data_dir: Path) -> list[dict[str, str]]:
-    # room_positions/rooms_positions CSV 또는 XLSX를 읽어 dict row 목록으로 반환한다.
+    # room_positions/rooms_positions CSV 또는 XLSX를 읽어 dict row 목록 반환.
     path = _find_existing_file(data_dir, POSITION_FILES)
     if path is None:
         candidates = ", ".join(str(data_dir / filename) for filename in POSITION_FILES)
@@ -31,7 +31,7 @@ def load_room_positions(data_dir: Path) -> list[dict[str, str]]:
 
 
 def validate_room_positions(db: Any, data_dir: Path) -> Week5PositionReport:
-    # 좌표 파일의 필수 컬럼, 숫자 좌표, Room/IndoorMap 연결 상태를 검증한다.
+    # 좌표 파일의 필수 컬럼, 숫자 좌표, Room/IndoorMap 연결 상태 검증.
     from app.models import IndoorMap, Room
 
     report = Week5PositionReport()
@@ -96,7 +96,7 @@ def validate_room_positions(db: Any, data_dir: Path) -> Week5PositionReport:
 
 
 def import_room_positions(db: Any, data_dir: Path, replace: bool = False) -> Week5PositionReport:
-    # 검증을 통과한 강의실 좌표를 RoomPosition 테이블에 저장한다.
+    # 검증을 통과한 강의실 좌표를 RoomPosition 테이블에 저장.
     from app.models import Room, RoomPosition
 
     report = validate_room_positions(db, data_dir)

@@ -28,7 +28,7 @@ python tools/start_server.py
 ## 필수 환경변수
 
 ```env
-DATABASE_URL=sqlite:///./week7_backend.db
+DATABASE_URL=sqlite:///./week8_backend.db
 FRONTEND_ORIGINS=https://tmimvp.vercel.app,http://tmimvp.vercel.app,http://localhost:5173,http://127.0.0.1:5173
 DEPLOYMENT_DATA_ROOT=data/week7
 IMPORT_DATA_ON_START=true
@@ -39,6 +39,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES=60
 EMAIL_VERIFICATION_EXPIRE_MINUTES=10
 ENFORCE_DANKOOK_EMAIL=true
 EMAIL_DELIVERY_MODE=console
+ADMIN_EMAILS=관리자이메일@dankook.ac.kr
 ```
 
 SMTP로 실제 이메일을 보내려면 Render 환경변수에 아래 값을 추가하고 `EMAIL_DELIVERY_MODE=smtp`로 바꾼다.
@@ -83,6 +84,15 @@ POST /api/auth/login
 POST /api/auth/email/request
 POST /api/auth/email/verify
 GET /api/auth/me
+GET /api/tmi
+POST /api/tmi
+GET /api/tmi/admin/list
+PATCH /api/tmi/admin/{tmiLocationId}/status
+GET /api/reports/approved
+POST /api/reports
+GET /api/reports/admin/list
+PATCH /api/reports/admin/{reportId}/status
+GET /api/status/week8-readiness
 ```
 
 ## 주의사항

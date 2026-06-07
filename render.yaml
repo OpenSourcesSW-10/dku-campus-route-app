@@ -8,9 +8,9 @@ services:
     startCommand: python tools/start_server.py
     envVars:
       - key: APP_NAME
-        value: DKU Campus Map API
+        value: DKU Campus Map Week 8 Final API
       - key: DATABASE_URL
-        value: sqlite:///./week7_backend.db
+        value: sqlite:///./week8_backend.db
       - key: DEBUG
         value: false
       - key: FRONTEND_ORIGINS
@@ -31,6 +31,8 @@ services:
         value: true
       - key: EMAIL_DELIVERY_MODE
         value: console
+      - key: ADMIN_EMAILS
+        sync: false
       - key: SMTP_HOST
         sync: false
       - key: SMTP_PORT

@@ -1,9 +1,10 @@
 """
-Dynamic DCF for week 6 routing.
+Dynamic Cost Function for campus routing.
 
-The database stores edge attributes such as distance, stairs, slope, indoor
-status, and covered status. The backend calculates the actual routing cost at
-request time from the selected route type and user preferences.
+DB에는 거리, 계단, 경사, 비가림 여부처럼 사실 데이터만 저장.
+사용자가 선택한 경로 타입에 따라 실제 비용은 요청 시점에 계산함.
+이 구조를 유지하면 같은 그래프 자료로 기본 경로, 편한 길, 비 오는 날 경로를
+서로 다른 기준으로 계산 가능.
 """
 
 from dataclasses import dataclass
@@ -60,6 +61,7 @@ STATIC_COST_FIELDS = {
 
 
 DEFAULT_CONTEXTS = {
+    # 기본 경로: 거리와 시간 우선, 계단/경사도 완전히 무시하지 않음.
     "DEFAULT": RouteCostContext(
         route_type="DEFAULT",
         weight_distance=1.0,
@@ -70,6 +72,7 @@ DEFAULT_CONTEXTS = {
         penalty_uncovered=2.0,
         penalty_outdoor=0.0,
     ),
+    # 편한 길: 조금 돌아가더라도 계단과 경사 비용을 크게 반영함.
     "COMFORTABLE": RouteCostContext(
         route_type="COMFORTABLE",
         weight_distance=1.0,
@@ -83,6 +86,7 @@ DEFAULT_CONTEXTS = {
         bonus_ramp=20.0,
         bonus_shortcut=8.0,
     ),
+    # 비 오는 날 경로: 지붕/건물 내부/구름다리처럼 비를 피할 수 있는 간선 선호.
     "RAINY": RouteCostContext(
         route_type="RAINY",
         weight_distance=1.0,
@@ -111,6 +115,8 @@ def build_route_cost_context(
     preferences: Any | None = None,
     weights: Any | None = None,
 ) -> RouteCostContext:
+    # 기본 profile 복사 후 관리자/사용자 설정으로 덮어씀.
+    # 전역 DEFAULT_CONTEXTS 객체 직접 수정 방지를 위해 새 context 생성.
     normalized = normalize_route_type(route_type)
     base = DEFAULT_CONTEXTS[normalized]
     context = RouteCostContext(**base.__dict__)
@@ -120,6 +126,7 @@ def build_route_cost_context(
 
 
 def calculate_dynamic_edge_cost(edge: Any, context: RouteCostContext) -> float:
+    # 닫힌 길/접근성 모드에서 사용할 수 없는 길은 그래프 탐색 제외용 큰 비용 반환.
     if getattr(edge, "is_closed", False):
         return BLOCKED_COST
     if context.accessibility_mode and (not getattr(edge, "is_accessible", True) or getattr(edge, "has_stairs", False)):
@@ -131,6 +138,7 @@ def calculate_dynamic_edge_cost(edge: Any, context: RouteCostContext) -> float:
     complexity_level = float(getattr(edge, "complexity_level", 0) or 0)
     edge_type = str(getattr(edge, "edge_type", "") or "").upper()
 
+    # 비용은 실제 거리/시간 기반으로 시작, 이후 길 성격에 따라 penalty/bonus 조정.
     cost = max(distance, 0.0) * context.weight_distance
     cost += max(estimated_time, 0.0) * context.weight_time
     cost += complexity_level * context.penalty_complexity
@@ -166,7 +174,7 @@ def calculate_dynamic_edge_cost(edge: Any, context: RouteCostContext) -> float:
 
 
 def get_static_edge_cost(edge: Any, route_type: str = "DEFAULT") -> float:
-    # 기존 정적 DCF 컬럼은 fallback과 과거 데이터 호환을 위해 남긴다.
+    # 기존 정적 DCF 컬럼은 fallback과 과거 데이터 호환용으로 유지.
     field_name = STATIC_COST_FIELDS.get(normalize_route_type(route_type), "cost_fast")
     cost = getattr(edge, field_name, None)
     if cost is None or cost <= 0:
@@ -180,12 +188,13 @@ def estimate_static_edge_cost(edge: Any, route_type: str = "DEFAULT") -> float:
 
 
 def calculate_edge_cost(edge: Any, weights: Any, preferences: dict | None = None) -> float:
-    # 3~5주차 코드와의 호환용 wrapper이다.
+    # 3~5주차 코드와의 호환용 wrapper.
     context = build_route_cost_context(getattr(weights, "route_type", "DEFAULT"), preferences, weights)
     return calculate_dynamic_edge_cost(edge, context)
 
 
 def _apply_weight_profile(context: RouteCostContext, weights: Any | None) -> None:
+    # RouteWeightProfile 같은 DB 기반 profile 입력 시 기본 DCF 가중치 교체.
     if weights is None:
         return
     for field_name in (
@@ -210,6 +219,7 @@ def _apply_weight_profile(context: RouteCostContext, weights: Any | None) -> Non
 
 
 def _apply_preferences(context: RouteCostContext, preferences: Any | None) -> None:
+    # API 요청의 개인 선호 옵션은 route type보다 더 구체적인 조건으로 반영.
     if preferences is None:
         return
     context.avoid_stairs = _pref(preferences, "avoidStairs", context.avoid_stairs)
@@ -220,6 +230,7 @@ def _apply_preferences(context: RouteCostContext, preferences: Any | None) -> No
 
 
 def _preference_penalty(edge: Any, context: RouteCostContext) -> float:
+    # 사용자가 명시적으로 피하고 싶은 조건은 route type 기본값보다 더 강한 벌점 적용.
     penalty = 0.0
     if context.avoid_stairs and getattr(edge, "has_stairs", False):
         penalty += 1000.0

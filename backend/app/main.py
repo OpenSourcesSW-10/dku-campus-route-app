@@ -6,15 +6,16 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
 from app.database import Base, SessionLocal, engine, ensure_sqlite_schema
-from app.routers import auth, buildings, indoor, outdoor, rooms, routes
+from app.routers import auth, buildings, indoor, outdoor, reference, reports, rooms, routes, status, tmi
+from app.seed.available_data import import_available_week8_data, raise_for_failed_reports
 from app.seed.sample_data import seed_database
 
 
 def create_app() -> FastAPI:
-    # FastAPI 앱을 만들고 프론트엔드 연동용 API 라우터를 연결한다.
+    # FastAPI 앱 생성 및 프론트엔드 연동용 API 라우터 연결.
     app = FastAPI(title=settings.app_name, debug=settings.debug)
 
-    # 프론트엔드 개발 서버와 연동할 수 있도록 CORS를 열어둔다.
+    # 프론트엔드 개발 서버와 연동할 수 있도록 CORS 허용.
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.frontend_origin_list,
@@ -28,26 +29,29 @@ def create_app() -> FastAPI:
     app.include_router(rooms.router)
     app.include_router(indoor.router)
     app.include_router(outdoor.router)
+    app.include_router(reference.router)
     app.include_router(routes.router)
+    app.include_router(tmi.router)
+    app.include_router(reports.router)
+    app.include_router(status.router)
 
     @app.on_event("startup")
     def on_startup() -> None:
-        # 서버 시작 시 테이블을 만들고, 비어 있으면 파일럿 데이터를 넣는다.
+        # 서버 시작 시 테이블 생성. 제출/배포 설정이면 실제 week7 데이터, 로컬 기본값이면 파일럿 seed 사용.
         Base.metadata.create_all(bind=engine)
         ensure_sqlite_schema()
-        db = SessionLocal()
-        try:
-            seed_database(db)
-        finally:
-            db.close()
+        if settings.import_data_on_start:
+            _import_deployment_data()
+        else:
+            _seed_pilot_data()
 
     @app.get("/")
     def health_check():
-        return {"message": "DKU Campus Map Week 7 API is running"}
+        return {"message": "DKU Campus Map Week 8 Final API is running"}
 
     @app.get("/maps/{map_file_name}")
     def get_map_asset(map_file_name: str):
-        # 프론트는 DB 응답의 map_file_url 값을 그대로 사용해 지도 파일을 요청한다.
+        # 프론트는 DB 응답의 map_file_url 값을 그대로 사용해 지도 파일 요청.
         path = _find_map_asset(map_file_name)
         if path is None:
             raise HTTPException(status_code=404, detail={"errorCode": "MAP_ASSET_NOT_FOUND", "message": "지도 파일을 찾을 수 없습니다."})
@@ -57,6 +61,28 @@ def create_app() -> FastAPI:
 
 
 app = create_app()
+
+
+def _seed_pilot_data() -> None:
+    db = SessionLocal()
+    try:
+        seed_database(db)
+    finally:
+        db.close()
+
+
+def _import_deployment_data() -> None:
+    backend_root = Path(__file__).resolve().parents[1]
+    data_root = _resolve_data_root(backend_root)
+    db = SessionLocal()
+    try:
+        reports = import_available_week8_data(db, data_root, replace=False)
+        raise_for_failed_reports(reports)
+    except Exception as exc:
+        db.rollback()
+        raise RuntimeError(f"Failed to import deployment data from {data_root}") from exc
+    finally:
+        db.close()
 
 
 def _find_map_asset(map_file_name: str) -> Path | None:

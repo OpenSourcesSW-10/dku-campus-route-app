@@ -1,3 +1,9 @@
+"""
+Room search API.
+
+사용자가 입력한 자연스러운 검색어를 건물, 층, 호실, 실내 지도 좌표로 해석.
+"""
+
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
@@ -20,7 +26,7 @@ ERROR_MESSAGES = {
 
 @router.get("/search", response_model=RoomSearchResponse)
 def search_room(keyword: str = Query(...), db: Session = Depends(get_db)):
-    # "소프트305" 같은 입력을 강의실 검색 결과로 변환한다.
+    # "소프트305" 같은 입력을 강의실 검색 결과로 변환.
     result = resolve_room_keyword(db, keyword)
     if result.error_code:
         raise HTTPException(

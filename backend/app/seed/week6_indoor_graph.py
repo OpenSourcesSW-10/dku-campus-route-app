@@ -1,3 +1,10 @@
+"""
+Import and validate indoor graph data.
+
+DB 담당자가 만든 indoor_nodes, indoor_edges, room_nearest_nodes 자료 정규화.
+경로 계산 전에 치명적인 연결 오류 차단.
+"""
+
 from dataclasses import dataclass, field
 from math import hypot
 from pathlib import Path
@@ -51,6 +58,8 @@ def load_week6_indoor_graph(data_dir: Path) -> dict[str, list[dict[str, str]]]:
 def validate_week6_indoor_graph(db: Any, data_dir: Path) -> Week6IndoorGraphReport:
     from app.models import Building, IndoorMap, Room
 
+    # import 전에 가능한 오류를 모두 모아 report로 반환.
+    # 첫 오류에서 중단하지 않아야 DB 담당자가 한 번에 수정 가능.
     report = Week6IndoorGraphReport()
     data = load_week6_indoor_graph(data_dir)
     _enrich_indoor_graph_rows(db, data, report)
@@ -62,8 +71,10 @@ def validate_week6_indoor_graph(db: Any, data_dir: Path) -> Week6IndoorGraphRepo
 
     building_ids = {building_id for (building_id,) in db.query(Building.building_id).all()}
     indoor_map_ids = {map_id for (map_id,) in db.query(IndoorMap.indoor_map_id).all()}
-    room_ids = {room_id for (room_id,) in db.query(Room.room_id).all()}
+    room_by_id = {room.room_id: room for room in db.query(Room).all()}
+    room_ids = set(room_by_id)
     node_ids = {row.get("indoor_node_id", "") for row in data["indoor_nodes"]}
+    node_by_id = {row.get("indoor_node_id", ""): row for row in data["indoor_nodes"]}
 
     for duplicate in _duplicates(row.get("indoor_node_id", "") for row in data["indoor_nodes"]):
         report.errors.append(f"Duplicate indoor_node_id: {duplicate}")
@@ -77,10 +88,25 @@ def validate_week6_indoor_graph(db: Any, data_dir: Path) -> Week6IndoorGraphRepo
             report.errors.append(f"Indoor node references unknown indoor_map_id: {row.get('indoor_node_id')} -> {row.get('indoor_map_id')}")
 
     for row in data["indoor_edges"]:
-        if row.get("from_node_id") not in node_ids:
+        from_node = node_by_id.get(row.get("from_node_id", ""))
+        to_node = node_by_id.get(row.get("to_node_id", ""))
+        if not from_node:
             report.errors.append(f"Indoor edge has unknown from_node_id: {row.get('indoor_edge_id')} -> {row.get('from_node_id')}")
-        if row.get("to_node_id") not in node_ids:
+        if not to_node:
             report.errors.append(f"Indoor edge has unknown to_node_id: {row.get('indoor_edge_id')} -> {row.get('to_node_id')}")
+        if not from_node or not to_node:
+            continue
+        if from_node.get("building_id") != to_node.get("building_id"):
+            # 실내 간선이 서로 다른 건물을 직접 연결하면 출입구/외부 그래프 우회 발생. 허용하지 않음.
+            report.errors.append(f"Indoor edge connects different buildings: {row.get('indoor_edge_id')}")
+        from_floor = int_value(from_node.get("floor_number"))
+        to_floor = int_value(to_node.get("floor_number"))
+        edge_type = str(row.get("edge_type", "")).strip().lower()
+        if from_floor != to_floor and edge_type not in {"stair", "stairs", "elevator", "ramp", "vertical"}:
+            # 층이 바뀌는 간선은 계단/엘리베이터/램프처럼 수직 이동 의미가 명확해야 함.
+            report.errors.append(f"Cross-floor indoor edge must be stair/elevator/ramp: {row.get('indoor_edge_id')}")
+        if from_floor == to_floor and from_node.get("indoor_map_id") != to_node.get("indoor_map_id"):
+            report.errors.append(f"Same-floor indoor edge connects different indoor maps: {row.get('indoor_edge_id')}")
 
     for row in data["room_nodes"]:
         room_id = row.get("room_id", "")
@@ -89,14 +115,22 @@ def validate_week6_indoor_graph(db: Any, data_dir: Path) -> Week6IndoorGraphRepo
             report.errors.append(f"room_nodes references unknown room_id: {room_id}")
         if nearest and nearest not in node_ids:
             report.errors.append(f"room_nodes references unknown nearest_indoor_node_id: {room_id} -> {nearest}")
+        room = room_by_id.get(room_id)
+        nearest_node = node_by_id.get(nearest)
+        if room and nearest_node and room.building_id != nearest_node.get("building_id"):
+            report.errors.append(f"room_nodes connects room to another building: {room_id} -> {nearest}")
+        if room and nearest_node and room.floor_number != int_value(nearest_node.get("floor_number")):
+            report.errors.append(f"room_nodes connects room to another floor: {room_id} -> {nearest}")
     if not data["room_nodes"]:
         report.warnings.append("room_nearest_nodes.csv was not provided. Room-to-room routes need nearest_indoor_node_id.")
+    _warn_isolated_indoor_nodes(report, data["indoor_nodes"], data["indoor_edges"])
     return report
 
 
 def import_week6_indoor_graph(db: Any, data_dir: Path, replace: bool = False) -> Week6IndoorGraphReport:
     from app.models import IndoorEdge, IndoorNode, Room
 
+    # 검증을 통과한 자료만 DB에 반영. 그래프 자료는 부분 import 시 경로 위험도 증가.
     report = validate_week6_indoor_graph(db, data_dir)
     if not report.ok:
         return report
@@ -227,9 +261,27 @@ def _copy_alias(row: dict[str, str], target: str, *aliases: str) -> None:
             return
 
 
+def _warn_isolated_indoor_nodes(
+    report: Week6IndoorGraphReport,
+    node_rows: list[dict[str, str]],
+    edge_rows: list[dict[str, str]],
+) -> None:
+    # 고립 노드는 import를 막지는 않지만, 최종 readiness에서 PARTIAL 원인.
+    connected_node_ids = {
+        node_id
+        for row in edge_rows
+        for node_id in (row.get("from_node_id", ""), row.get("to_node_id", ""))
+        if node_id
+    }
+    isolated = sorted(row.get("indoor_node_id", "") for row in node_rows if row.get("indoor_node_id") not in connected_node_ids)
+    if isolated:
+        report.warnings.append(f"Isolated indoor nodes: {', '.join(isolated[:10])}")
+
+
 def _enrich_indoor_graph_rows(db: Any, data: dict[str, list[dict[str, str]]], report: Week6IndoorGraphReport) -> None:
     from app.models import IndoorMap
 
+    # DB 파일이 floor_number만 제공해도 기존 indoor_maps 테이블에서 indoor_map_id 추론.
     map_lookup = {
         (building_id, int(floor_number)): indoor_map_id
         for indoor_map_id, building_id, floor_number in db.query(
@@ -250,6 +302,7 @@ def _enrich_indoor_graph_rows(db: Any, data: dict[str, list[dict[str, str]]], re
         if from_node and not row.get("indoor_map_id"):
             row["indoor_map_id"] = from_node.get("indoor_map_id", "")
         if from_node and to_node:
+            # distance/estimated_time이 빠진 간선은 DCF 계산 가능하도록 좌표 기반 기본값 보정.
             if not row.get("distance"):
                 row["distance"] = str(_estimate_distance(from_node, to_node, row.get("edge_type", "")))
             if not row.get("estimated_time"):
@@ -261,6 +314,7 @@ def _enrich_indoor_graph_rows(db: Any, data: dict[str, list[dict[str, str]]], re
 
 
 def _estimate_distance(from_node: dict[str, str], to_node: dict[str, str], edge_type: str) -> float:
+    # 층간 간선은 같은 좌표에 있어도 실제 이동 거리 0 아님. 층 차이에 따른 최소 거리 적용.
     floor_delta = abs(int_value(to_node.get("floor_number")) - int_value(from_node.get("floor_number")))
     if floor_delta:
         return max(8.0 * floor_delta, hypot(float_value(to_node.get("x")) - float_value(from_node.get("x")), float_value(to_node.get("y")) - float_value(from_node.get("y"))))

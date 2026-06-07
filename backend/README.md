@@ -1,6 +1,6 @@
-# DKU Campus Map Backend - Week 3~7
+# DKU Campus Map Backend - Week 3~8 Final
 
-이 백엔드는 `DKU_Map_W3toW8.docx`의 **3~7주차 백엔드 범위**를 구현한 FastAPI 프로젝트입니다.
+이 백엔드는 `DKU_Map_W3toW8.docx`의 **3~8주차 백엔드 범위**를 구현한 FastAPI 프로젝트입니다.
 
 ## 3주차 범위
 
@@ -68,14 +68,33 @@
 - SMTP 설정 시 실제 메일 발송, 미설정 시 로컬/시연용 콘솔 인증코드 출력
 - `GET /api/auth/me`로 JWT 기반 현재 사용자 조회
 
-## 아직 구현하지 않는 범위
+## 8주차 최종 범위
 
-- TMI 제보 API
-- 관리자 승인 API
-- ICT관/도서관 외 건물의 실내/외부 경로 데이터 확장
-- 실제 측정 기반 `distance_m`, 고도, 비가림 구간 정밀 보정
+8주차에는 제출 전 최종 기능과 검수 기능을 보강했습니다.
 
-위 기능들은 문서 기준 7주차 이후 작업이며, 관련 데이터가 추가되면 백엔드 import/API/경로 계산에 연결합니다.
+- 외부 간선 `polyline_points` 상세 경로 좌표 지원
+- 외부 상세 경로 좌표 정방향·역방향 자동 처리
+- 외부 경로 응답의 `pathPoints`에 실제 간선 상세 좌표 반영
+- 다층 실내 경로를 층별 `INDOOR`와 층간 `VERTICAL` 세그먼트로 분리
+- 강의실-노드, 출입구, 고립 노드, 그래프 연결 요소 검증 강화
+- `GET /api/status/readiness` 제출 준비 상태 점검 API 추가
+- `tools/week8_submission_test.py` 백엔드 P0 자동 통합 테스트 추가
+- 외부 간선이 없을 때 임시 직선을 성공 경로로 반환하지 않고 명시적으로 실패 처리
+- 기존 `find_indoor_path`, `find_outdoor_path` 호환 함수도 실제 DB 경로 서비스에 연결
+- TMI 위치 등록/조회 API 추가
+- 사용자 제보 등록/조회 API 추가
+- 일반 사용자는 `approved`, `verified` 상태만 조회하도록 필터링
+- 로그인 및 이메일 인증이 완료된 사용자만 TMI/제보 등록 가능
+- 관리자 승인/반려 API 추가
+- `ADMIN_EMAILS` 환경변수 기반 관리자 권한 부여
+- `GET /api/status/week8-readiness` 기존 readiness 주소 호환
+- `tools/week8_final_audit.py` 최종 검수 CLI 추가
+- 프론트 API client에 인증/TMI/제보 호출 함수 추가
+- GitHub DB 브랜치의 `edge_types`, `indoor_node_types`, `room_categories`, `entrance_master` 참조 테이블 반영
+- `GET /api/reference-data` 참조 데이터 조회 API 추가
+- `IMPORT_DATA_ON_START=true` 설정 시 `data/week7` 실제 DB 자료 자동 import
+
+현재 ICT관/도서관 중심의 시연 경로는 동작하도록 구성되어 있으며, 다른 건물은 DB 자료가 추가되면 같은 import/API 구조로 확장할 수 있습니다.
 
 ## 실행
 
@@ -115,11 +134,21 @@ rooms_master.xlsx 또는 rooms_master.csv
 floor_pdf_inventory.xlsx 또는 floor_pdf_inventory.csv
 ```
 
+참조/분류 파일:
+
+```text
+edge_types.csv 또는 edge_types.xlsx
+indoor_node_types.csv 또는 indoor_node_types.xlsx
+room_categories.csv 또는 room_categories.xlsx
+entrance_master.csv 또는 entrance_master.xlsx
+```
+
 검증:
 
 ```powershell
 cd backend
 python tools/validate_week4_data.py "D:\과제\3-2\오픈소스SW기초\#Project\W3"
+python tools/validate_reference_data.py data/week7
 ```
 
 DB import:
@@ -127,6 +156,7 @@ DB import:
 ```powershell
 cd backend
 python tools/import_week4_excel.py "D:\과제\3-2\오픈소스SW기초\#Project\W3" --replace
+python tools/import_reference_data.py data/week7 --replace
 ```
 
 현재 DB 자료에는 `room_positions.csv`가 없으므로 실내 지도 API의 `room_positions`는 비어 있을 수 있습니다.
@@ -215,6 +245,7 @@ GET /api/buildings
 GET /api/buildings/DKU_ICT/floors
 GET /api/rooms/search?keyword=ICT401
 GET /api/buildings/DKU_ICT/floors/4/indoor-map
+GET /api/reference-data
 ```
 
 ## 7주차 외부 그래프 검증/import
@@ -262,3 +293,68 @@ GET /api/auth/me
 
 로컬/시연 환경에서는 `.env`의 `EMAIL_DELIVERY_MODE=console`을 사용하면 인증 코드가 서버 로그와 응답의 `devCode`에 표시됩니다.
 실제 SMTP 발송을 사용하려면 `EMAIL_DELIVERY_MODE=smtp`로 바꾸고 SMTP 환경변수를 설정해야 합니다.
+
+## 8주차 TMI/제보 API 확인
+
+TMI와 제보 등록은 JWT 인증이 필요하며, 일반 사용자는 이메일 인증 후 사용할 수 있습니다.
+
+```text
+GET /api/tmi
+POST /api/tmi
+GET /api/tmi/admin/list
+PATCH /api/tmi/admin/{tmi_location_id}/status
+GET /api/reports/approved
+POST /api/reports
+GET /api/reports/admin/list
+PATCH /api/reports/admin/{report_id}/status
+```
+
+관리자 계정은 `.env`의 `ADMIN_EMAILS`에 등록된 단국대 이메일로 가입하면 생성됩니다.
+
+```env
+ADMIN_EMAILS=admin@dankook.ac.kr
+```
+
+최종 점검:
+
+```powershell
+python tools/week8_final_audit.py
+```
+
+Swagger에서 확인:
+
+```text
+GET /api/status/readiness
+```
+
+## 8주차 백엔드 P0 제출 테스트
+
+최신 DB 자료 import:
+
+```powershell
+python tools/import_available_week7_data.py data/week7 --replace
+```
+
+위 통합 import는 `Building_Master`, `Building_aliases`, `rooms_master`, `floor_pdf_inventory`,
+참조 CSV 4개, `rooms_positions`, `indoor_node`, `indoor_edge`, `room_nearest_nodes`,
+`outdoor_node`, `outdoor_edge`, `entrance_links`를 순서대로 반영합니다.
+
+필수 시연 경로와 API 자동 테스트:
+
+```powershell
+python tools/week8_submission_test.py
+```
+
+DB의 모든 PARTIAL 항목까지 제출 차단 대상으로 검사:
+
+```powershell
+python tools/week8_submission_test.py --strict
+```
+
+외부 곡선 경로를 표시하려면 `outdoor_edge.csv` 또는 `outdoor_edge.xlsx`에 `polyline_points`를 추가합니다.
+
+```json
+[[357,112],[359,120],[364,129],[372,137]]
+```
+
+백엔드는 해당 값을 import하여 선택된 외부 경로의 `segments[].pathPoints`에 자동 반영합니다.

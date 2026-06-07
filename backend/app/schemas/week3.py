@@ -2,5 +2,5 @@ from pydantic import BaseModel
 
 
 class ErrorResponse(BaseModel):
-    # HTTPException detail에 들어갈 오류 코드를 문서화하기 위한 응답이다.
+    # HTTPException detail에 들어갈 오류 코드 문서화용 응답.
     detail: str

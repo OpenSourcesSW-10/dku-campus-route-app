@@ -17,7 +17,7 @@ REQUIRED_FILES = {
 
 @dataclass
 class Week4DataReport:
-    # 4주차 엑셀 데이터 검증/import 결과를 한 번에 담는다.
+    # 4주차 엑셀 데이터 검증/import 결과 보관.
     stats: dict[str, int] = field(default_factory=dict)
     errors: list[str] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
@@ -28,7 +28,7 @@ class Week4DataReport:
 
 
 def load_week4_excel(data_dir: Path) -> dict[str, list[dict[str, str]]]:
-    # DB 담당자가 준 4개 xlsx/csv 파일을 테이블별 row 목록으로 읽는다.
+    # DB 담당자가 준 4개 xlsx/csv 파일을 테이블별 row 목록으로 읽기.
     data = {}
     for key, filenames in REQUIRED_FILES.items():
         path = _find_existing_file(data_dir, filenames)
@@ -40,7 +40,7 @@ def load_week4_excel(data_dir: Path) -> dict[str, list[dict[str, str]]]:
 
 
 def validate_week4_excel(data_dir: Path) -> Week4DataReport:
-    # 엑셀 파일끼리 ID가 서로 연결되는지 확인한다.
+    # 엑셀 파일끼리 ID가 서로 연결되는지 확인.
     report = Week4DataReport()
     data = load_week4_excel(data_dir)
     report.stats = {key: len(rows) for key, rows in data.items()}
@@ -96,7 +96,7 @@ def validate_week4_excel(data_dir: Path) -> Week4DataReport:
 
 
 def import_week4_excel(db: Any, data_dir: Path, replace: bool = False) -> Week4DataReport:
-    # 검증을 통과한 엑셀 데이터를 현재 DB에 upsert한다.
+    # 검증을 통과한 엑셀 데이터를 현재 DB에 upsert.
     from app.models import Building, BuildingAlias, IndoorMap, Room
 
     report = validate_week4_excel(data_dir)
@@ -175,7 +175,7 @@ def import_week4_excel(db: Any, data_dir: Path, replace: bool = False) -> Week4D
 
 
 def _clear_imported_data(db: Any) -> None:
-    # 엑셀에서 다시 넣는 기본 테이블만 정리한다.
+    # 엑셀에서 다시 넣는 기본 테이블만 정리.
     from app.models import (
         Building,
         BuildingAlias,
@@ -270,7 +270,7 @@ def _canvas_height(data_dir: Path, source_pdf: str, row: dict[str, str]) -> int:
 
 
 def _canvas_size(data_dir: Path, source_pdf: str, row: dict[str, str]) -> tuple[int, int]:
-    # DB가 제공한 ICT/LIB 좌표는 1000x707 PNG 기준이므로, 실제 PNG가 있으면 그 크기를 우선 사용한다.
+    # DB가 제공한 ICT/LIB 좌표는 1000x707 PNG 기준. 실제 PNG가 있으면 해당 크기 우선 사용.
     explicit_width = _int_or_none(row.get("canvas_width") or row.get("page_width"))
     explicit_height = _int_or_none(row.get("canvas_height") or row.get("page_height"))
     if explicit_width and explicit_height:

@@ -2,7 +2,7 @@ from app.schemas.common import OrmModel
 
 
 class UserResponse(OrmModel):
-    # 사용자 공개 정보 응답이다.
+    # 사용자 공개 정보 응답.
     user_id: str
     email: str
     nickname: str
@@ -12,7 +12,7 @@ class UserResponse(OrmModel):
 
 
 class EmailVerificationResponse(OrmModel):
-    # 이메일 인증 요청/검증 상태 응답이다.
+    # 이메일 인증 요청/검증 상태 응답.
     verification_id: str
     email: str
     expires_at: str

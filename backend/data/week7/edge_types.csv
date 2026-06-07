@@ -1,0 +1,5 @@
+,edge_type,display_name,description
+,hallway,복도이동,일반 복도 연결
+,stairs,계단이동,계단 연결
+,elevator,엘리베이터이동,엘리베이터 연결
+,entrance,출입연결,건물 출입 연결

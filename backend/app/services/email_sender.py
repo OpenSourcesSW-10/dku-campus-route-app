@@ -11,7 +11,7 @@ class EmailSendResult:
 
 
 def send_verification_email(to_email: str, code: str, expires_minutes: int) -> EmailSendResult:
-    # SMTP 설정이 없으면 로컬/시연 환경에서 콘솔 출력 방식으로 인증코드를 확인한다.
+    # SMTP 설정이 없으면 로컬/시연 환경에서 콘솔 출력 방식으로 인증코드 확인.
     if not _smtp_enabled():
         print(f"[DKU MAP EMAIL VERIFICATION] to={to_email} code={code} expires={expires_minutes}m")
         return EmailSendResult(delivery_mode="console", delivered=False)

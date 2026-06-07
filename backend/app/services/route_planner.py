@@ -1,3 +1,10 @@
+"""
+Integrated route planner.
+
+출발/도착 키워드를 강의실로 해석.
+같은 건물이면 실내 경로만 계산, 다른 건물이면 출발 실내 경로/외부 경로/도착 실내 경로 조합.
+"""
+
 from dataclasses import dataclass
 
 from sqlalchemy.orm import Session
@@ -17,6 +24,7 @@ class RoutePlannerResult:
 
 
 def plan_integrated_route(db: Session, from_keyword: str, to_keyword: str, route_type: str = "DEFAULT", preferences=None) -> RoutePlannerResult:
+    # 프론트 입력은 room_id가 아니라 "ICT401", "도서관301" 같은 검색어. resolver 먼저 통과.
     normalized_route_type = normalize_route_type(route_type)
     from_resolved = resolve_room_keyword(db, from_keyword)
     if from_resolved.error_code or not from_resolved.payload:
@@ -35,6 +43,7 @@ def plan_integrated_route(db: Session, from_keyword: str, to_keyword: str, route
         return RoutePlannerResult(error_code="DESTINATION_ROOM_NEAREST_NODE_NOT_FOUND")
 
     if from_room.building_id == to_room.building_id:
+        # 같은 건물 안에서는 외부 출입구를 거치지 않고 실내 그래프만 사용.
         indoor_result = find_indoor_node_route(
             db,
             from_room.building_id,
@@ -52,6 +61,7 @@ def plan_integrated_route(db: Session, from_keyword: str, to_keyword: str, route
     if not destination_links:
         return RoutePlannerResult(error_code="DESTINATION_ENTRANCE_LINK_NOT_FOUND")
 
+    # 출입구가 여러 개일 수 있으므로 모든 출발/도착 출입구 조합 계산 후 최저 비용 경로 선택.
     candidates: list[RouteDetailResponse] = []
     for start_link in start_links:
         start_indoor = find_indoor_node_route(
@@ -94,6 +104,7 @@ def _building_entrance_links(db: Session, building_id: str) -> list[EntranceLink
 
 
 def _combine_routes(route_type: str, routes: list[RouteDetailResponse]) -> RouteDetailResponse:
+    # 프론트는 하나의 route 안에서 segments를 순서대로 렌더링. 개별 경로의 세그먼트를 그대로 연결.
     segments = []
     for route in routes:
         segments.extend(route.segments)

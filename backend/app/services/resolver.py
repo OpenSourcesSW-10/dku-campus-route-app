@@ -14,31 +14,31 @@ class ResolveResult:
 
 
 def normalize_keyword(keyword: str) -> str:
-    # 검색어 비교가 쉬워지도록 앞뒤 공백과 중간 공백을 제거한다.
+    # 검색어 비교가 쉬워지도록 앞뒤 공백과 중간 공백 제거.
     return re.sub(r"\s+", "", keyword.strip())
 
 
 def extract_room_number(keyword: str) -> str | None:
-    # 검색어 끝의 3~4자리 호실 번호를 추출한다.
+    # 검색어 끝의 3~4자리 호실 번호 추출.
     match = re.search(r"(\d{3,4})호?$", normalize_keyword(keyword))
     return match.group(1) if match else None
 
 
 def extract_building_part(keyword: str, room_number: str) -> str:
-    # 호실 번호 앞부분을 건물명 또는 약칭 후보로 사용한다.
+    # 호실 번호 앞부분을 건물명 또는 약칭 후보로 사용.
     normalized = normalize_keyword(keyword)
     return normalized[: normalized.rfind(room_number)]
 
 
 def estimate_floor(room_number: str) -> int:
-    # 일반적인 호실 규칙에 따라 첫 숫자를 층 번호로 추정한다.
+    # 일반적인 호실 규칙에 따라 첫 숫자를 층 번호로 추정.
     if len(room_number) < 3 or not room_number[0].isdigit():
         return 1
     return int(room_number[0])
 
 
 def resolve_building_alias(db: Session, alias_text: str) -> Building | None:
-    # 별칭, 약칭, 정식 건물명을 모두 비교해 하나의 Building으로 해석한다.
+    # 별칭, 약칭, 정식 건물명을 모두 비교해 하나의 Building으로 해석.
     normalized_alias_text = normalize_keyword(alias_text).lower()
 
     alias = (
@@ -80,7 +80,7 @@ def resolve_building_alias(db: Session, alias_text: str) -> Building | None:
 
 
 def resolve_room_keyword(db: Session, keyword: str) -> ResolveResult:
-    # 검색어를 room, indoor_map, position까지 이어지는 응답으로 조립한다.
+    # 검색어를 room, indoor_map, position까지 이어지는 응답으로 조립.
     if not normalize_keyword(keyword):
         return ResolveResult(error_code="EMPTY_KEYWORD")
 
@@ -134,7 +134,7 @@ def resolve_room_keyword(db: Session, keyword: str) -> ResolveResult:
 
 
 def resolve_exact_room(db: Session, keyword: str) -> Room | None:
-    # room_id나 room_code를 그대로 입력한 경우를 우선 처리한다.
+    # room_id나 room_code를 그대로 입력한 경우 우선 처리.
     normalized_keyword = normalize_keyword(keyword).lower()
     if not normalized_keyword:
         return None
@@ -152,7 +152,7 @@ def build_room_search_response(
     room: Room,
     indoor_map: IndoorMap,
 ) -> RoomSearchResponse:
-    # Room, Building, IndoorMap, RoomPosition을 프론트엔드 검색 응답으로 묶는다.
+    # Room, Building, IndoorMap, RoomPosition을 프론트엔드 검색 응답으로 묶음.
     position = (
         db.query(RoomPosition)
         .filter(RoomPosition.room_id == room.room_id)

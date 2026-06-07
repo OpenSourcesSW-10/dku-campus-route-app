@@ -8,7 +8,7 @@ REL_ID = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}i
 
 
 def read_first_sheet(path: Path) -> list[dict[str, str]]:
-    # openpyxl 없이 xlsx 첫 번째 시트를 dict row 목록으로 읽는다.
+    # openpyxl 없이 xlsx 첫 번째 시트를 dict row 목록으로 읽기.
     with ZipFile(path) as workbook:
         shared_strings = _read_shared_strings(workbook)
         sheet_path = _first_sheet_path(workbook)

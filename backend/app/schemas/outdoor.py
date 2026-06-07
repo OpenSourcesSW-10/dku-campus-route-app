@@ -35,6 +35,7 @@ class OutdoorEdgeResponse(OrmModel):
     cost_fast: float
     cost_comfortable: float
     cost_indoor: float
+    polyline_points: str | None = None
     description: str | None = None
 
 

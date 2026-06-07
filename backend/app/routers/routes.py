@@ -1,3 +1,10 @@
+"""
+Route API endpoints.
+
+프론트는 이 라우터의 응답만으로 외부 지도 Polyline, 실내 SVG 경로,
+층간 이동 안내 렌더링 가능해야 함.
+"""
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
@@ -38,6 +45,7 @@ ERROR_MESSAGES = {
 
 @router.post("/indoor", response_model=RouteDetailResponse)
 def create_indoor_route(request: IndoorRouteRequest, db: Session = Depends(get_db)):
+    # 테스트와 디버깅용. 같은 건물 내부 경로만 별도 계산.
     result = find_indoor_route(db, request.fromRoomId, request.toRoomId, request.routeType, request.preferences)
     if result.error_code:
         raise HTTPException(
@@ -49,6 +57,7 @@ def create_indoor_route(request: IndoorRouteRequest, db: Session = Depends(get_d
 
 @router.post("", response_model=list[RouteDetailResponse])
 def create_integrated_routes(request: RouteRequest, db: Session = Depends(get_db)):
+    # 하나의 요청에서 여러 route type 계산. 프론트가 경로 카드를 동시에 표시 가능.
     responses: list[RouteDetailResponse] = []
     errors: list[dict[str, str]] = []
     for route_type in request.routeTypes:
@@ -63,5 +72,7 @@ def create_integrated_routes(request: RouteRequest, db: Session = Depends(get_db
             })
 
     if not responses:
+        # 모든 route type이 실패한 경우에만 404 반환.
+        # 일부 경로만 성공하면 성공한 경로는 그대로 반환, 실패 상세는 숨김.
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail={"errors": errors})
     return responses

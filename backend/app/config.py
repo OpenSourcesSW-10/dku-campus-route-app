@@ -2,8 +2,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    # .env 값이 있으면 아래 기본값을 덮어쓴다.
-    app_name: str = "DKU Campus Map Week 7 API"
+    # .env 값이 있으면 아래 기본값 덮어씀.
+    app_name: str = "DKU Campus Map Week 8 Final API"
     database_url: str = "sqlite:///./week3_backend.db"
     debug: bool = True
     frontend_origins: str = (
@@ -27,12 +27,17 @@ class Settings(BaseSettings):
     smtp_from_email: str = ""
     smtp_use_tls: bool = True
     email_delivery_mode: str = "console"
+    admin_emails: str = ""
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     @property
     def frontend_origin_list(self) -> list[str]:
         return [origin.strip() for origin in self.frontend_origins.split(",") if origin.strip()]
+
+    @property
+    def admin_email_set(self) -> set[str]:
+        return {email.strip().lower() for email in self.admin_emails.split(",") if email.strip()}
 
 
 settings = Settings()

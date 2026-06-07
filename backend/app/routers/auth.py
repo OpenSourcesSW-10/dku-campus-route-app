@@ -1,3 +1,10 @@
+"""
+Authentication and email verification API.
+
+8주차 최종 기능에서 TMI/제보 등록은 인증된 사용자만 가능.
+JWT 발급, 이메일 인증, 관리자 권한 판별의 기준점.
+"""
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
@@ -37,6 +44,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 
 
 def _get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)) -> User:
+    # 모든 보호 API는 JWT의 sub 값을 user_id로 해석해 현재 사용자 복원.
     user_id = decode_access_token(token)
     if user_id is None:
         raise HTTPException(
@@ -54,6 +62,7 @@ def _get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends
 
 @router.post("/register", response_model=AuthTokenResponse, status_code=status.HTTP_201_CREATED)
 def register(request: RegisterRequest, db: Session = Depends(get_db)):
+    # 관리자 이메일은 환경변수 ADMIN_EMAILS로만 승격. 클라이언트 요청값으로 role을 받지 않음.
     email = request.email.lower()
     if settings.enforce_dankook_email and not is_dankook_email(email):
         raise HTTPException(
@@ -74,7 +83,7 @@ def register(request: RegisterRequest, db: Session = Depends(get_db)):
         password_hash=hash_password(request.password),
         nickname=request.nickname,
         email_verified=False,
-        role="USER",
+        role="ADMIN" if email in settings.admin_email_set else "USER",
         created_at=utc_now_text(),
     )
     db.add(user)
@@ -100,6 +109,8 @@ def login(request: LoginRequest, db: Session = Depends(get_db)):
 
 @router.post("/email/request", response_model=EmailVerificationRequestResponse)
 def request_email_verification(request: EmailVerificationRequest, db: Session = Depends(get_db)):
+    # 인증코드는 원문을 DB에 저장하지 않고 hash만 저장.
+    # SMTP 설정이 없으면 개발 편의를 위해 console delivery로 code를 응답에 포함.
     email = request.email.lower()
     if settings.enforce_dankook_email and not is_dankook_email(email):
         raise HTTPException(
@@ -133,6 +144,7 @@ def request_email_verification(request: EmailVerificationRequest, db: Session = 
 
 @router.post("/email/verify", response_model=EmailVerificationCheckResponse)
 def verify_email(request: EmailVerificationCheckRequest, db: Session = Depends(get_db)):
+    # 가장 최근의 미검증 인증 요청만 검사. 오래된 인증코드 재사용 방지 흐름.
     email = request.email.lower()
     verification = (
         db.query(EmailVerification)
@@ -182,3 +194,27 @@ def verify_email(request: EmailVerificationCheckRequest, db: Session = Depends(g
 @router.get("/me", response_model=UserResponse)
 def get_me(current_user: User = Depends(_get_current_user)):
     return UserResponse.model_validate(current_user)
+
+
+def get_current_user(current_user: User = Depends(_get_current_user)) -> User:
+    return current_user
+
+
+def require_verified_user(current_user: User = Depends(_get_current_user)) -> User:
+    # TMI/제보 데이터 품질을 위해 이메일 인증 통과 사용자만 등록 허용.
+    if not current_user.email_verified and current_user.role != "ADMIN":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail={"errorCode": "EMAIL_VERIFICATION_REQUIRED", "message": "이메일 인증 후 사용할 수 있습니다."},
+        )
+    return current_user
+
+
+def require_admin_user(current_user: User = Depends(_get_current_user)) -> User:
+    # 관리자 API는 승인/반려 상태를 바꾸므로 role 명시 검사.
+    if current_user.role != "ADMIN":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail={"errorCode": "ADMIN_REQUIRED", "message": "관리자 권한이 필요합니다."},
+        )
+    return current_user
