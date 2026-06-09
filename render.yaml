@@ -25,23 +25,5 @@ services:
         value: HS256
       - key: ACCESS_TOKEN_EXPIRE_MINUTES
         value: 60
-      - key: EMAIL_VERIFICATION_EXPIRE_MINUTES
-        value: 10
-      - key: ENFORCE_DANKOOK_EMAIL
-        value: true
-      - key: EMAIL_DELIVERY_MODE
-        value: console
-      - key: ADMIN_EMAILS
+      - key: ADMIN_STUDENT_IDS
         sync: false
-      - key: SMTP_HOST
-        sync: false
-      - key: SMTP_PORT
-        value: 587
-      - key: SMTP_USERNAME
-        sync: false
-      - key: SMTP_PASSWORD
-        sync: false
-      - key: SMTP_FROM_EMAIL
-        sync: false
-      - key: SMTP_USE_TLS
-        value: true
