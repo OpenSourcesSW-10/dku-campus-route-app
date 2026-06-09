@@ -27,6 +27,8 @@ ROOM_NODE_FILES = (
     "room_positions.csv",
     "room_positions.xlsx",
 )
+BUILDING_LINK_EDGE_TYPES = {"bridge", "skybridge", "covered_bridge", "building_passage"}
+VERTICAL_EDGE_TYPES = {"stair", "stairs", "elevator", "ramp", "vertical", *BUILDING_LINK_EDGE_TYPES}
 
 
 @dataclass
@@ -96,23 +98,29 @@ def validate_week6_indoor_graph(db: Any, data_dir: Path) -> Week6IndoorGraphRepo
             report.errors.append(f"Indoor edge has unknown to_node_id: {row.get('indoor_edge_id')} -> {row.get('to_node_id')}")
         if not from_node or not to_node:
             continue
-        if from_node.get("building_id") != to_node.get("building_id"):
-            # 실내 간선이 서로 다른 건물을 직접 연결하면 출입구/외부 그래프 우회 발생. 허용하지 않음.
+        edge_type = str(row.get("edge_type", "")).strip().lower()
+        if from_node.get("building_id") != to_node.get("building_id") and edge_type not in BUILDING_LINK_EDGE_TYPES:
+            # 일반 실내 간선의 건물 간 직접 연결은 차단. 구름다리/건물 통로처럼 명시된 연결만 허용.
             report.errors.append(f"Indoor edge connects different buildings: {row.get('indoor_edge_id')}")
         from_floor = int_value(from_node.get("floor_number"))
         to_floor = int_value(to_node.get("floor_number"))
-        edge_type = str(row.get("edge_type", "")).strip().lower()
-        if from_floor != to_floor and edge_type not in {"stair", "stairs", "elevator", "ramp", "vertical"}:
-            # 층이 바뀌는 간선은 계단/엘리베이터/램프처럼 수직 이동 의미가 명확해야 함.
+        if from_floor != to_floor and edge_type not in VERTICAL_EDGE_TYPES:
+            # 층이 바뀌는 간선은 계단/엘리베이터/램프/구름다리처럼 의미가 명확해야 함.
             report.errors.append(f"Cross-floor indoor edge must be stair/elevator/ramp: {row.get('indoor_edge_id')}")
-        if from_floor == to_floor and from_node.get("indoor_map_id") != to_node.get("indoor_map_id"):
+        if (
+            from_floor == to_floor
+            and from_node.get("building_id") == to_node.get("building_id")
+            and from_node.get("indoor_map_id") != to_node.get("indoor_map_id")
+        ):
             report.errors.append(f"Same-floor indoor edge connects different indoor maps: {row.get('indoor_edge_id')}")
 
+    unknown_room_node_ids = []
     for row in data["room_nodes"]:
         room_id = row.get("room_id", "")
         nearest = row.get("nearest_indoor_node_id", "")
         if room_id and room_id not in room_ids:
-            report.errors.append(f"room_nodes references unknown room_id: {room_id}")
+            unknown_room_node_ids.append(room_id)
+            continue
         if nearest and nearest not in node_ids:
             report.errors.append(f"room_nodes references unknown nearest_indoor_node_id: {room_id} -> {nearest}")
         room = room_by_id.get(room_id)
@@ -121,6 +129,11 @@ def validate_week6_indoor_graph(db: Any, data_dir: Path) -> Week6IndoorGraphRepo
             report.errors.append(f"room_nodes connects room to another building: {room_id} -> {nearest}")
         if room and nearest_node and room.floor_number != int_value(nearest_node.get("floor_number")):
             report.errors.append(f"room_nodes connects room to another floor: {room_id} -> {nearest}")
+    if unknown_room_node_ids:
+        report.warnings.append(
+            "Skipped room_nodes for rooms not present in rooms_master: "
+            f"{len(unknown_room_node_ids)} rows, e.g. {', '.join(unknown_room_node_ids[:10])}"
+        )
     if not data["room_nodes"]:
         report.warnings.append("room_nearest_nodes.csv was not provided. Room-to-room routes need nearest_indoor_node_id.")
     _warn_isolated_indoor_nodes(report, data["indoor_nodes"], data["indoor_edges"])
@@ -242,6 +255,8 @@ def _normalize_indoor_edge(row: dict[str, str]) -> dict[str, str]:
         normalized["has_stairs"] = "TRUE"
     if edge_type == "elevator" and not normalized.get("is_elevator"):
         normalized["is_elevator"] = "TRUE"
+    if edge_type in BUILDING_LINK_EDGE_TYPES and not normalized.get("is_covered"):
+        normalized["is_covered"] = "TRUE"
     return normalized
 
 

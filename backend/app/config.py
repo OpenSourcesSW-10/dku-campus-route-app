@@ -13,7 +13,7 @@ class Settings(BaseSettings):
         "http://tmimvp.vercel.app"
     )
     map_asset_roots: str = ""
-    deployment_data_root: str = "data/week7"
+    deployment_data_root: str = "data/final"
     import_data_on_start: bool = False
     jwt_secret_key: str = "local-dev-change-this-secret"
     jwt_algorithm: str = "HS256"

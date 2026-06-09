@@ -10,15 +10,16 @@ from app.seed.week7_outdoor_graph import import_week7_outdoor_graph
 
 def import_available_week8_data(db: Any, db_root: Path, replace: bool = False) -> dict[str, Any]:
     # week4~8 제출용 자료를 정해진 순서로 import. 앞 단계 PK가 뒤 단계 FK 기준이 됨.
+    info_dir = _first_existing_dir(db_root / "공간 정보", db_root)
     indoor_dir = db_root / "내부 구조 설계"
     outdoor_dir = _first_existing_dir(db_root / "외부 구조 설계_최종", db_root / "외부 구조 설계")
 
     reports: dict[str, Any] = {}
-    reports["week4"] = import_week4_excel(db, db_root, replace=replace)
+    reports["week4"] = import_week4_excel(db, info_dir, replace=replace)
     if _has_errors(reports["week4"]):
         return reports
 
-    reports["reference_data"] = import_reference_data(db, db_root, replace=replace)
+    reports["reference_data"] = import_reference_data(db, info_dir, replace=replace)
     if _has_errors(reports["reference_data"]):
         return reports
 

@@ -96,6 +96,8 @@ def _find_map_asset(map_file_name: str) -> Path | None:
         deployment_data_root / "내부 구조 설계" / "PNG(1000X707)",
         deployment_data_root / "외부 구조 설계_최종" / "PNG",
         deployment_data_root / "외부 구조 설계_최종" / "SVG",
+        deployment_data_root / "외부 구조 설계" / "PNG",
+        deployment_data_root / "외부 구조 설계" / "SVG",
         deployment_data_root / "PNG(1000X707)",
         deployment_data_root,
         project_root / "DB" / "내부 구조 설계" / "SVG",
@@ -114,6 +116,8 @@ def _find_map_asset(map_file_name: str) -> Path | None:
         for campus_map in (
             deployment_data_root / "외부 구조 설계_최종" / "PNG" / "캠퍼스 지도.png",
             deployment_data_root / "외부 구조 설계_최종" / "캠퍼스 지도.png",
+            deployment_data_root / "외부 구조 설계" / "PNG" / "캠퍼스 지도.png",
+            deployment_data_root / "외부 구조 설계" / "캠퍼스 지도.png",
             project_root / "DB" / "외부 구조 설계_최종" / "PNG" / "캠퍼스 지도.png",
             project_root / "DB" / "외부 구조 설계_최종" / "캠퍼스 지도.png",
             project_root / "DB" / "외부 구조 설계" / "PNG" / "캠퍼스 지도.png",

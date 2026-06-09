@@ -93,14 +93,17 @@ def _find_header_index(rows: list[list[str]]) -> int | None:
         "building_id",
         "candidate_id",
         "edge_id",
+        "edge_type",
         "entrance_id",
         "from_node_id",
         "indoor_edge_id",
         "indoor_node_id",
         "node_id",
+        "node_type",
         "outdoor_node_id",
         "pdf_id",
         "room_id",
+        "room_type",
     }
     for index, row in enumerate(rows):
         lowered = {_normalize_header(value) for value in row}

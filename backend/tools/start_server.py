@@ -8,7 +8,7 @@ import uvicorn
 def main() -> None:
     backend_root = Path(__file__).resolve().parents[1]
     _ensure_backend_import_path(backend_root)
-    data_root = Path(os.getenv("DEPLOYMENT_DATA_ROOT", "data/week7"))
+    data_root = Path(os.getenv("DEPLOYMENT_DATA_ROOT", "data/final"))
     if not data_root.is_absolute():
         data_root = backend_root / data_root
 

@@ -18,7 +18,7 @@ services:
       - key: FRONTEND_ORIGINS
         value: https://tmimvp.vercel.app,http://tmimvp.vercel.app,http://localhost:5173,http://127.0.0.1:5173
       - key: DEPLOYMENT_DATA_ROOT
-        value: data/week7
+        value: data/final
       - key: IMPORT_DATA_ON_START
         value: true
       - key: JWT_SECRET_KEY
