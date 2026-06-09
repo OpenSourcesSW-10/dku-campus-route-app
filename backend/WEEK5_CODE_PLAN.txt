@@ -452,7 +452,7 @@ python tools/import_week5_positions.py "D:\과제\3-2\오픈소스SW기초\#Proj
 - 실내/실외 통합 경로 계산
 - 계단, 엘리베이터, 구름다리, 출입구 층수 변경을 포함한 전체 그래프 완성
 - POST /api/routes 완성
-- 로그인, 이메일 인증, 제보 API
+- 학번 로그인, 제보 API
 
 
 9. DB 담당자에게 요청할 내용

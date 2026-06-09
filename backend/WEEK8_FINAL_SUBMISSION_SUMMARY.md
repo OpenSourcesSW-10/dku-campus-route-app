@@ -11,9 +11,8 @@
 - 외부 Dijkstra 경로 계산
 - 실내-외부-실내 통합 경로 계산
 - Dynamic Cost Function 기반 기본 경로/편한 길/비 오는 날 경로
-- JWT 로그인
+- JWT 학번 로그인
 - Passlib/bcrypt 비밀번호 해싱
-- 단국대 이메일 인증 코드 요청/검증
 - TMI 위치 등록/조회 API
 - 사용자 제보 등록/조회 API
 - 관리자 승인/반려 API
@@ -40,8 +39,6 @@ POST /api/routes
 
 POST /api/auth/register
 POST /api/auth/login
-POST /api/auth/email/request
-POST /api/auth/email/verify
 GET /api/auth/me
 
 GET /api/tmi
@@ -62,9 +59,9 @@ GET /api/status/readiness
 - 현재 경로 계산은 ICT관/도서관 중심의 실내외 그래프 자료를 기준으로 동작한다.
 - 다른 건물은 DB 자료가 추가되면 같은 import 구조와 API로 확장 가능하다.
 - DB 참조 테이블은 `edge_types`, `indoor_node_types`, `room_categories`, `entrance_master`를 기준으로 import한다.
-- TMI/제보 기능은 로그인 및 이메일 인증을 통과한 사용자만 등록할 수 있다.
+- TMI/제보 기능은 로그인한 사용자만 등록할 수 있다.
 - 일반 사용자는 approved 또는 verified 상태의 TMI/제보만 조회할 수 있다.
-- 관리자는 `ADMIN_EMAILS` 환경변수에 등록된 이메일로 가입하면 관리자 권한을 받는다.
+- 관리자는 `ADMIN_STUDENT_IDS` 환경변수에 등록된 학번으로 가입하면 관리자 권한을 받는다.
 
 ## 최종 확인 명령
 

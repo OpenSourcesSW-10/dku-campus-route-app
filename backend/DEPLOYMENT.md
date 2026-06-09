@@ -36,24 +36,8 @@ DEBUG=false
 JWT_SECRET_KEY=Render에서 생성하거나 직접 등록
 JWT_ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=60
-EMAIL_VERIFICATION_EXPIRE_MINUTES=10
-ENFORCE_DANKOOK_EMAIL=true
-EMAIL_DELIVERY_MODE=console
-ADMIN_EMAILS=관리자이메일@dankook.ac.kr
+ADMIN_STUDENT_IDS=관리자학번
 ```
-
-SMTP로 실제 이메일을 보내려면 Render 환경변수에 아래 값을 추가하고 `EMAIL_DELIVERY_MODE=smtp`로 바꾼다.
-
-```env
-SMTP_HOST=smtp.example.com
-SMTP_PORT=587
-SMTP_USERNAME=메일계정
-SMTP_PASSWORD=메일비밀번호또는앱비밀번호
-SMTP_FROM_EMAIL=보내는메일주소
-SMTP_USE_TLS=true
-```
-
-SMTP 설정이 없으면 로컬/시연 환경에서는 인증코드가 서버 로그와 API 응답의 `devCode`에 표시된다.
 
 ## 프론트엔드 Vercel 설정
 
@@ -81,8 +65,6 @@ GET /maps/campus-map.png
 POST /api/routes
 POST /api/auth/register
 POST /api/auth/login
-POST /api/auth/email/request
-POST /api/auth/email/verify
 GET /api/auth/me
 GET /api/tmi
 POST /api/tmi

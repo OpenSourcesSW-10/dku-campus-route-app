@@ -238,28 +238,16 @@ class EntranceLink(Base):
 
 
 class User(Base):
-    # 추후 로그인과 제보 권한에 사용할 사용자 계정.
+    # 학번 기반 로그인과 제보 권한에 사용할 사용자 계정.
     __tablename__ = "users"
 
     user_id: Mapped[str] = mapped_column(String(80), primary_key=True)
+    student_id: Mapped[str | None] = mapped_column(String(30), unique=True, index=True)
     email: Mapped[str] = mapped_column(String(120), unique=True, index=True)
     password_hash: Mapped[str] = mapped_column(String(255))
     nickname: Mapped[str] = mapped_column(String(50))
-    email_verified: Mapped[bool] = mapped_column(Boolean, default=False)
     role: Mapped[str] = mapped_column(String(30), default="USER")
     created_at: Mapped[str | None] = mapped_column(String(30))
-
-
-class EmailVerification(Base):
-    # 단국대 이메일 인증 코드의 해시와 만료 시간 저장.
-    __tablename__ = "email_verifications"
-
-    verification_id: Mapped[str] = mapped_column(String(80), primary_key=True)
-    email: Mapped[str] = mapped_column(String(120), index=True)
-    code_hash: Mapped[str] = mapped_column(String(255))
-    expires_at: Mapped[str] = mapped_column(String(30))
-    verified_at: Mapped[str | None] = mapped_column(String(30))
-    attempt_count: Mapped[int] = mapped_column(Integer, default=0)
 
 
 class TmiLocation(Base):

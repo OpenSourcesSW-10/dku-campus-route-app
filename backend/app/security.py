@@ -1,8 +1,5 @@
 from datetime import datetime, timedelta, timezone
-from secrets import randbelow
 from uuid import uuid4
-import hashlib
-import hmac
 
 from jose import JWTError, jwt
 from passlib.context import CryptContext
@@ -11,10 +8,6 @@ from app.config import settings
 
 
 password_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-def is_dankook_email(email: str) -> bool:
-    # 단국대 이메일만 허용하기 위한 검사.
-    return email.lower().endswith("@dankook.ac.kr")
 
 
 def hash_password(password: str) -> str:
@@ -44,23 +37,6 @@ def decode_access_token(token: str) -> str | None:
     return subject if isinstance(subject, str) else None
 
 
-def generate_verification_code() -> str:
-    # 이메일 인증코드는 사용자가 입력하기 쉬운 6자리 숫자로 생성.
-    return f"{randbelow(1_000_000):06d}"
-
-
-def hash_verification_code(email: str, code: str) -> str:
-    # 인증코드도 원문 저장 방지를 위해 이메일, 코드, 서버 비밀키를 함께 해시.
-    message = f"{email.lower()}:{code}".encode("utf-8")
-    return hmac.new(settings.jwt_secret_key.encode("utf-8"), message, hashlib.sha256).hexdigest()
-
-
-def verify_code_hash(email: str, code: str, code_hash: str) -> bool:
-    # 타이밍 공격 완화를 위해 compare_digest로 해시 문자열 비교.
-    expected = hash_verification_code(email, code)
-    return hmac.compare_digest(expected, code_hash)
-
-
 def new_id(prefix: str) -> str:
     # 테이블별 ID를 읽기 쉽게 prefix와 UUID 조합으로 생성.
     return f"{prefix}_{uuid4().hex}"
@@ -72,17 +48,3 @@ def utc_now() -> datetime:
 
 def utc_now_text() -> str:
     return utc_now().isoformat()
-
-
-def expires_at_text(minutes: int) -> str:
-    return (utc_now() + timedelta(minutes=minutes)).isoformat()
-
-
-def is_expired(expires_at: str) -> bool:
-    try:
-        expires = datetime.fromisoformat(expires_at)
-    except ValueError:
-        return True
-    if expires.tzinfo is None:
-        expires = expires.replace(tzinfo=timezone.utc)
-    return expires < utc_now()

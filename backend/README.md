@@ -8,7 +8,7 @@
 - `config.py`, `database.py`, `security.py` 기본 구조
 - SQLAlchemy 모델 초안
 - Pydantic schema 초안
-- 최종 테이블 구조를 반영한 `email_verifications`, `tmi_locations` 모델 초안
+- 최종 테이블 구조를 반영한 `users`, `tmi_locations` 모델 초안
 - `GET /api/buildings`
 - `GET /api/rooms/search?keyword=소프트305`
 - `GET /api/buildings/{buildingId}/floors/{floor}/indoor-map`
@@ -64,8 +64,7 @@
 - `외부 구조 설계_최종` 폴더를 통합 import에서 우선 사용
 - JWT 기반 로그인 토큰 발급 API 추가
 - Passlib/bcrypt 기반 비밀번호 해싱 적용
-- 단국대 이메일 인증 요청/검증 API 추가
-- SMTP 설정 시 실제 메일 발송, 미설정 시 로컬/시연용 콘솔 인증코드 출력
+- 학번 기반 회원가입/로그인 API 추가
 - `GET /api/auth/me`로 JWT 기반 현재 사용자 조회
 
 ## 8주차 최종 범위
@@ -84,9 +83,9 @@
 - TMI 위치 등록/조회 API 추가
 - 사용자 제보 등록/조회 API 추가
 - 일반 사용자는 `approved`, `verified` 상태만 조회하도록 필터링
-- 로그인 및 이메일 인증이 완료된 사용자만 TMI/제보 등록 가능
+- 로그인된 사용자만 TMI/제보 등록 가능
 - 관리자 승인/반려 API 추가
-- `ADMIN_EMAILS` 환경변수 기반 관리자 권한 부여
+- `ADMIN_STUDENT_IDS` 환경변수 기반 관리자 권한 부여
 - `GET /api/status/week8-readiness` 기존 readiness 주소 호환
 - `tools/week8_final_audit.py` 최종 검수 CLI 추가
 - 프론트 API client에 인증/TMI/제보 호출 함수 추가
@@ -281,22 +280,17 @@ GET /maps/campus-map.png
 
 ## 7주차 인증 API 확인
 
-회원가입, 로그인, 이메일 인증, JWT 사용자 조회를 확인할 수 있습니다.
+학번 기반 회원가입, 로그인, JWT 사용자 조회를 확인할 수 있습니다.
 
 ```text
 POST /api/auth/register
 POST /api/auth/login
-POST /api/auth/email/request
-POST /api/auth/email/verify
 GET /api/auth/me
 ```
 
-로컬/시연 환경에서는 `.env`의 `EMAIL_DELIVERY_MODE=console`을 사용하면 인증 코드가 서버 로그와 응답의 `devCode`에 표시됩니다.
-실제 SMTP 발송을 사용하려면 `EMAIL_DELIVERY_MODE=smtp`로 바꾸고 SMTP 환경변수를 설정해야 합니다.
-
 ## 8주차 TMI/제보 API 확인
 
-TMI와 제보 등록은 JWT 인증이 필요하며, 일반 사용자는 이메일 인증 후 사용할 수 있습니다.
+TMI와 제보 등록은 JWT 인증이 필요하며, 로그인된 사용자가 사용할 수 있습니다.
 
 ```text
 GET /api/tmi
@@ -309,10 +303,10 @@ GET /api/reports/admin/list
 PATCH /api/reports/admin/{report_id}/status
 ```
 
-관리자 계정은 `.env`의 `ADMIN_EMAILS`에 등록된 단국대 이메일로 가입하면 생성됩니다.
+관리자 계정은 `.env`의 `ADMIN_STUDENT_IDS`에 등록된 학번으로 가입하면 생성됩니다.
 
 ```env
-ADMIN_EMAILS=admin@dankook.ac.kr
+ADMIN_STUDENT_IDS=32209999
 ```
 
 최종 점검:

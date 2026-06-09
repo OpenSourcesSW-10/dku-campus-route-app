@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.models import Building, Report, Room, TmiLocation, User
-from app.routers.auth import require_admin_user, require_verified_user
+from app.routers.auth import require_admin_user, require_authenticated_user
 from app.schemas.reports import ReportCreateRequest, ReportResponse, ReportStatusUpdateRequest
 from app.security import new_id, utc_now_text
 
@@ -42,7 +42,7 @@ def list_public_approved_reports(
 @router.post("", response_model=ReportResponse, status_code=status.HTTP_201_CREATED)
 def create_report(
     request: ReportCreateRequest,
-    current_user: User = Depends(require_verified_user),
+    current_user: User = Depends(require_authenticated_user),
     db: Session = Depends(get_db),
 ):
     # 제보 대상 ID 오류는 관리자 검수 이전 데이터 품질 저하 원인. 생성 시점에 참조 검증.

@@ -14,7 +14,6 @@ from sqlalchemy.orm import Session
 from app.models import (
     Building,
     EdgeType,
-    EmailVerification,
     EntranceLink,
     EntranceMaster,
     IndoorEdge,
@@ -331,8 +330,8 @@ def _check_auth_tables(db: Session) -> ReadinessCheck:
     return ReadinessCheck(
         "사용자 인증 테이블",
         "READY",
-        "회원가입, 로그인, JWT, 이메일 인증 테이블이 준비되어 있습니다.",
-        details={"users": db.query(User).count(), "emailVerifications": db.query(EmailVerification).count()},
+        "학번 기반 회원가입, 로그인, JWT 인증 구조가 준비되어 있습니다.",
+        details={"users": db.query(User).count()},
     )
 
 

@@ -61,16 +61,10 @@ def ensure_sqlite_schema() -> None:
             "floor_number": "INTEGER",
         },
         "users": {
+            "student_id": "VARCHAR(30)",
             "password_hash": "VARCHAR(255) DEFAULT ''",
-            "email_verified": "BOOLEAN DEFAULT 0",
             "role": "VARCHAR(30) DEFAULT 'USER'",
             "created_at": "VARCHAR(30)",
-        },
-        "email_verifications": {
-            "code_hash": "VARCHAR(255) DEFAULT ''",
-            "expires_at": "VARCHAR(30)",
-            "verified_at": "VARCHAR(30)",
-            "attempt_count": "INTEGER DEFAULT 0",
         },
         "tmi_locations": {
             "room_id": "VARCHAR(80)",

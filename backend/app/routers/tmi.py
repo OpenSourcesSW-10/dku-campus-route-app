@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.models import Building, IndoorMap, Room, TmiLocation, User
-from app.routers.auth import require_admin_user, require_verified_user
+from app.routers.auth import require_admin_user, require_authenticated_user
 from app.schemas.tmi import TmiLocationCreateRequest, TmiLocationResponse, TmiLocationStatusUpdateRequest
 from app.security import new_id, utc_now_text
 
@@ -39,7 +39,7 @@ def list_public_tmi_locations(
 @router.post("", response_model=TmiLocationResponse, status_code=status.HTTP_201_CREATED)
 def create_tmi_location(
     request: TmiLocationCreateRequest,
-    current_user: User = Depends(require_verified_user),
+    current_user: User = Depends(require_authenticated_user),
     db: Session = Depends(get_db),
 ):
     # 사용자가 보낸 building/room/map 참조가 실제 DB에 있는지 먼저 확인, 잘못된 데이터 감소.

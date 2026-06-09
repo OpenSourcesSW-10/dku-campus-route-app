@@ -18,16 +18,7 @@ class Settings(BaseSettings):
     jwt_secret_key: str = "local-dev-change-this-secret"
     jwt_algorithm: str = "HS256"
     access_token_expire_minutes: int = 60
-    email_verification_expire_minutes: int = 10
-    enforce_dankook_email: bool = True
-    smtp_host: str = ""
-    smtp_port: int = 587
-    smtp_username: str = ""
-    smtp_password: str = ""
-    smtp_from_email: str = ""
-    smtp_use_tls: bool = True
-    email_delivery_mode: str = "console"
-    admin_emails: str = ""
+    admin_student_ids: str = ""
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
@@ -36,8 +27,8 @@ class Settings(BaseSettings):
         return [origin.strip() for origin in self.frontend_origins.split(",") if origin.strip()]
 
     @property
-    def admin_email_set(self) -> set[str]:
-        return {email.strip().lower() for email in self.admin_emails.split(",") if email.strip()}
+    def admin_student_id_set(self) -> set[str]:
+        return {student_id.strip() for student_id in self.admin_student_ids.split(",") if student_id.strip()}
 
 
 settings = Settings()
