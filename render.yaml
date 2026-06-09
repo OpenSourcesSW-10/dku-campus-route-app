@@ -9,6 +9,8 @@ services:
     envVars:
       - key: APP_NAME
         value: DKU Campus Map Week 8 Final API
+      - key: PYTHON_VERSION
+        value: 3.11.11
       - key: DATABASE_URL
         value: sqlite:///./week8_backend.db
       - key: DEBUG

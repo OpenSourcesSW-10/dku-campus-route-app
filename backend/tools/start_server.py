@@ -1,5 +1,4 @@
 import os
-import subprocess
 import sys
 from pathlib import Path
 
@@ -14,10 +13,10 @@ def main() -> None:
         data_root = backend_root / data_root
 
     if os.getenv("IMPORT_DATA_ON_START", "true").lower() in {"1", "true", "yes", "y"}:
-        _import_available_data(data_root)
+        _validate_data_root(data_root)
 
     port = int(os.getenv("PORT", "8000"))
-    uvicorn.run("app.main:app", host="0.0.0.0", port=port)
+    uvicorn.run("app.main:app", host="0.0.0.0", port=port, app_dir=str(backend_root))
 
 
 def _ensure_backend_import_path(backend_root: Path) -> None:
@@ -26,19 +25,9 @@ def _ensure_backend_import_path(backend_root: Path) -> None:
         sys.path.insert(0, backend_path)
 
 
-def _import_available_data(data_root: Path) -> None:
+def _validate_data_root(data_root: Path) -> None:
     if not data_root.exists():
         raise FileNotFoundError(f"Deployment data root does not exist: {data_root}")
-
-    subprocess.check_call(
-        [
-            sys.executable,
-            "tools/import_available_week7_data.py",
-            str(data_root),
-            "--replace",
-        ],
-        cwd=Path(__file__).resolve().parents[1],
-    )
 
 
 if __name__ == "__main__":
