@@ -114,7 +114,6 @@ export default function RouteFind() {
     }
   }, [startCode, destCode, sameSpot])
 
-  const usingMock = !apiRoutes || apiRoutes.length === 0
 
   const options = useMemo<DisplayOption[]>(() => {
     if (apiRoutes && apiRoutes.length > 0) {
@@ -263,13 +262,9 @@ export default function RouteFind() {
                 )
               })}
             </div>
-            {errMsg ? (
-              <p className="mt-3 text-center text-[11px] text-primary">{errMsg} · 목업 경로로 표시 중</p>
-            ) : (
-              <p className="mt-3 text-center text-[11px] text-ink-faint">
-                {usingMock
-                  ? '* 출발지가 현재 위치이거나 경로 데이터가 없어 목업으로 표시됩니다'
-                  : '* 실제 백엔드 경로 (외부 구간 표시)'}
+            {errMsg && (
+              <p className="mt-3 text-center text-[11px] text-primary">
+                {errMsg} · 목업 경로로 표시 중
               </p>
             )}
           </>
