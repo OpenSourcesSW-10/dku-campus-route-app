@@ -13,7 +13,7 @@ from app.algorithms.cost_function import build_route_cost_context, normalize_rou
 from app.algorithms.pathfinding import PathResult, dijkstra_result
 from app.models import OutdoorEdge, OutdoorNode
 from app.schemas.routes import RouteDetailResponse, RoutePoint, RouteSegmentResponse
-from app.services.route_geometry import GeometryPoint, edge_geometry_points, same_point
+from app.services.route_geometry import GeometryPoint, edge_geometry_points, same_point, with_display_coordinates
 
 
 ROUTE_TITLES = {
@@ -114,6 +114,7 @@ def _edge_route_points(edge: OutdoorEdge, from_node: OutdoorNode, to_node: Outdo
 
     route_points: list[RoutePoint] = []
     for index, point in enumerate(geometry_points):
+        display_point = with_display_coordinates(point)
         is_start = index == 0
         is_end = index == len(geometry_points) - 1
         node = from_node if is_start else to_node if is_end else None
@@ -123,10 +124,10 @@ def _edge_route_points(edge: OutdoorEdge, from_node: OutdoorNode, to_node: Outdo
                 sourceEdgeId=edge.outdoor_edge_id,
                 # NODE는 실제 그래프 노드, SHAPE는 길 모양을 만들기 위한 중간 좌표.
                 pointType="NODE" if node else "SHAPE",
-                x=point.x,
-                y=point.y,
-                latitude=point.latitude,
-                longitude=point.longitude,
+                x=display_point.x,
+                y=display_point.y,
+                latitude=display_point.latitude,
+                longitude=display_point.longitude,
                 label=node.label if node else None,
             )
         )
@@ -134,13 +135,16 @@ def _edge_route_points(edge: OutdoorEdge, from_node: OutdoorNode, to_node: Outdo
 
 
 def _node_route_point(node: OutdoorNode) -> RoutePoint:
+    display_point = with_display_coordinates(
+        GeometryPoint(x=node.map_x, y=node.map_y, latitude=node.latitude, longitude=node.longitude)
+    )
     return RoutePoint(
         nodeId=node.outdoor_node_id,
         pointType="NODE",
-        x=node.map_x,
-        y=node.map_y,
-        latitude=node.latitude,
-        longitude=node.longitude,
+        x=display_point.x,
+        y=display_point.y,
+        latitude=display_point.latitude,
+        longitude=display_point.longitude,
         label=node.label,
     )
 

@@ -20,6 +20,13 @@ class GeometryPoint:
     longitude: float | None = None
 
 
+# 최종 DB의 외부 그래프 좌표는 "캠퍼스 지도.png" 이미지 좌표계 기준.
+# Kakao Map Polyline은 WGS84 위도/경도만 그릴 수 있어 제출용 fallback 투영 적용.
+# 기준점은 final 캠퍼스 지도 이미지에서 확인한 건물 중심 좌표와 Building_Master 위경도.
+_OUTDOOR_MAP_LAT_COEFF = (37.323313416713, 0.000000983444361, -0.00000889906334)
+_OUTDOOR_MAP_LNG_COEFF = (127.1235593594, 0.0000105130486, -0.00000067160988)
+
+
 def parse_polyline_points(value: str | None) -> list[GeometryPoint]:
     # 빈 값은 "상세 좌표 없음"으로 처리. 오류가 아니어야 기존 노드-노드 직선 fallback 가능.
     if not value or not str(value).strip():
@@ -81,6 +88,24 @@ def node_geometry_point(node: Any) -> GeometryPoint:
         latitude=_optional_float(getattr(node, "latitude", None)),
         longitude=_optional_float(getattr(node, "longitude", None)),
     )
+
+
+def with_display_coordinates(point: GeometryPoint) -> GeometryPoint:
+    # DB에 실제 위경도가 있으면 그대로 사용, 없으면 외부 지도 x/y를 Kakao용 위경도로 보정.
+    if None not in (point.latitude, point.longitude):
+        return point
+    if None in (point.x, point.y):
+        return point
+    latitude, longitude = project_outdoor_xy_to_lat_lng(point.x, point.y)
+    return GeometryPoint(x=point.x, y=point.y, latitude=latitude, longitude=longitude)
+
+
+def project_outdoor_xy_to_lat_lng(x: float, y: float) -> tuple[float, float]:
+    # 단국대 죽전캠퍼스 지도 이미지를 기준으로 한 1차 affine 투영.
+    # 정식 DB에 latitude/longitude가 들어오면 이 fallback은 자동으로 사용되지 않음.
+    lat_base, lat_x, lat_y = _OUTDOOR_MAP_LAT_COEFF
+    lng_base, lng_x, lng_y = _OUTDOOR_MAP_LNG_COEFF
+    return lat_base + lat_x * x + lat_y * y, lng_base + lng_x * x + lng_y * y
 
 
 def polyline_length(points: list[GeometryPoint]) -> float:
