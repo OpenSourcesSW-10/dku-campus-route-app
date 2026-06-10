@@ -1,32 +1,56 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import TopBar from '../components/TopBar'
 import { SearchIcon, PinIcon } from '../components/Icons'
-import { search, buildings, defaultFloor, type SearchHit } from '../lib/data'
+import { search, searchPlaces, buildings, defaultFloor, type SearchHit } from '../lib/data'
 
 const PAGE = 7
-
-// 검색 전 기본 노출: 주요 건물 + 대표 강의실
-const DEFAULT_HITS: SearchHit[] = [
-  ...search('소프트305').slice(0, 1),
-  ...buildings.map<SearchHit>((b) => ({
-    kind: 'building',
-    building: b,
-    title: b.name,
-    subtitle: '단국대 죽전캠퍼스 주요 장소',
-  })),
-]
 
 export default function PlaceSearch() {
   const nav = useNavigate()
   const [q, setQ] = useState('')
   const [page, setPage] = useState(0)
+  const [apiHits, setApiHits] = useState<SearchHit[]>([])
 
-  const hits = useMemo(() => {
+  // 검색 전 기본 노출: 대표 강의실 + 주요 건물 (현재 건물 목록 기준으로 매번 계산)
+  const defaultHits = useMemo<SearchHit[]>(
+    () => [
+      ...search('소프트305').slice(0, 1),
+      ...buildings.map<SearchHit>((b) => ({
+        kind: 'building',
+        building: b,
+        title: b.name,
+        subtitle: '단국대 죽전캠퍼스 주요 장소',
+      })),
+    ],
+    [],
+  )
+
+  const localHits = useMemo(() => {
     setPage(0)
-    return q.trim() ? search(q) : DEFAULT_HITS
-  }, [q])
+    return q.trim() ? search(q) : defaultHits
+  }, [q, defaultHits])
 
+  // 로컬 검색 결과가 없을 때만 백엔드 강의실 검색으로 보강
+  useEffect(() => {
+    const query = q.trim()
+    if (!query || localHits.length > 0) {
+      setApiHits([])
+      return
+    }
+    let alive = true
+    const t = setTimeout(() => {
+      searchPlaces(query).then((hits) => {
+        if (alive) setApiHits(hits)
+      })
+    }, 250)
+    return () => {
+      alive = false
+      clearTimeout(t)
+    }
+  }, [q, localHits])
+
+  const hits = localHits.length > 0 ? localHits : apiHits
   const pages = Math.max(1, Math.ceil(hits.length / PAGE))
   const view = hits.slice(page * PAGE, page * PAGE + PAGE)
 

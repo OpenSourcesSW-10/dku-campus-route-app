@@ -17,6 +17,8 @@ const MENU = [
 export default function Drawer({ open, onClose }: Props) {
   const nav = useNavigate()
   const user = useApp((s) => s.user)
+  const isAuthed = useApp((s) => s.isAuthed)
+  const logout = useApp((s) => s.logout)
 
   return (
     <>
@@ -37,7 +39,7 @@ export default function Drawer({ open, onClose }: Props) {
           <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gray-100 text-gray-700">
             <PersonIcon className="h-14 w-14" />
           </div>
-          <span className="mt-3 text-[17px] text-ink">{user ?? 'user'}</span>
+          <span className="mt-3 text-[17px] text-ink">{user?.studentId ?? '게스트'}</span>
         </div>
 
         <nav className="mt-10 flex flex-col gap-3">
@@ -57,6 +59,21 @@ export default function Drawer({ open, onClose }: Props) {
             </button>
           ))}
         </nav>
+
+        <button
+          onClick={() => {
+            onClose()
+            if (isAuthed) {
+              logout()
+              nav('/landing')
+            } else {
+              nav('/login')
+            }
+          }}
+          className="press mt-auto mb-8 rounded-xl px-5 py-4 text-left text-[16px] text-ink-soft"
+        >
+          {isAuthed ? '로그아웃' : '로그인'}
+        </button>
       </aside>
     </>
   )

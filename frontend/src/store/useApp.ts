@@ -1,9 +1,32 @@
 import { create } from 'zustand'
+import { getToken, setToken, type ApiUser } from '../lib/api'
+
+const USER_KEY = 'dku_user'
+
+function loadUser(): ApiUser | null {
+  try {
+    const s = localStorage.getItem(USER_KEY)
+    return s ? (JSON.parse(s) as ApiUser) : null
+  } catch {
+    return null
+  }
+}
+
+function saveUser(user: ApiUser | null): void {
+  try {
+    if (user) localStorage.setItem(USER_KEY, JSON.stringify(user))
+    else localStorage.removeItem(USER_KEY)
+  } catch {
+    /* 무시 */
+  }
+}
 
 interface AppState {
-  // 목업 인증 (학번 로그인 - 형식만 맞으면 통과)
-  user: string | null
-  login: (studentId: string) => void
+  // 인증 (백엔드 JWT)
+  token: string | null
+  user: ApiUser | null
+  isAuthed: boolean
+  setAuth: (token: string, user: ApiUser) => void
   logout: () => void
 
   // 길찾기 출발/도착 (장소명 텍스트)
@@ -13,9 +36,20 @@ interface AppState {
 }
 
 export const useApp = create<AppState>((set) => ({
-  user: null,
-  login: (studentId) => set({ user: studentId || 'user' }),
-  logout: () => set({ user: null }),
+  token: getToken(),
+  user: loadUser(),
+  isAuthed: !!getToken(),
+
+  setAuth: (token, user) => {
+    setToken(token)
+    saveUser(user)
+    set({ token, user, isAuthed: true })
+  },
+  logout: () => {
+    setToken(null)
+    saveUser(null)
+    set({ token: null, user: null, isAuthed: false })
+  },
 
   routeStart: '내 위치',
   routeDest: '',

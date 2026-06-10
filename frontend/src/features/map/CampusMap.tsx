@@ -1,14 +1,18 @@
 import { useEffect, useRef } from 'react'
 import { useKakao, CAMPUS_CENTER } from './useKakao'
 import { buildings as ALL_BUILDINGS, type Building } from '../../lib/data'
-import type { TmiMarker, RouteOption, RouteType, LatLng } from '../../data/mock'
-import { mockRoute } from '../../data/mock'
+import type { TmiMarker, LatLng } from '../../data/mock'
+
+export interface RouteLine {
+  color: string
+  selected: boolean
+  points: LatLng[]
+}
 
 interface RouteProp {
   start: LatLng
   dest: LatLng
-  options: RouteOption[]
-  selected: RouteType
+  lines: RouteLine[]
 }
 
 interface Props {
@@ -110,31 +114,35 @@ export default function CampusMap({
       add(ov)
     })
 
-    // 경로 (목업 폴리라인)
+    // 경로 (미리 계산된 폴리라인 — 실제 API 또는 목업)
     if (route) {
-      // 선택 안 된 옵션은 흐리게, 선택된 옵션 위에
-      route.options.forEach((opt) => {
-        const path = mockRoute(route.start, route.dest, opt.type).map(
-          (p) => new kakao.maps.LatLng(p.lat, p.lng),
-        )
-        const isSel = opt.type === route.selected
+      const bounds = new kakao.maps.LatLngBounds()
+      bounds.extend(new kakao.maps.LatLng(route.start.lat, route.start.lng))
+      bounds.extend(new kakao.maps.LatLng(route.dest.lat, route.dest.lng))
+
+      // 선택 안 된 경로 먼저(아래), 선택된 경로 나중(위)
+      const ordered = [...route.lines].sort((a, b) => Number(a.selected) - Number(b.selected))
+      ordered.forEach((ln) => {
+        if (ln.points.length < 2) return
+        const path = ln.points.map((p) => {
+          const ll = new kakao.maps.LatLng(p.lat, p.lng)
+          bounds.extend(ll)
+          return ll
+        })
         const line = new kakao.maps.Polyline({
           path,
-          strokeWeight: isSel ? 6 : 4,
-          strokeColor: opt.color,
-          strokeOpacity: isSel ? 0.95 : 0.4,
+          strokeWeight: ln.selected ? 6 : 4,
+          strokeColor: ln.color,
+          strokeOpacity: ln.selected ? 0.95 : 0.4,
           strokeStyle: 'solid',
         })
         line.setMap(map)
         add(line)
       })
+
       // 출발/도착 마커
       addEndpoint(kakao, map, route.start, '출발', '#2C7BE5', add)
       addEndpoint(kakao, map, route.dest, '도착', '#BE3A60', add)
-      // 경로가 보이도록 영역 맞춤
-      const bounds = new kakao.maps.LatLngBounds()
-      bounds.extend(new kakao.maps.LatLng(route.start.lat, route.start.lng))
-      bounds.extend(new kakao.maps.LatLng(route.dest.lat, route.dest.lng))
       map.setBounds(bounds, 60, 40, 200, 40)
     }
 
