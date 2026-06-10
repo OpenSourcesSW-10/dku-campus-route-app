@@ -1,27 +1,80 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import CampusMap from '../features/map/CampusMap'
+import CampusMap, { type RouteLine } from '../features/map/CampusMap'
 import { BackIcon, CloseIcon, SearchIcon, PinIcon, LocateIcon } from '../components/Icons'
-import { buildings } from '../lib/data'
+import { buildings, rooms, type Building } from '../lib/data'
 import { useApp } from '../store/useApp'
-import { ROUTE_OPTIONS, type RouteType, type LatLng } from '../data/mock'
+import { ROUTE_OPTIONS, mockRoute, type LatLng } from '../data/mock'
 import { CAMPUS_CENTER } from '../features/map/useKakao'
+import { fetchRoutes, ApiError, type RouteResult } from '../lib/api'
 
-function resolve(name: string): LatLng {
-  if (!name || name === '내 위치') return CAMPUS_CENTER
+function findBuilding(name: string): Building | undefined {
+  if (!name || name === '내 위치') return undefined
   const compact = name.replace(/\s/g, '')
-  const b =
+  return (
     buildings.find((x) => x.name.replace(/\s/g, '') === compact) ||
     buildings.find((x) => compact.includes(x.name.replace(/\s/g, '')) || x.name.replace(/\s/g, '').includes(compact))
+  )
+}
+
+function resolve(name: string): LatLng {
+  const b = findBuilding(name)
   return b ? { lat: b.lat, lng: b.lng } : CAMPUS_CENTER
+}
+
+/**
+ * 통합 길찾기 API는 건물명이 아니라 호실 식별자("ICT401")를 요구한다.
+ * 건물을 대표 호실 코드로 변환한다. (백엔드 외부 그래프가 2층 이상에 연결돼 있어 2층 우선)
+ * 로컬 호실 데이터가 있는 건물(ICT·도서관)만 변환 가능 — 그 외는 null → 목업 폴백.
+ */
+function representativeRoomCode(name: string): string | null {
+  const b = findBuilding(name)
+  if (!b) return null
+  const inB = rooms.filter((r) => r.buildingId === b.id)
+  if (inB.length === 0) return null
+  const byFloor = (f: number) => inB.find((r) => r.floor === f)
+  const r = byFloor(2) ?? byFloor(3) ?? byFloor(1) ?? inB.find((x) => x.floor > 0) ?? inB[0]
+  return `${b.code}${r.number}`
+}
+
+// routeType(백엔드) → 화면 표시 메타
+const ROUTE_META: Record<string, { label: string; color: string; note: string }> = {
+  DEFAULT: { label: '기본 경로', color: '#BE3A60', note: '가장 기본적인 이동 비용 기준' },
+  COMFORTABLE: { label: '편한 길', color: '#2E9E5B', note: '계단 적고 완만한 길' },
+  RAINY: { label: '비 오는 날', color: '#5B6BE8', note: '비 덜 맞는 실내 위주' },
+}
+
+interface DisplayOption {
+  key: string
+  label: string
+  color: string
+  note: string
+  durationMin: number
+  distanceM: number
+  line: LatLng[]
+}
+
+/** 통합 경로 응답에서 외부(OUTDOOR) 구간의 위경도 폴리라인을 추출 */
+function outdoorLine(r: RouteResult): LatLng[] {
+  const pts: LatLng[] = []
+  for (const seg of r.segments) {
+    if (seg.type !== 'OUTDOOR' || !seg.pathPoints) continue
+    for (const p of seg.pathPoints) {
+      if (p.latitude != null && p.longitude != null) pts.push({ lat: p.latitude, lng: p.longitude })
+    }
+  }
+  return pts
 }
 
 export default function RouteFind() {
   const nav = useNavigate()
   const { routeStart, routeDest, setRoute } = useApp()
-  const [selected, setSelected] = useState<RouteType>('fast')
+  const [selectedKey, setSelectedKey] = useState<string>('DEFAULT')
   const [editing, setEditing] = useState<'start' | 'dest' | null>(null)
   const [q, setQ] = useState('')
+  const [apiRoutes, setApiRoutes] = useState<RouteResult[] | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [errMsg, setErrMsg] = useState('')
 
   const start = useMemo(() => resolve(routeStart), [routeStart])
   const dest = useMemo(() => resolve(routeDest), [routeDest])
@@ -29,6 +82,83 @@ export default function RouteFind() {
   // 출발지 = 도착지 (같은 장소) 여부
   const sameSpot =
     !!routeStart && !!routeDest && routeStart.replace(/\s/g, '') === routeDest.replace(/\s/g, '')
+
+  // 건물 선택 → 대표 호실 코드로 변환 (API는 호실 단위 입력만 받음)
+  const startCode = useMemo(() => representativeRoomCode(routeStart), [routeStart])
+  const destCode = useMemo(() => representativeRoomCode(routeDest), [routeDest])
+
+  // 통합 길찾기 API 호출 (출발/도착을 호실 코드로 변환할 수 있을 때만)
+  useEffect(() => {
+    if (sameSpot || !startCode || !destCode) {
+      setApiRoutes(null)
+      setErrMsg('')
+      return
+    }
+    let alive = true
+    setLoading(true)
+    setErrMsg('')
+    fetchRoutes({ start: startCode, destination: destCode })
+      .then((res) => {
+        if (!alive) return
+        setApiRoutes(res)
+        setLoading(false)
+      })
+      .catch((e) => {
+        if (!alive) return
+        setApiRoutes(null)
+        setErrMsg(e instanceof ApiError ? e.message : '경로를 불러오지 못했습니다.')
+        setLoading(false)
+      })
+    return () => {
+      alive = false
+    }
+  }, [startCode, destCode, sameSpot])
+
+  const usingMock = !apiRoutes || apiRoutes.length === 0
+
+  const options = useMemo<DisplayOption[]>(() => {
+    if (apiRoutes && apiRoutes.length > 0) {
+      return apiRoutes.map((r) => {
+        const meta = ROUTE_META[r.routeType] ?? {
+          label: r.title,
+          color: '#BE3A60',
+          note: r.reason ?? '',
+        }
+        return {
+          key: r.routeType,
+          label: meta.label,
+          color: meta.color,
+          note: meta.note,
+          durationMin: Math.max(1, Math.round(r.totalEstimatedTime / 60)),
+          distanceM: Math.round(r.totalDistance),
+          line: outdoorLine(r),
+        }
+      })
+    }
+    // 목업 폴백
+    return ROUTE_OPTIONS.map((o) => ({
+      key: o.type,
+      label: o.label,
+      color: o.color,
+      note: o.note,
+      durationMin: o.durationMin,
+      distanceM: o.distanceM,
+      line: mockRoute(start, dest, o.type),
+    }))
+  }, [apiRoutes, start, dest])
+
+  // 선택된 옵션이 현재 목록에 없으면 첫 번째로
+  useEffect(() => {
+    if (options.length > 0 && !options.some((o) => o.key === selectedKey)) {
+      setSelectedKey(options[0].key)
+    }
+  }, [options, selectedKey])
+
+  const lines: RouteLine[] = options.map((o) => ({
+    color: o.color,
+    selected: o.key === selectedKey,
+    points: o.line,
+  }))
 
   const openPicker = (which: 'start' | 'dest') => {
     setQ('')
@@ -44,7 +174,6 @@ export default function RouteFind() {
   const swap = () => setRoute(routeDest || '내 위치', routeStart)
 
   // 선택 후보: 출발지에는 '내 위치' 포함, 도착지는 건물만.
-  // 반대편에 이미 선택된 장소는 목록에서 제외(같은 지점 선택 예방).
   const candidates = useMemo(() => {
     const all = editing === 'start' ? ['내 위치', ...buildings.map((b) => b.name)] : buildings.map((b) => b.name)
     const exclude = (editing === 'start' ? routeDest : routeStart).replace(/\s/g, '')
@@ -91,7 +220,7 @@ export default function RouteFind() {
       <div className="relative flex-1">
         <CampusMap
           className="absolute inset-0"
-          route={sameSpot ? null : { start, dest, options: ROUTE_OPTIONS, selected }}
+          route={sameSpot ? null : { start, dest, lines }}
         />
       </div>
 
@@ -105,15 +234,17 @@ export default function RouteFind() {
             <p className="text-[15px] font-semibold text-primary">출발지와 도착지가 같아요</p>
             <p className="mt-1 text-[13px] text-ink-faint">다른 장소를 선택해주세요</p>
           </div>
+        ) : loading ? (
+          <div className="my-1 px-4 py-8 text-center text-[14px] text-ink-faint">경로를 계산하는 중…</div>
         ) : (
           <>
             <div className="flex flex-col gap-2">
-              {ROUTE_OPTIONS.map((o, i) => {
-                const on = o.type === selected
+              {options.map((o, i) => {
+                const on = o.key === selectedKey
                 return (
                   <button
-                    key={o.type}
-                    onClick={() => setSelected(o.type)}
+                    key={o.key}
+                    onClick={() => setSelectedKey(o.key)}
                     style={{ animationDelay: `${i * 80}ms` }}
                     className={`flex animate-fade-up items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all duration-200 active:scale-[0.98] ${
                       on ? 'border-primary bg-primary/5 shadow-card' : 'border-line'
@@ -132,9 +263,15 @@ export default function RouteFind() {
                 )
               })}
             </div>
-            <p className="mt-3 text-center text-[11px] text-ink-faint">
-              * 실제 경로는 백엔드 연동 시 제공됩니다 (목업 표시)
-            </p>
+            {errMsg ? (
+              <p className="mt-3 text-center text-[11px] text-primary">{errMsg} · 목업 경로로 표시 중</p>
+            ) : (
+              <p className="mt-3 text-center text-[11px] text-ink-faint">
+                {usingMock
+                  ? '* 출발지가 현재 위치이거나 경로 데이터가 없어 목업으로 표시됩니다'
+                  : '* 실제 백엔드 경로 (외부 구간 표시)'}
+              </p>
+            )}
           </>
         )}
       </div>

@@ -13,6 +13,8 @@ interface Props {
   onSelectRoom?: (room: Room) => void
   /** 실내 경로선 (안내도 좌표계 1000x707 기준 점들) */
   routePoints?: number[][] | null
+  /** 경로 표시 중이면 강의실로 자동확대하지 않고 층 전체가 보이도록 맞춘다 */
+  routeActive?: boolean
 }
 
 /**
@@ -21,23 +23,27 @@ interface Props {
  * 가로로 긴 도면이라 모바일에서 핀치줌/드래그로 이동·확대할 수 있게 했고,
  * 하이라이트된 강의실로는 자동 확대된다.
  */
-export default function IndoorMap({ map, rooms, highlightRoomId, onSelectRoom, routePoints }: Props) {
+export default function IndoorMap({ map, rooms, highlightRoomId, onSelectRoom, routePoints, routeActive }: Props) {
   const W = map.canvasWidth
   const H = map.canvasHeight
   const ref = useRef<ReactZoomPanPinchRef | null>(null)
 
-  // 하이라이트된 강의실로 자동 확대/이동
+  // 경로 표시 중이면 층 전체가 보이도록 맞추고(경로선이 화면 밖으로 나가지 않게),
+  // 아니면 하이라이트된 강의실로 자동 확대/이동한다.
   useEffect(() => {
-    if (!highlightRoomId) return
     const t = setTimeout(() => {
       try {
-        ref.current?.zoomToElement(`room-${highlightRoomId}`, 2.4, 500)
+        if (routeActive) {
+          ref.current?.resetTransform(400)
+        } else if (highlightRoomId) {
+          ref.current?.zoomToElement(`room-${highlightRoomId}`, 2.4, 500)
+        }
       } catch {
         /* 요소를 못 찾으면 무시 */
       }
     }, 300)
     return () => clearTimeout(t)
-  }, [highlightRoomId, map.image])
+  }, [highlightRoomId, map.image, routeActive])
 
   const hlRoom = highlightRoomId ? rooms.find((r) => r.id === highlightRoomId) : undefined
 
@@ -111,7 +117,7 @@ export default function IndoorMap({ map, rooms, highlightRoomId, onSelectRoom, r
                   </g>
                 )}
 
-                {/* 실내 경로선 (목업) */}
+                {/* 실내 경로선 (백엔드 INDOOR 세그먼트 좌표) */}
                 {routePoints && routePoints.length >= 2 && (
                   <g pointerEvents="none">
                     <polyline
@@ -123,7 +129,17 @@ export default function IndoorMap({ map, rooms, highlightRoomId, onSelectRoom, r
                       strokeLinejoin="round"
                       strokeDasharray="2 10"
                     />
-                    <circle cx={routePoints[0][0]} cy={routePoints[0][1]} r={7} fill="#5B6BE8" />
+                    {/* 이 층 진입점 */}
+                    <circle cx={routePoints[0][0]} cy={routePoints[0][1]} r={5} fill="#5B6BE8" />
+                    {/* 이 층 이탈/도착점 */}
+                    <circle
+                      cx={routePoints[routePoints.length - 1][0]}
+                      cy={routePoints[routePoints.length - 1][1]}
+                      r={5}
+                      fill="#fff"
+                      stroke="#5B6BE8"
+                      strokeWidth={3}
+                    />
                   </g>
                 )}
               </svg>

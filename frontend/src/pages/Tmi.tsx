@@ -1,8 +1,9 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import CampusMap from '../features/map/CampusMap'
 import { BackIcon, CloseIcon } from '../components/Icons'
 import { TMI_CATEGORIES, TMI_MARKERS, type TmiCategory, type TmiMarker } from '../data/mock'
+import { fetchTmi } from '../lib/api'
 
 export default function Tmi() {
   const nav = useNavigate()
@@ -10,8 +11,24 @@ export default function Tmi() {
     () => new Set(TMI_CATEGORIES.map((c) => c.key)),
   )
   const [picked, setPicked] = useState<TmiMarker | null>(null)
+  const [markers, setMarkers] = useState<TmiMarker[]>(TMI_MARKERS)
 
-  const visible = useMemo(() => TMI_MARKERS.filter((m) => enabled.has(m.category)), [enabled])
+  // 공개 TMI 목록 로드 (실패/빈 응답이면 목업 마커 유지)
+  useEffect(() => {
+    let alive = true
+    fetchTmi()
+      .then((list) => {
+        if (alive && list.length > 0) setMarkers(list)
+      })
+      .catch(() => {
+        /* 목업 유지 */
+      })
+    return () => {
+      alive = false
+    }
+  }, [])
+
+  const visible = useMemo(() => markers.filter((m) => enabled.has(m.category)), [markers, enabled])
 
   const toggle = (k: TmiCategory) =>
     setEnabled((prev) => {
@@ -47,7 +64,7 @@ export default function Tmi() {
                     </span>
                   ))}
                 </div>
-                <p className="mt-2 text-[14px] text-ink-soft">{picked.content}</p>
+                <p className="mt-2 text-[14px] text-ink-soft">{picked.content || '제보된 위치 정보입니다.'}</p>
                 <p className="mt-2 text-[12px] text-ink-faint">제보자 · {picked.author}</p>
               </div>
               <button onClick={() => setPicked(null)} className="p-1 text-ink-faint" aria-label="닫기">
