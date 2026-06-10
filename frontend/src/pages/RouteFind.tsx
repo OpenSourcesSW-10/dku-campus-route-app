@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import CampusMap, { type RouteLine } from '../features/map/CampusMap'
+import IndoorMap from '../features/indoor/IndoorMap'
 import { BackIcon, CloseIcon, SearchIcon, PinIcon, LocateIcon } from '../components/Icons'
-import { buildings, rooms, type Building } from '../lib/data'
+import { buildings, rooms, loadIndoorMap, type Building, type IndoorMapData } from '../lib/data'
 import { useApp } from '../store/useApp'
 import { ROUTE_OPTIONS, mockRoute, type LatLng } from '../data/mock'
 import { CAMPUS_CENTER } from '../features/map/useKakao'
@@ -16,8 +17,11 @@ const ENGINEERING_REPRESENTATIVE_ROOMS: Record<string, string> = {
 
 const ENGINEERING_ROOM_SUGGESTIONS = [
   '제1공301',
+  '제1공학관301',
   '제2공301',
+  '제2공학관301',
   '제3공319',
+  '제3공학관319',
   'SCI1-3F-301',
   'SCI2-3F-301',
   'SCI3-3F-319',
@@ -78,7 +82,45 @@ interface DisplayOption {
   durationMin: number
   distanceM: number
   line: LatLng[]
+  route?: RouteResult
 }
+
+interface TotalStage {
+  key: string
+  kind: 'TOTAL'
+  label: string
+  instruction: string
+}
+
+interface IndoorStage {
+  key: string
+  kind: 'INDOOR'
+  label: string
+  buildingId: string
+  floorNumber: number
+  instruction: string
+  routePoints: number[][]
+}
+
+interface VerticalStage {
+  key: string
+  kind: 'VERTICAL'
+  label: string
+  buildingId: string
+  floorNumber: number
+  instruction: string
+  routePoints: number[][]
+}
+
+interface OutdoorStage {
+  key: string
+  kind: 'OUTDOOR'
+  label: string
+  instruction: string
+  line: LatLng[]
+}
+
+type RouteStage = TotalStage | IndoorStage | VerticalStage | OutdoorStage
 
 /** 통합 경로 응답에서 외부(OUTDOOR) 구간의 위경도 폴리라인을 추출 */
 function outdoorLine(r: RouteResult): LatLng[] {
@@ -92,6 +134,7 @@ function outdoorLine(r: RouteResult): LatLng[] {
   return pts
 }
 
+/** 실내 전용 경로가 아닌데 외부 polyline이 없을 때만 쓰는 최소 fallback */
 function indoorConnectionLine(r: RouteResult, start: LatLng, dest: LatLng): LatLng[] {
   const pts: LatLng[] = [start]
   let lastKey = `${start.lat},${start.lng}`
@@ -119,6 +162,94 @@ function hasBridgeSegment(r: RouteResult): boolean {
   return r.segments.some((seg) => seg.transitionType === 'BRIDGE' || seg.edgeIds?.some((id) => id.startsWith('SCI')))
 }
 
+function indoorRoutePoints(seg: RouteResult['segments'][number]): number[][] {
+  return (seg.pathPoints ?? [])
+    .filter((p) => p.x != null && p.y != null)
+    .map((p) => [p.x as number, p.y as number])
+}
+
+function verticalStageLabel(transitionType?: string): string {
+  if (transitionType === 'ELEVATOR') return '엘리베이터'
+  if (transitionType === 'STAIRS') return '계단'
+  if (transitionType === 'BRIDGE') return '구름다리'
+  return '층 이동'
+}
+
+function routeStagesOf(route?: RouteResult): RouteStage[] {
+  if (!route) return []
+  const stages: RouteStage[] = []
+  let indoorCount = 0
+  let outdoorCount = 0
+  let verticalCount = 0
+  const hasOutdoor = route.segments.some((seg) => seg.type === 'OUTDOOR')
+  for (const [index, seg] of route.segments.entries()) {
+    if (seg.type === 'INDOOR' && seg.buildingId && typeof seg.floorNumber === 'number') {
+      const routePoints = indoorRoutePoints(seg)
+      if (routePoints.length < 1) continue
+      indoorCount += 1
+      stages.push({
+        key: `${seg.buildingId}-${seg.floorNumber}-${index}`,
+        kind: 'INDOOR',
+        label: `${buildingLabel(seg.buildingId)} ${floorLabel(seg.floorNumber)}`,
+        buildingId: seg.buildingId,
+        floorNumber: seg.floorNumber,
+        instruction: seg.instruction ?? `${floorLabel(seg.floorNumber)} 실내 경로`,
+        routePoints,
+      })
+    }
+    if (seg.type === 'VERTICAL' && seg.buildingId && typeof seg.floorNumber === 'number') {
+      const routePoints = indoorRoutePoints(seg)
+      if (routePoints.length < 1) continue
+      verticalCount += 1
+      const label = verticalStageLabel(seg.transitionType)
+      stages.push({
+        key: `vertical-${seg.buildingId}-${seg.floorNumber}-${index}`,
+        kind: 'VERTICAL',
+        label: `${buildingLabel(seg.buildingId)} ${floorLabel(seg.floorNumber)} ${label}`,
+        buildingId: seg.buildingId,
+        floorNumber: seg.floorNumber,
+        instruction:
+          seg.instruction ??
+          `${floorLabel(seg.floorNumber)}에서 ${label}를 이용해 ${seg.toFloorNumber != null ? floorLabel(seg.toFloorNumber) : '다른 층'}으로 이동하세요.`,
+        routePoints: [routePoints[0]],
+      })
+    }
+    if (seg.type === 'OUTDOOR') {
+      const line = (seg.pathPoints ?? [])
+        .filter((p) => p.latitude != null && p.longitude != null)
+        .map((p) => ({ lat: p.latitude as number, lng: p.longitude as number }))
+      if (line.length < 2) continue
+      outdoorCount += 1
+      stages.push({
+        key: `outdoor-${index}`,
+        kind: 'OUTDOOR',
+        label: outdoorCount === 1 ? '외부 이동' : `외부 이동 ${outdoorCount}`,
+        instruction: '외부 지도 경로를 따라 다음 건물 출입구까지 이동하세요.',
+        line,
+      })
+    }
+  }
+  if (indoorCount === 0 && verticalCount === 0 && outdoorCount === 1 && stages.length === 1) return []
+  if (!hasOutdoor || stages.length === 0) return stages
+  return [
+    {
+      key: 'total',
+      kind: 'TOTAL',
+      label: '전체 경로',
+      instruction: '전체 외부 경로를 지도에서 확인하세요. 실내 구간은 아래 단계에서 따로 확인할 수 있습니다.',
+    },
+    ...stages,
+  ]
+}
+
+function buildingLabel(buildingId: string): string {
+  return buildings.find((b) => b.id === buildingId)?.name ?? buildingId
+}
+
+function floorLabel(floorNumber: number): string {
+  return floorNumber < 0 ? `B${Math.abs(floorNumber)}층` : `${floorNumber}층`
+}
+
 export default function RouteFind() {
   const nav = useNavigate()
   const { routeStart, routeDest, setRoute } = useApp()
@@ -128,6 +259,9 @@ export default function RouteFind() {
   const [apiRoutes, setApiRoutes] = useState<RouteResult[] | null>(null)
   const [loading, setLoading] = useState(false)
   const [errMsg, setErrMsg] = useState('')
+  const [selectedStageIndex, setSelectedStageIndex] = useState(0)
+  const [indoorData, setIndoorData] = useState<IndoorMapData | null>(null)
+  const [indoorLoading, setIndoorLoading] = useState(false)
 
   const start = useMemo(() => resolve(routeStart), [routeStart])
   const dest = useMemo(() => resolve(routeDest), [routeDest])
@@ -176,6 +310,7 @@ export default function RouteFind() {
           color: '#BE3A60',
           note: r.reason ?? '',
         }
+        const line = displayLine(r, start, dest)
         return {
           key: r.routeType,
           label: meta.label,
@@ -183,7 +318,8 @@ export default function RouteFind() {
           note: hasBridgeSegment(r) ? `${meta.note} · 구름다리/실내 연결 포함` : meta.note,
           durationMin: Math.max(1, Math.round(r.totalEstimatedTime / 60)),
           distanceM: Math.round(r.totalDistance),
-          line: displayLine(r, start, dest),
+          line,
+          route: r,
         }
       })
     }
@@ -211,6 +347,42 @@ export default function RouteFind() {
     selected: o.key === selectedKey,
     points: o.line,
   }))
+
+  const selectedOption = options.find((o) => o.key === selectedKey) ?? options[0]
+  const selectedRoute = selectedOption?.route
+  const routeStages = useMemo(() => routeStagesOf(selectedRoute), [selectedRoute])
+  const showStagedRoute = routeStages.length > 0
+  const selectedStage = routeStages[Math.min(selectedStageIndex, Math.max(routeStages.length - 1, 0))]
+  const selectedIndoorStage =
+    selectedStage?.kind === 'INDOOR' || selectedStage?.kind === 'VERTICAL' ? selectedStage : null
+
+  useEffect(() => {
+    setSelectedStageIndex(0)
+  }, [selectedKey, routeStart, routeDest])
+
+  useEffect(() => {
+    if (!showStagedRoute || !selectedIndoorStage) {
+      setIndoorData(null)
+      setIndoorLoading(false)
+      return
+    }
+    let alive = true
+    setIndoorLoading(true)
+    loadIndoorMap(selectedIndoorStage.buildingId, selectedIndoorStage.floorNumber)
+      .then((data) => {
+        if (!alive) return
+        setIndoorData(data)
+        setIndoorLoading(false)
+      })
+      .catch(() => {
+        if (!alive) return
+        setIndoorData(null)
+        setIndoorLoading(false)
+      })
+    return () => {
+      alive = false
+    }
+  }, [showStagedRoute, selectedIndoorStage])
 
   const openPicker = (which: 'start' | 'dest') => {
     setQ('')
@@ -277,10 +449,73 @@ export default function RouteFind() {
 
       {/* 지도 + 경로 */}
       <div className="relative flex-1">
-        <CampusMap
-          className="absolute inset-0"
-          route={sameSpot ? null : { start, dest, lines }}
-        />
+        {showStagedRoute ? (
+          <div className="absolute inset-0 bg-[#f7f9fc] pt-[112px]">
+            {selectedStage?.kind === 'TOTAL' ? (
+              <CampusMap
+                className="h-full w-full"
+                route={sameSpot ? null : { start, dest, lines }}
+              />
+            ) : selectedStage?.kind === 'OUTDOOR' ? (
+              <CampusMap
+                className="h-full w-full"
+                route={{
+                  start: selectedStage.line[0],
+                  dest: selectedStage.line[selectedStage.line.length - 1],
+                  lines: [
+                    {
+                      color: selectedOption?.color ?? '#BE3A60',
+                      selected: true,
+                      points: selectedStage.line,
+                    },
+                  ],
+                }}
+              />
+            ) : indoorLoading ? (
+              <div className="flex h-full items-center justify-center text-[14px] text-ink-faint">
+                실내 경로를 불러오는 중…
+              </div>
+            ) : indoorData && selectedIndoorStage ? (
+              <IndoorMap
+                map={indoorData.map}
+                rooms={indoorData.rooms}
+                routePoints={selectedIndoorStage.routePoints}
+                routeActive
+              />
+            ) : (
+              <div className="flex h-full items-center justify-center px-8 text-center text-[14px] text-ink-faint">
+                이 구간의 실내 안내도를 불러오지 못했습니다.
+              </div>
+            )}
+
+            <div className="absolute inset-x-3 top-[118px] z-20 rounded-2xl bg-white/95 p-3 shadow-card backdrop-blur">
+              <p className="mb-2 text-[12px] font-semibold text-ink-soft">
+                경로 단계 {selectedStageIndex + 1} / {routeStages.length}
+              </p>
+              <div className="no-scrollbar flex gap-2 overflow-x-auto">
+                {routeStages.map((stage, index) => (
+                  <button
+                    key={stage.key}
+                    onClick={() => setSelectedStageIndex(index)}
+                    className={`shrink-0 rounded-full px-3 py-1.5 text-[12px] font-semibold ${
+                      index === selectedStageIndex ? 'bg-primary text-white' : 'bg-gray-100 text-ink-soft'
+                    }`}
+                  >
+                    {stage.label}
+                  </button>
+                ))}
+              </div>
+              {selectedStage && (
+                <p className="mt-2 line-clamp-2 text-[11px] text-ink-faint">{selectedStage.instruction}</p>
+              )}
+            </div>
+          </div>
+        ) : (
+          <CampusMap
+            className="absolute inset-0"
+            route={sameSpot ? null : { start, dest, lines }}
+          />
+        )}
       </div>
 
       {/* 경로 옵션 카드 */}

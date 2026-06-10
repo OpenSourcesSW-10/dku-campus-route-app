@@ -1,8 +1,10 @@
 import raw from '../data/dku-data.json'
 import {
   fetchBuildings,
+  fetchFloors,
   fetchIndoorMap,
   searchRoom,
+  searchRooms,
   type RoomSearchResult,
 } from './api'
 
@@ -171,20 +173,52 @@ function localIndoorMapData(buildingId: string, floor: number): IndoorMapData | 
   return { map, rooms: roomsOf(buildingId, floor) }
 }
 
+function upsertIndoorMaps(nextMaps: IndoorMap[]) {
+  for (const next of nextMaps) {
+    const index = indoorMaps.findIndex((m) => m.buildingId === next.buildingId && m.floor === next.floor)
+    if (index >= 0) indoorMaps[index] = { ...indoorMaps[index], ...next }
+    else indoorMaps.push(next)
+  }
+}
+
+function upsertRooms(nextRooms: Room[]) {
+  for (const next of nextRooms) {
+    const index = rooms.findIndex((r) => r.id === next.id)
+    if (index >= 0) rooms[index] = { ...rooms[index], ...next }
+    else rooms.push(next)
+  }
+}
+
+/** 건물의 층별 실내지도 목록을 API 우선으로 로드한다. */
+export async function loadIndoorMaps(buildingId: string): Promise<IndoorMap[]> {
+  try {
+    const apiFloors = await fetchFloors(buildingId)
+    if (apiFloors.length > 0) {
+      upsertIndoorMaps(apiFloors)
+      return indoorMapsOf(buildingId)
+    }
+  } catch {
+    /* 백엔드 연결 실패 → 로컬 층 목록 사용 */
+  }
+  return indoorMapsOf(buildingId)
+}
+
 /**
  * 층 실내 지도 + 강의실을 로드한다.
- * 로컬 우선: 팀이 큐레이션한 고해상도 안내도(PNG)와 좌표·실내 경로 데모가 있는
- * 건물(ICT·도서관)은 로컬 데이터를 사용하고, 로컬에 없는 건물/층만 백엔드 API로 폴백한다.
- * (백엔드 전체로 전환하려면 아래 두 블록의 우선순위를 바꾸면 된다.)
+ * 최종 DB가 있으면 API 데이터를 우선 사용하고, 백엔드 연결 실패 시 로컬 데이터로 폴백한다.
  */
 export async function loadIndoorMap(buildingId: string, floor: number): Promise<IndoorMapData | null> {
-  const local = localIndoorMapData(buildingId, floor)
-  if (local) return local
   try {
-    return await fetchIndoorMap(buildingId, floor)
+    const api = await fetchIndoorMap(buildingId, floor)
+    if (api) {
+      upsertIndoorMaps([api.map])
+      upsertRooms(api.rooms)
+      return api
+    }
   } catch {
-    return null
+    /* 백엔드 연결 실패 → 로컬 안내도 사용 */
   }
+  return localIndoorMapData(buildingId, floor)
 }
 
 // =====================================================================
@@ -311,18 +345,34 @@ function apiRoomToHit(r: RoomSearchResult): SearchHit {
 }
 
 /**
- * 로컬 검색 우선 + 결과가 없을 때만 백엔드 강의실 검색으로 보강한다.
- * 로컬 데이터가 풍부하므로 대부분 즉시 로컬에서 처리되고, 백엔드 추가 데이터만 폴백된다.
+ * 로컬 검색 결과와 백엔드 강의실 DB 검색 결과를 병합한다.
+ * 최종 DB의 공학관 전체 강의실처럼 로컬 JSON에 없는 데이터도 검색 결과에 포함한다.
  */
 export async function searchPlaces(query: string): Promise<SearchHit[]> {
   const local = search(query)
-  if (local.length > 0) return local
   const q = query.trim()
-  if (!q) return []
+  if (!q) return local
+  const seen = new Set(local.map((hit) => hit.room?.id ?? `B:${hit.building.id}`))
   try {
-    const r = await searchRoom(q)
-    return r ? [apiRoomToHit(r)] : []
+    const apiRooms = await searchRooms(q, 80)
+    const apiHits = apiRooms
+      .map(apiRoomToHit)
+      .filter((hit) => {
+        const key = hit.room?.id ?? `B:${hit.building.id}`
+        if (seen.has(key)) return false
+        seen.add(key)
+        return true
+      })
+    return [...local, ...apiHits].slice(0, 80)
   } catch {
-    return []
+    try {
+      const r = await searchRoom(q)
+      if (!r) return local
+      const hit = apiRoomToHit(r)
+      const key = hit.room?.id ?? `B:${hit.building.id}`
+      return seen.has(key) ? local : [...local, hit]
+    } catch {
+      return local
+    }
   }
 }

@@ -7,10 +7,12 @@ import {
   buildings,
   indoorMapsOf,
   defaultFloor,
+  loadIndoorMaps,
   loadIndoorMap,
   roomsOfBuilding,
   buildingById,
   type Building,
+  type IndoorMap as IndoorMapMeta,
   type IndoorMapData,
 } from '../lib/data'
 import { fetchIndoorRoute, ApiError, type RouteResult } from '../lib/api'
@@ -40,7 +42,36 @@ export default function IndoorMapPage() {
 
 function BuildingPicker() {
   const nav = useNavigate()
-  const indoorBuildings = buildings.filter((b) => indoorMapsOf(b.id).length > 0)
+  const [floorCounts, setFloorCounts] = useState<Record<string, number>>({})
+  const knownIndoorBuildingIds = new Set(['DKU_ICT', 'DKU_LIB', 'DKU_SCI1', 'DKU_SCI2', 'DKU_SCI3'])
+
+  useEffect(() => {
+    let alive = true
+    Promise.all(
+      buildings.map(async (building) => {
+        const maps = await loadIndoorMaps(building.id)
+        return [building.id, maps.length] as const
+      }),
+    ).then((entries) => {
+      if (!alive) return
+      setFloorCounts(Object.fromEntries(entries))
+    })
+    return () => {
+      alive = false
+    }
+  }, [])
+
+  const indoorBuildings = buildings.filter(
+    (b) => indoorMapsOf(b.id).length > 0 || (floorCounts[b.id] ?? 0) > 0 || knownIndoorBuildingIds.has(b.id),
+  )
+
+  const openBuilding = async (buildingIdToOpen: string) => {
+    const maps = await loadIndoorMaps(buildingIdToOpen)
+    const floorToOpen = (maps.find((m) => m.floor === 1) ?? maps[0])?.floor ?? defaultFloor(buildingIdToOpen)
+    if (floorToOpen !== undefined) nav(`/indoor/${buildingIdToOpen}/${floorToOpen}`)
+    else nav('/home')
+  }
+
   return (
     <div className="flex h-full flex-col bg-white">
       <TopBar title="강의실 정보" onBack={() => nav('/home')} />
@@ -49,12 +80,14 @@ function BuildingPicker() {
         {indoorBuildings.map((b) => (
           <button
             key={b.id}
-            onClick={() => nav(`/indoor/${b.id}/${defaultFloor(b.id)}`)}
+            onClick={() => void openBuilding(b.id)}
             className="flex w-full items-center justify-between rounded-xl border border-line px-4 py-4 text-left [&+&]:mt-3"
           >
             <div>
               <p className="text-[16px] font-bold text-ink">{b.name}</p>
-              <p className="text-[13px] text-ink-faint">{indoorMapsOf(b.id).length}개 층 안내도</p>
+              <p className="text-[13px] text-ink-faint">
+                {floorCounts[b.id] ?? indoorMapsOf(b.id).length}개 층 안내도
+              </p>
             </div>
             <ChevronRight className="h-5 w-5 text-ink-faint" />
           </button>
@@ -75,11 +108,11 @@ function IndoorView({
 }) {
   const nav = useNavigate()
   const building = buildingById(buildingId) as Building
-  const floors = indoorMapsOf(buildingId)
   const bRooms = useMemo(() => roomsOfBuilding(buildingId), [buildingId])
 
   const [data, setData] = useState<IndoorMapData | null>(null)
   const [loading, setLoading] = useState(true)
+  const [floors, setFloors] = useState<IndoorMapMeta[]>(() => indoorMapsOf(buildingId))
 
   // 도착 호실(지도 탭) / 출발 호실(선택)
   const [destRoomId, setDestRoomId] = useState<string | null>(initialRoom)
@@ -96,10 +129,20 @@ function IndoorView({
   // 층/건물 변경 시 실내 지도 + 강의실 로드 (API 우선, 로컬 폴백)
   useEffect(() => {
     let alive = true
+    loadIndoorMaps(buildingId).then((maps) => {
+      if (!alive) return
+      setFloors(maps)
+    })
     setLoading(true)
     loadIndoorMap(buildingId, floor).then((res) => {
       if (!alive) return
       setData(res)
+      if (res?.map) {
+        setFloors((prev) => {
+          if (prev.some((m) => m.buildingId === res.map.buildingId && m.floor === res.map.floor)) return prev
+          return [...prev, res.map].sort((a, b) => a.floor - b.floor)
+        })
+      }
       setLoading(false)
     })
     return () => {
@@ -144,9 +187,14 @@ function IndoorView({
 
   const rooms = data?.rooms ?? []
   const map = data?.map
+  const knownRooms = useMemo(() => {
+    const byId = new Map(bRooms.map((room) => [room.id, room]))
+    for (const room of rooms) byId.set(room.id, room)
+    return [...byId.values()]
+  }, [bRooms, rooms])
 
-  const destRoom = destRoomId ? bRooms.find((r) => r.id === destRoomId) : undefined
-  const fromRoom = fromRoomId ? bRooms.find((r) => r.id === fromRoomId) : undefined
+  const destRoom = destRoomId ? knownRooms.find((r) => r.id === destRoomId) : undefined
+  const fromRoom = fromRoomId ? knownRooms.find((r) => r.id === fromRoomId) : undefined
 
   // 특정 층의 실내 경로선 좌표 (백엔드 INDOOR 세그먼트).
   // 백엔드 그래프 노드가 적어 여러 호실이 같은 노드를 공유하므로,
@@ -304,6 +352,18 @@ function IndoorView({
             <button onClick={reset} className="p-1 text-ink-faint" aria-label="닫기">
               <CloseIcon className="h-5 w-5" />
             </button>
+          </div>
+
+          <div className="mt-3 rounded-xl border border-line bg-gray-50 px-4 py-3">
+            <p className="text-[14px] font-bold text-ink">
+              {building?.name} {destRoom.number}호
+            </p>
+            <div className="mt-1 space-y-0.5 text-[12px] text-ink-soft">
+              <p>층: {destRoom.floorLabel}</p>
+              {destRoom.name && <p>공간명: {destRoom.name}</p>}
+              {destRoom.type && <p>공간 유형: {destRoom.type}</p>}
+              <p>실내 지도 좌표: {destRoom.pos ? '등록됨' : '미등록'}</p>
+            </div>
           </div>
 
           {/* 상태/결과 */}

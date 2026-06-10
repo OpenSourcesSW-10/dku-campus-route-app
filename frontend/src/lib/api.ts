@@ -339,6 +339,14 @@ export interface RoomSearchResult {
   nearestIndoorNodeId?: string
 }
 
+export async function searchRooms(keyword: string, limit = 50): Promise<RoomSearchResult[]> {
+  return apiFetch<RoomSearchResult[]>('/api/rooms', { query: { keyword, limit } })
+}
+
+export async function fetchRoomDetail(roomId: string): Promise<RoomSearchResult> {
+  return apiFetch<RoomSearchResult>(`/api/rooms/${encodeURIComponent(roomId)}`)
+}
+
 /** keyword로 강의실 1건 검색. 없으면 null. */
 export async function searchRoom(keyword: string): Promise<RoomSearchResult | null> {
   try {

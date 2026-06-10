@@ -28,26 +28,28 @@ export default function PlaceSearch() {
 
   const localHits = useMemo(() => (q.trim() ? search(q) : defaultHits), [q, defaultHits])
 
-  // 로컬 검색 결과가 없을 때만 백엔드 강의실 검색으로 보강
+  // 최종 DB 강의실까지 포함하기 위해 로컬 결과 유무와 관계없이 백엔드 검색으로 보강.
   useEffect(() => {
     const query = q.trim()
-    if (!query || localHits.length > 0) {
+    if (!query) {
       setApiHits([])
       return
     }
     let alive = true
     const t = setTimeout(() => {
       searchPlaces(query).then((hits) => {
-        if (alive) setApiHits(hits)
+        if (!alive) return
+        setApiHits(hits)
+        setPage(0)
       })
     }, 250)
     return () => {
       alive = false
       clearTimeout(t)
     }
-  }, [q, localHits])
+  }, [q])
 
-  const hits = localHits.length > 0 ? localHits : apiHits
+  const hits = q.trim() ? apiHits : localHits
   const pages = Math.max(1, Math.ceil(hits.length / PAGE))
   const view = hits.slice(page * PAGE, page * PAGE + PAGE)
 

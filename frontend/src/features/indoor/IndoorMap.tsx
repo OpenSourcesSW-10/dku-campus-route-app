@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import {
   TransformWrapper,
   TransformComponent,
@@ -17,6 +17,65 @@ interface Props {
   routeActive?: boolean
 }
 
+interface Bounds {
+  x: number
+  y: number
+  width: number
+  height: number
+}
+
+function roomBounds(rooms: Room[], canvasWidth: number, canvasHeight: number): Bounds | null {
+  const xs: number[] = []
+  const ys: number[] = []
+  for (const room of rooms) {
+    if (!room.pos) continue
+    if (room.pos.polygon && room.pos.polygon.length >= 3) {
+      for (const [x, y] of room.pos.polygon) {
+        xs.push(x)
+        ys.push(y)
+      }
+      continue
+    }
+    xs.push(room.pos.x, room.pos.x + room.pos.width)
+    ys.push(room.pos.y, room.pos.y + room.pos.height)
+  }
+  if (xs.length === 0 || ys.length === 0) return null
+
+  const paddingX = canvasWidth * 0.08
+  const paddingY = canvasHeight * 0.08
+  const minX = Math.max(0, Math.min(...xs) - paddingX)
+  const maxX = Math.min(canvasWidth, Math.max(...xs) + paddingX)
+  const minY = Math.max(0, Math.min(...ys) - paddingY)
+  const maxY = Math.min(canvasHeight, Math.max(...ys) + paddingY)
+
+  return {
+    x: minX,
+    y: minY,
+    width: Math.max(1, maxX - minX),
+    height: Math.max(1, maxY - minY),
+  }
+}
+
+function pointBounds(points: number[][] | null | undefined, canvasWidth: number, canvasHeight: number): Bounds | null {
+  const valid = (points ?? []).filter((point) => point.length >= 2 && Number.isFinite(point[0]) && Number.isFinite(point[1]))
+  if (valid.length === 0) return null
+  const xs = valid.map((point) => point[0])
+  const ys = valid.map((point) => point[1])
+  const basePaddingX = canvasWidth * 0.08
+  const basePaddingY = canvasHeight * 0.08
+  const minX = Math.max(0, Math.min(...xs) - basePaddingX)
+  const maxX = Math.min(canvasWidth, Math.max(...xs) + basePaddingX)
+  const minY = Math.max(0, Math.min(...ys) - basePaddingY)
+  const maxY = Math.min(canvasHeight, Math.max(...ys) + basePaddingY)
+
+  return {
+    x: minX,
+    y: minY,
+    width: Math.max(1, maxX - minX),
+    height: Math.max(1, maxY - minY),
+  }
+}
+
 /**
  * 실내 안내도 뷰어.
  * 배경 PNG(1000x707) 위에 SVG로 강의실 좌표를 그린다.
@@ -27,23 +86,30 @@ export default function IndoorMap({ map, rooms, highlightRoomId, onSelectRoom, r
   const W = map.canvasWidth
   const H = map.canvasHeight
   const ref = useRef<ReactZoomPanPinchRef | null>(null)
+  const mapFocusId = `indoor-map-focus-${map.buildingId}-${map.floor}`
+  const mapFocusBounds = useMemo(() => roomBounds(rooms, W, H), [rooms, W, H])
+  const routeFocusId = `indoor-route-focus-${map.buildingId}-${map.floor}`
+  const routeFocusBounds = useMemo(() => pointBounds(routePoints, W, H), [routePoints, W, H])
 
-  // 경로 표시 중이면 층 전체가 보이도록 맞추고(경로선이 화면 밖으로 나가지 않게),
-  // 아니면 하이라이트된 강의실로 자동 확대/이동한다.
+  // 경로 표시 중이면 경로 범위로 확대하고, 일반 지도는 하이라이트/실제 도면 영역 중심으로 확대한다.
   useEffect(() => {
     const t = setTimeout(() => {
       try {
-        if (routeActive) {
-          ref.current?.resetTransform(400)
+        if (routeActive && routeFocusBounds) {
+          ref.current?.zoomToElement(routeFocusId, 1.25, 450)
+        } else if (routeActive && mapFocusBounds) {
+          ref.current?.zoomToElement(mapFocusId, 1.2, 450)
         } else if (highlightRoomId) {
           ref.current?.zoomToElement(`room-${highlightRoomId}`, 2.4, 500)
+        } else if (mapFocusBounds) {
+          ref.current?.zoomToElement(mapFocusId, 1.35, 450)
         }
       } catch {
         /* 요소를 못 찾으면 무시 */
       }
     }, 300)
     return () => clearTimeout(t)
-  }, [highlightRoomId, map.image, routeActive])
+  }, [highlightRoomId, map.image, mapFocusBounds, mapFocusId, routeActive, routeFocusBounds, routeFocusId])
 
   const hlRoom = highlightRoomId ? rooms.find((r) => r.id === highlightRoomId) : undefined
 
@@ -69,6 +135,28 @@ export default function IndoorMap({ map, rooms, highlightRoomId, onSelectRoom, r
                 preserveAspectRatio="xMidYMid meet"
               >
                 <image href={map.image} x={0} y={0} width={W} height={H} />
+                {mapFocusBounds && (
+                  <rect
+                    id={mapFocusId}
+                    x={mapFocusBounds.x}
+                    y={mapFocusBounds.y}
+                    width={mapFocusBounds.width}
+                    height={mapFocusBounds.height}
+                    fill="transparent"
+                    pointerEvents="none"
+                  />
+                )}
+                {routeFocusBounds && (
+                  <rect
+                    id={routeFocusId}
+                    x={routeFocusBounds.x}
+                    y={routeFocusBounds.y}
+                    width={routeFocusBounds.width}
+                    height={routeFocusBounds.height}
+                    fill="transparent"
+                    pointerEvents="none"
+                  />
+                )}
 
                 {rooms.map((r) => {
                   if (!r.pos) return null
@@ -117,29 +205,42 @@ export default function IndoorMap({ map, rooms, highlightRoomId, onSelectRoom, r
                   </g>
                 )}
 
-                {/* 실내 경로선 (백엔드 INDOOR 세그먼트 좌표) */}
-                {routePoints && routePoints.length >= 2 && (
+                {/* 실내 경로선 또는 층 이동 기준점 */}
+                {routePoints && routePoints.length >= 1 && (
                   <g pointerEvents="none">
-                    <polyline
-                      points={routePoints.map((p) => p.join(',')).join(' ')}
-                      fill="none"
-                      stroke="#5B6BE8"
-                      strokeWidth={5}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeDasharray="2 10"
-                    />
-                    {/* 이 층 진입점 */}
-                    <circle cx={routePoints[0][0]} cy={routePoints[0][1]} r={5} fill="#5B6BE8" />
-                    {/* 이 층 이탈/도착점 */}
-                    <circle
-                      cx={routePoints[routePoints.length - 1][0]}
-                      cy={routePoints[routePoints.length - 1][1]}
-                      r={5}
-                      fill="#fff"
-                      stroke="#5B6BE8"
-                      strokeWidth={3}
-                    />
+                    {routePoints.length >= 2 && (
+                      <polyline
+                        points={routePoints.map((p) => p.join(',')).join(' ')}
+                        fill="none"
+                        stroke="#5B6BE8"
+                        strokeWidth={5}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeDasharray="2 10"
+                      />
+                    )}
+                    {routePoints.length === 1 && (
+                      <circle
+                        cx={routePoints[0][0]}
+                        cy={routePoints[0][1]}
+                        r={12}
+                        fill="none"
+                        stroke="#BE3A60"
+                        strokeWidth={4}
+                        opacity={0.42}
+                      />
+                    )}
+                    <circle cx={routePoints[0][0]} cy={routePoints[0][1]} r={5} fill="#BE3A60" />
+                    {routePoints.length >= 2 && (
+                      <circle
+                        cx={routePoints[routePoints.length - 1][0]}
+                        cy={routePoints[routePoints.length - 1][1]}
+                        r={5}
+                        fill="#fff"
+                        stroke="#BE3A60"
+                        strokeWidth={3}
+                      />
+                    )}
                   </g>
                 )}
               </svg>
