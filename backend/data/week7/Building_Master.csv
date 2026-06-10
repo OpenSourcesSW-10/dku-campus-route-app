@@ -1,0 +1,10 @@
+﻿,building_id,building_code,building_name,latitude,longitude,category,floors_above,floors_below,has_indoor_map
+,DKU_SCI1,SCI1,제1공학관,37.32095786,127.1258854,engineering,5,0,TRUE
+,DKU_SCI2,SCI2,제2공학관,37.3205947,127.1263502,engineering,5,0,TRUE
+,DKU_SCI3,SCI3,제3공학관,37.3202721,127.1267981,engineering,5,0,TRUE
+,DKU_ICT,ICT,소프트웨어 ICT관,37.32283728,127.1272763,software,5,1,TRUE
+,DKU_EDU,EDU,사범관,37.32286913,127.1290646,education,6,0,TRUE
+,DKU_BUS,BUS,상경관,37.32229481,127.1289846,business,6,0,TRUE
+,DKU_HUM,HUM,인문관,37.32173605,127.129088,humanities,6,0,TRUE
+,DKU_HYE,HYE,혜당관,37.32043934,127.1283807,student_center,6,0,TRUE
+,DKU_LIB,LIB,퇴계기념중앙도서관,37.32118147,127.127423,library,6,0,TRUE

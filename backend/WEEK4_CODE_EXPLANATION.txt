@@ -1,0 +1,183 @@
+DKU Campus Map Backend - 4주차 코드 설명
+
+1. 4주차 작업 목적
+
+4주차 백엔드 작업의 핵심은 DB 담당자가 제공한 건물, 건물 약칭, 강의실, 층별 지도 자료를 실제 백엔드 DB에 넣고 API에서 사용할 수 있게 만드는 것이다.
+
+3주차에는 FastAPI 프로젝트 구조, SQLAlchemy 모델, 기본 API, 샘플 데이터 중심으로 구현했다.
+4주차에는 샘플 데이터가 아니라 실제 엑셀/CSV 자료를 검증하고 import하는 흐름을 추가했다.
+
+
+2. 추가된 주요 파일
+
+backend/app/seed/xlsx_reader.py
+
+- Python 표준 라이브러리만 사용해서 .xlsx 파일의 첫 번째 시트를 읽는 파일이다.
+- openpyxl 같은 외부 라이브러리 없이 ZipFile과 XML 파싱으로 엑셀 데이터를 읽는다.
+- read_first_sheet() 함수가 엑셀 행을 dict 목록으로 변환한다.
+- 4주차 DB 자료 검증/import 코드에서 공통으로 사용한다.
+
+
+backend/app/seed/week4_excel.py
+
+- 4주차 엑셀/CSV 데이터를 검증하고 DB에 넣는 핵심 파일이다.
+- 필요한 파일은 Building_Master, Building_aliases, rooms_master, floor_pdf_inventory 자료다.
+- 파일 확장자는 .xlsx와 .csv를 모두 지원한다.
+- validate_week4_excel() 함수는 파일 누락, 필수 컬럼 누락, 잘못된 building_id, 중복 room_id 등을 확인한다.
+- import_week4_excel() 함수는 엑셀 데이터를 SQLAlchemy 모델에 맞게 Building, BuildingAlias, IndoorMap, Room 테이블에 저장한다.
+- 현재 room_positions.csv가 없기 때문에 강의실 좌표는 아직 import하지 않는다.
+
+
+backend/tools/validate_week4_data.py
+
+- 4주차 DB 자료를 실제로 DB에 넣기 전에 검증하는 실행 스크립트다.
+- 엑셀 또는 CSV 파일이 있는 폴더 경로를 인자로 받아 validate_week4_excel()을 실행한다.
+- 데이터 개수와 경고 목록을 출력해서 DB 담당자 자료에 문제가 있는지 확인할 수 있다.
+
+예시:
+
+cd backend
+python tools/validate_week4_data.py "D:\과제\3-2\오픈소스SW기초\#Project\W3"
+
+
+backend/tools/import_week4_excel.py
+
+- 4주차 엑셀/CSV 자료를 실제 SQLite DB에 넣는 실행 스크립트다.
+- Base.metadata.create_all()로 테이블을 만들고, ensure_sqlite_schema()로 기존 DB에 새 컬럼을 보정한 뒤 import를 실행한다.
+- --replace 옵션을 사용하면 기존 건물/강의실/지도 데이터를 지우고 다시 넣는다.
+
+예시:
+
+cd backend
+python tools/import_week4_excel.py "D:\과제\3-2\오픈소스SW기초\#Project\W3" --replace
+
+
+3. 수정된 주요 파일
+
+backend/app/services/resolver.py
+
+- 강의실 검색 로직을 실제 DB 데이터 기준으로 개선했다.
+- 사용자가 ICT401, 소프트401, 소프트웨어ICT관401처럼 입력하면 건물 약칭과 호실 번호를 분리한다.
+- 호실 번호를 기준으로 층을 추정하고, 해당 층의 강의실을 우선 검색한다.
+- 같은 호실 번호가 여러 층에 반복되는 경우를 줄이기 위해 floor_number 조건을 먼저 적용한다.
+
+
+backend/app/models/entities.py
+
+- IndoorEdge와 OutdoorEdge에 정적 경로 비용 컬럼을 추가했다.
+- 추가된 컬럼은 cost_fast, cost_comfortable, cost_indoor이다.
+- 8주차 MVP에서는 요청마다 복잡한 동적 DCF를 계산하기보다, routeType에 맞는 cost 컬럼을 선택해서 경로를 계산하는 방식으로 사용한다.
+
+
+backend/app/schemas/indoor.py
+
+- 실내 지도 API 응답에서 edge의 정적 cost 값을 내려줄 수 있도록 schema를 수정했다.
+- 프론트엔드는 이후 경로 옵션별 비용이나 디버깅 정보를 확인할 수 있다.
+
+
+backend/app/algorithms/cost_function.py
+
+- 기존 DCF 초안은 유지하면서, 4주차 기준 정적 cost 선택 함수를 추가했다.
+- get_static_edge_cost()는 routeType에 따라 cost_fast, cost_comfortable, cost_indoor 중 하나를 선택한다.
+- estimate_static_edge_cost()는 cost 값이 없을 때 거리, 계단, 경사, 실내 여부 등을 기준으로 기본 비용을 추정할 수 있게 준비한 함수다.
+
+
+backend/app/database.py
+
+- ensure_sqlite_schema() 함수를 추가했다.
+- SQLAlchemy의 create_all()은 기존 테이블에 새 컬럼을 자동으로 추가하지 않는다.
+- 그래서 기존 SQLite DB가 있어도 indoor_edges, outdoor_edges에 cost 컬럼이 없으면 ALTER TABLE로 추가하도록 처리했다.
+
+
+backend/app/main.py
+
+- 앱 시작 시 Base.metadata.create_all() 이후 ensure_sqlite_schema()를 호출하도록 수정했다.
+- 기존 DB 파일을 사용하더라도 새 cost 컬럼 누락 문제를 줄이기 위한 처리다.
+
+
+backend/requirements.txt
+
+- FastAPI TestClient 실행을 위해 httpx를 추가했다.
+- 로컬에서 API 동작을 자동으로 확인할 때 사용한다.
+
+
+backend/README.md
+
+- 3주차 문서에서 3~4주차 문서로 수정했다.
+- 4주차 엑셀 검증/import 명령어를 추가했다.
+- 정적 cost 방식과 현재 데이터 한계를 정리했다.
+
+
+4. 현재 동작 확인된 API
+
+GET /api/buildings
+
+- DB에 import된 건물 목록을 반환한다.
+- 건물 선택 UI, 지도 마커, 검색 후보 등에 사용할 수 있다.
+
+
+GET /api/rooms/search?keyword=ICT401
+
+- ICT401 입력을 소프트웨어 ICT관 4층 401호로 해석한다.
+- indoor_map 정보까지 연결해서 반환한다.
+- 단, room_positions.csv가 아직 없기 때문에 좌표 position은 null일 수 있다.
+
+
+GET /api/rooms/search?keyword=소프트401
+
+- 건물 약칭인 소프트를 BuildingAlias 기준으로 매칭한다.
+- 이후 401호를 찾아 강의실 정보와 실내 지도 정보를 반환한다.
+
+
+GET /api/buildings/DKU_ICT/floors/4/indoor-map
+
+- 소프트웨어 ICT관 4층 실내 지도 정보를 반환한다.
+- 현재는 지도 파일과 강의실 목록 중심으로 응답한다.
+- 강의실 좌표, 실내 노드, 실내 간선은 관련 CSV가 추가되면 채워질 예정이다.
+
+
+5. 아직 데이터가 필요해서 남겨둔 작업
+
+room_positions.csv
+
+- 강의실을 지도 위에 표시하기 위한 좌표 데이터다.
+- x, y, width, height 또는 polygon_points가 필요하다.
+- 이 파일이 있어야 검색한 강의실을 지도에서 하이라이트할 수 있다.
+
+
+indoor_nodes.csv
+
+- 실내 경로 탐색용 노드 데이터다.
+- 복도 갈림길, 계단, 엘리베이터, 출입구 등을 노드로 표현한다.
+
+
+indoor_edges.csv
+
+- 실내 노드 간 연결선 데이터다.
+- 각 edge에는 거리, 계단 여부, 경사 여부, 접근성, 정적 cost 값 등이 필요하다.
+
+
+outdoor_nodes.csv, outdoor_edges.csv
+
+- 건물 사이 외부 이동 경로를 계산하기 위한 데이터다.
+- 카카오 지도 API는 지도 표시와 보조 기능에 사용할 수 있지만, 캠퍼스 내부의 계단, 경사, 구름다리, 건물 후문 층수 차이까지 반영하려면 백엔드 그래프 데이터가 필요하다.
+
+
+entrance_links.csv
+
+- 실외 입구 노드와 실내 입구 노드를 연결하는 데이터다.
+- 예를 들어 어떤 건물의 정문은 1층이고 후문은 3층인 경우, 각각 다른 indoor_node와 연결해야 한다.
+
+
+6. 4주차 기준 결론
+
+현재 4주차 백엔드 코드는 받은 DB 자료 기준으로 구현 가능한 범위까지 작성되었다.
+
+- 건물/약칭/강의실/층별 지도 자료 검증 가능
+- .xlsx와 .csv 자료 모두 import 가능
+- DB import 가능
+- 실제 DB 기준 강의실 검색 가능
+- 층별 실내 지도 API 응답 가능
+- 정적 DCF 구조 준비 완료
+
+다음 단계는 DB 담당자가 room_positions.csv, indoor_nodes.csv, indoor_edges.csv, entrance_links.csv 같은 좌표/그래프 데이터를 올리면, 해당 파일들을 import하고 API 응답 및 경로 계산에 연결하는 것이다.
