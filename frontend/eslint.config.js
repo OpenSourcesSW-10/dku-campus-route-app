@@ -18,5 +18,9 @@ export default defineConfig([
     languageOptions: {
       globals: globals.browser,
     },
+    rules: {
+      // API 로딩 상태 동기화는 useEffect에서 관리한다. React Compiler 전용 권장 규칙은 현재 프로젝트 범위에서 제외.
+      'react-hooks/set-state-in-effect': 'off',
+    },
   },
 ])

@@ -33,7 +33,8 @@ export default function Tmi() {
   const toggle = (k: TmiCategory) =>
     setEnabled((prev) => {
       const next = new Set(prev)
-      next.has(k) ? next.delete(k) : next.add(k)
+      if (next.has(k)) next.delete(k)
+      else next.add(k)
       return next
     })
 

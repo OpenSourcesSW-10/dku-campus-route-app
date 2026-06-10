@@ -26,10 +26,7 @@ export default function PlaceSearch() {
     [],
   )
 
-  const localHits = useMemo(() => {
-    setPage(0)
-    return q.trim() ? search(q) : defaultHits
-  }, [q, defaultHits])
+  const localHits = useMemo(() => (q.trim() ? search(q) : defaultHits), [q, defaultHits])
 
   // 로컬 검색 결과가 없을 때만 백엔드 강의실 검색으로 보강
   useEffect(() => {
@@ -74,7 +71,10 @@ export default function PlaceSearch() {
             className="flex-1 text-[15px] outline-none placeholder:text-ink-faint"
             placeholder="장소 또는 강의실로 검색"
             value={q}
-            onChange={(e) => setQ(e.target.value)}
+            onChange={(e) => {
+              setQ(e.target.value)
+              setPage(0)
+            }}
           />
           <SearchIcon className="h-5 w-5 text-ink" />
         </div>

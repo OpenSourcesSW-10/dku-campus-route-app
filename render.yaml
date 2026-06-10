@@ -16,7 +16,7 @@ services:
       - key: DEBUG
         value: false
       - key: FRONTEND_ORIGINS
-        value: https://tmimvp.vercel.app,http://tmimvp.vercel.app,http://localhost:5173,http://127.0.0.1:5173
+        value: https://tmimvp.vercel.app,http://tmimvp.vercel.app,http://localhost:5173,http://127.0.0.1:5173,http://localhost:5190,http://127.0.0.1:5190
       - key: DEPLOYMENT_DATA_ROOT
         value: data/final
       - key: IMPORT_DATA_ON_START

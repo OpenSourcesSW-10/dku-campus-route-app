@@ -9,6 +9,8 @@ class Settings(BaseSettings):
     frontend_origins: str = (
         "http://localhost:5173,"
         "http://127.0.0.1:5173,"
+        "http://localhost:5190,"
+        "http://127.0.0.1:5190,"
         "https://tmimvp.vercel.app,"
         "http://tmimvp.vercel.app"
     )
