@@ -8,11 +8,31 @@ import { ROUTE_OPTIONS, mockRoute, type LatLng } from '../data/mock'
 import { CAMPUS_CENTER } from '../features/map/useKakao'
 import { fetchRoutes, ApiError, type RouteResult } from '../lib/api'
 
+const ENGINEERING_REPRESENTATIVE_ROOMS: Record<string, string> = {
+  DKU_SCI1: '제1공301',
+  DKU_SCI2: '제2공301',
+  DKU_SCI3: '제3공319',
+}
+
+const ENGINEERING_ROOM_SUGGESTIONS = [
+  '제1공301',
+  '제2공301',
+  '제3공319',
+  'SCI1-3F-301',
+  'SCI2-3F-301',
+  'SCI3-3F-319',
+]
+
 function findBuilding(name: string): Building | undefined {
   if (!name || name === '내 위치') return undefined
   const compact = name.replace(/\s/g, '')
   return (
     buildings.find((x) => x.name.replace(/\s/g, '') === compact) ||
+    buildings.find((x) => x.code.replace(/\s/g, '').toLowerCase() === compact.toLowerCase()) ||
+    buildings.find((x) => compact.startsWith(x.code.replace(/\s/g, ''))) ||
+    (compact.startsWith('제1공') ? buildings.find((x) => x.id === 'DKU_SCI1') : undefined) ||
+    (compact.startsWith('제2공') ? buildings.find((x) => x.id === 'DKU_SCI2') : undefined) ||
+    (compact.startsWith('제3공') ? buildings.find((x) => x.id === 'DKU_SCI3') : undefined) ||
     buildings.find((x) => compact.includes(x.name.replace(/\s/g, '')) || x.name.replace(/\s/g, '').includes(compact))
   )
 }
@@ -30,11 +50,17 @@ function resolve(name: string): LatLng {
 function representativeRoomCode(name: string): string | null {
   const b = findBuilding(name)
   if (!b) return null
+  if (ENGINEERING_REPRESENTATIVE_ROOMS[b.id]) return ENGINEERING_REPRESENTATIVE_ROOMS[b.id]
   const inB = rooms.filter((r) => r.buildingId === b.id)
   if (inB.length === 0) return null
   const byFloor = (f: number) => inB.find((r) => r.floor === f)
   const r = byFloor(2) ?? byFloor(3) ?? byFloor(1) ?? inB.find((x) => x.floor > 0) ?? inB[0]
   return `${b.code}${r.number}`
+}
+
+function routeKeyword(name: string): string | null {
+  if (!name || name === '내 위치') return null
+  return representativeRoomCode(name) ?? name.replace(/\s/g, '')
 }
 
 // routeType(백엔드) → 화면 표시 메타
@@ -66,6 +92,33 @@ function outdoorLine(r: RouteResult): LatLng[] {
   return pts
 }
 
+function indoorConnectionLine(r: RouteResult, start: LatLng, dest: LatLng): LatLng[] {
+  const pts: LatLng[] = [start]
+  let lastKey = `${start.lat},${start.lng}`
+  for (const seg of r.segments) {
+    if (!seg.buildingId) continue
+    const b = buildings.find((x) => x.id === seg.buildingId)
+    if (!b) continue
+    const key = `${b.lat},${b.lng}`
+    if (key !== lastKey) {
+      pts.push({ lat: b.lat, lng: b.lng })
+      lastKey = key
+    }
+  }
+  const destKey = `${dest.lat},${dest.lng}`
+  if (lastKey !== destKey) pts.push(dest)
+  return pts.length >= 2 ? pts : [start, dest]
+}
+
+function displayLine(r: RouteResult, start: LatLng, dest: LatLng): LatLng[] {
+  const outdoor = outdoorLine(r)
+  return outdoor.length >= 2 ? outdoor : indoorConnectionLine(r, start, dest)
+}
+
+function hasBridgeSegment(r: RouteResult): boolean {
+  return r.segments.some((seg) => seg.transitionType === 'BRIDGE' || seg.edgeIds?.some((id) => id.startsWith('SCI')))
+}
+
 export default function RouteFind() {
   const nav = useNavigate()
   const { routeStart, routeDest, setRoute } = useApp()
@@ -84,8 +137,8 @@ export default function RouteFind() {
     !!routeStart && !!routeDest && routeStart.replace(/\s/g, '') === routeDest.replace(/\s/g, '')
 
   // 건물 선택 → 대표 호실 코드로 변환 (API는 호실 단위 입력만 받음)
-  const startCode = useMemo(() => representativeRoomCode(routeStart), [routeStart])
-  const destCode = useMemo(() => representativeRoomCode(routeDest), [routeDest])
+  const startCode = useMemo(() => routeKeyword(routeStart), [routeStart])
+  const destCode = useMemo(() => routeKeyword(routeDest), [routeDest])
 
   // 통합 길찾기 API 호출 (출발/도착을 호실 코드로 변환할 수 있을 때만)
   useEffect(() => {
@@ -127,10 +180,10 @@ export default function RouteFind() {
           key: r.routeType,
           label: meta.label,
           color: meta.color,
-          note: meta.note,
+          note: hasBridgeSegment(r) ? `${meta.note} · 구름다리/실내 연결 포함` : meta.note,
           durationMin: Math.max(1, Math.round(r.totalEstimatedTime / 60)),
           distanceM: Math.round(r.totalDistance),
-          line: outdoorLine(r),
+          line: displayLine(r, start, dest),
         }
       })
     }
@@ -174,11 +227,18 @@ export default function RouteFind() {
 
   // 선택 후보: 출발지에는 '내 위치' 포함, 도착지는 건물만.
   const candidates = useMemo(() => {
-    const all = editing === 'start' ? ['내 위치', ...buildings.map((b) => b.name)] : buildings.map((b) => b.name)
+    const all =
+      editing === 'start'
+        ? ['내 위치', ...ENGINEERING_ROOM_SUGGESTIONS, ...buildings.map((b) => b.name)]
+        : [...ENGINEERING_ROOM_SUGGESTIONS, ...buildings.map((b) => b.name)]
     const exclude = (editing === 'start' ? routeDest : routeStart).replace(/\s/g, '')
     const names = all.filter((n) => n.replace(/\s/g, '') !== exclude)
     const cq = q.replace(/\s/g, '')
-    return cq ? names.filter((n) => n.replace(/\s/g, '').includes(cq)) : names
+    const filtered = cq ? names.filter((n) => n.replace(/\s/g, '').includes(cq)) : names
+    if (cq && !filtered.some((n) => n.replace(/\s/g, '') === cq)) {
+      return [q.trim(), ...filtered]
+    }
+    return filtered
   }, [editing, q, routeStart, routeDest])
 
   return (
