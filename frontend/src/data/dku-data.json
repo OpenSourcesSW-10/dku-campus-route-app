@@ -1,0 +1,7453 @@
+{
+  "canvas": {
+    "width": 1000,
+    "height": 707
+  },
+  "buildings": [
+    {
+      "id": "DKU_SCI1",
+      "code": "SCI1",
+      "name": "제1공학관",
+      "lat": 37.3209578579083,
+      "lng": 127.125885416308,
+      "category": "engineering",
+      "floorsAbove": 5,
+      "floorsBelow": 0,
+      "hasIndoorMap": true
+    },
+    {
+      "id": "DKU_SCI2",
+      "code": "SCI2",
+      "name": "제2공학관",
+      "lat": 37.3205946967938,
+      "lng": 127.12635019383,
+      "category": "engineering",
+      "floorsAbove": 5,
+      "floorsBelow": 0,
+      "hasIndoorMap": true
+    },
+    {
+      "id": "DKU_SCI3",
+      "code": "SCI3",
+      "name": "제3공학관",
+      "lat": 37.3202720983865,
+      "lng": 127.126798112081,
+      "category": "engineering",
+      "floorsAbove": 5,
+      "floorsBelow": 0,
+      "hasIndoorMap": true
+    },
+    {
+      "id": "DKU_ICT",
+      "code": "ICT",
+      "name": "소프트웨어 ICT관",
+      "lat": 37.3228372759196,
+      "lng": 127.127276280601,
+      "category": "software",
+      "floorsAbove": 5,
+      "floorsBelow": 1,
+      "hasIndoorMap": true
+    },
+    {
+      "id": "DKU_EDU",
+      "code": "EDU",
+      "name": "사범관",
+      "lat": 37.3228691275933,
+      "lng": 127.129064588012,
+      "category": "education",
+      "floorsAbove": 6,
+      "floorsBelow": 0,
+      "hasIndoorMap": true
+    },
+    {
+      "id": "DKU_BUS",
+      "code": "BUS",
+      "name": "상경관",
+      "lat": 37.3222948064831,
+      "lng": 127.128984629943,
+      "category": "business",
+      "floorsAbove": 6,
+      "floorsBelow": 0,
+      "hasIndoorMap": true
+    },
+    {
+      "id": "DKU_HUM",
+      "code": "HUM",
+      "name": "인문관",
+      "lat": 37.3217360534429,
+      "lng": 127.129088035253,
+      "category": "humanities",
+      "floorsAbove": 6,
+      "floorsBelow": 0,
+      "hasIndoorMap": true
+    },
+    {
+      "id": "DKU_HYE",
+      "code": "HYE",
+      "name": "혜당관",
+      "lat": 37.32043933567,
+      "lng": 127.12838069277,
+      "category": "student_center",
+      "floorsAbove": 6,
+      "floorsBelow": 0,
+      "hasIndoorMap": true
+    },
+    {
+      "id": "DKU_LIB",
+      "code": "LIB",
+      "name": "퇴계기념중앙도서관",
+      "lat": 37.3211814704115,
+      "lng": 127.127422976162,
+      "category": "library",
+      "floorsAbove": 6,
+      "floorsBelow": 0,
+      "hasIndoorMap": true
+    }
+  ],
+  "aliases": [
+    {
+      "alias": "중도",
+      "buildingId": "DKU_LIB"
+    },
+    {
+      "alias": "도서관",
+      "buildingId": "DKU_LIB"
+    },
+    {
+      "alias": "공1",
+      "buildingId": "DKU_SCI1"
+    },
+    {
+      "alias": "제1공",
+      "buildingId": "DKU_SCI1"
+    },
+    {
+      "alias": "공2",
+      "buildingId": "DKU_SCI2"
+    },
+    {
+      "alias": "제2공",
+      "buildingId": "DKU_SCI2"
+    },
+    {
+      "alias": "공3",
+      "buildingId": "DKU_SCI3"
+    },
+    {
+      "alias": "제3공",
+      "buildingId": "DKU_SCI3"
+    },
+    {
+      "alias": "소프트",
+      "buildingId": "DKU_ICT"
+    },
+    {
+      "alias": "소웨관",
+      "buildingId": "DKU_ICT"
+    },
+    {
+      "alias": "사범",
+      "buildingId": "DKU_EDU"
+    },
+    {
+      "alias": "상경",
+      "buildingId": "DKU_BUS"
+    },
+    {
+      "alias": "인문",
+      "buildingId": "DKU_HUM"
+    },
+    {
+      "alias": "혜당",
+      "buildingId": "DKU_HYE"
+    }
+  ],
+  "rooms": [
+    {
+      "id": "DKU_ICT_-1_101",
+      "buildingId": "DKU_ICT",
+      "floor": -1,
+      "floorLabel": "B1",
+      "number": "101",
+      "name": "일반물리실험준비실1",
+      "type": "prep_room",
+      "displayName": "소프트웨어 ICT관 101호 (일반물리실험준비실1)",
+      "pos": {
+        "x": 355.0,
+        "y": 232.0,
+        "width": 43.0,
+        "height": 40.0,
+        "cx": 376.5,
+        "cy": 252.0,
+        "polygon": [
+          [
+            355.0,
+            232.0
+          ],
+          [
+            398.0,
+            232.0
+          ],
+          [
+            398.0,
+            272.0
+          ],
+          [
+            355.0,
+            272.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_-1_102",
+      "buildingId": "DKU_ICT",
+      "floor": -1,
+      "floorLabel": "B1",
+      "number": "102",
+      "name": "일반물리실험실1",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 102호 (일반물리실험실1)",
+      "pos": {
+        "x": 357.0,
+        "y": 276.0,
+        "width": 39.0,
+        "height": 82.0,
+        "cx": 376.5,
+        "cy": 317.0,
+        "polygon": [
+          [
+            357.0,
+            276.0
+          ],
+          [
+            396.0,
+            276.0
+          ],
+          [
+            396.0,
+            358.0
+          ],
+          [
+            357.0,
+            358.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_-1_103",
+      "buildingId": "DKU_ICT",
+      "floor": -1,
+      "floorLabel": "B1",
+      "number": "103",
+      "name": "반도체SW 실습 리빙랩",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 103호 (반도체SW 실습 리빙랩)",
+      "pos": {
+        "x": 358.0,
+        "y": 394.0,
+        "width": 36.0,
+        "height": 62.0,
+        "cx": 376.0,
+        "cy": 425.0,
+        "polygon": [
+          [
+            358.0,
+            363.0
+          ],
+          [
+            394.0,
+            363.0
+          ],
+          [
+            394.0,
+            425.0
+          ],
+          [
+            358.0,
+            425.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_-1_104",
+      "buildingId": "DKU_ICT",
+      "floor": -1,
+      "floorLabel": "B1",
+      "number": "104",
+      "name": "솔리드클라우드 실습 서버실",
+      "type": "server_room",
+      "displayName": "소프트웨어 ICT관 104호 (솔리드클라우드 실습 서버실)",
+      "pos": {
+        "x": 346.0,
+        "y": 447.0,
+        "width": 49.0,
+        "height": 85.0,
+        "cx": 370.5,
+        "cy": 489.5,
+        "polygon": [
+          [
+            346.0,
+            447.0
+          ],
+          [
+            395.0,
+            447.0
+          ],
+          [
+            395.0,
+            532.0
+          ],
+          [
+            346.0,
+            532.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_-1_105",
+      "buildingId": "DKU_ICT",
+      "floor": -1,
+      "floorLabel": "B1",
+      "number": "105",
+      "name": "솔리드클라우드 운영 준비실",
+      "type": "prep_room",
+      "displayName": "소프트웨어 ICT관 105호 (솔리드클라우드 운영 준비실)",
+      "pos": {
+        "x": 347.0,
+        "y": 535.0,
+        "width": 48.0,
+        "height": 16.0,
+        "cx": 371.0,
+        "cy": 543.0,
+        "polygon": [
+          [
+            347.0,
+            535.0
+          ],
+          [
+            395.0,
+            535.0
+          ],
+          [
+            395.0,
+            551.0
+          ],
+          [
+            347.0,
+            551.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_-1_106",
+      "buildingId": "DKU_ICT",
+      "floor": -1,
+      "floorLabel": "B1",
+      "number": "106",
+      "name": "e-Sports 실험실습실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 106호 (e-Sports 실험실습실)",
+      "pos": null
+    },
+    {
+      "id": "DKU_ICT_-1_107",
+      "buildingId": "DKU_ICT",
+      "floor": -1,
+      "floorLabel": "B1",
+      "number": "107",
+      "name": "사법대학 과학교육과 실험실습실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 107호 (사법대학 과학교육과 실험실습실)",
+      "pos": {
+        "x": 418.0,
+        "y": 492.0,
+        "width": 36.0,
+        "height": 37.0,
+        "cx": 436.0,
+        "cy": 510.5,
+        "polygon": [
+          [
+            418.0,
+            492.0
+          ],
+          [
+            454.0,
+            492.0
+          ],
+          [
+            454.0,
+            529.0
+          ],
+          [
+            418.0,
+            529.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_-1_108",
+      "buildingId": "DKU_ICT",
+      "floor": -1,
+      "floorLabel": "B1",
+      "number": "108",
+      "name": "웨어러블 디아비스 실증 스튜디오",
+      "type": "studio",
+      "displayName": "소프트웨어 ICT관 108호 (웨어러블 디아비스 실증 스튜디오)",
+      "pos": {
+        "x": 417.0,
+        "y": 406.0,
+        "width": 37.0,
+        "height": 80.0,
+        "cx": 435.5,
+        "cy": 446.0,
+        "polygon": [
+          [
+            417.0,
+            406.0
+          ],
+          [
+            454.0,
+            406.0
+          ],
+          [
+            454.0,
+            486.0
+          ],
+          [
+            417.0,
+            486.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_-1_109",
+      "buildingId": "DKU_ICT",
+      "floor": -1,
+      "floorLabel": "B1",
+      "number": "109",
+      "name": "공공기기실",
+      "type": "equipment_room",
+      "displayName": "소프트웨어 ICT관 109호 (공공기기실)",
+      "pos": {
+        "x": 415.0,
+        "y": 384.0,
+        "width": 41.0,
+        "height": 19.0,
+        "cx": 435.5,
+        "cy": 393.5,
+        "polygon": [
+          [
+            415.0,
+            384.0
+          ],
+          [
+            456.0,
+            384.0
+          ],
+          [
+            456.0,
+            403.0
+          ],
+          [
+            415.0,
+            403.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_-1_110",
+      "buildingId": "DKU_ICT",
+      "floor": -1,
+      "floorLabel": "B1",
+      "number": "110",
+      "name": "일반물리실험준비실2",
+      "type": "prep_room",
+      "displayName": "소프트웨어 ICT관 110호 (일반물리실험준비실2)",
+      "pos": {
+        "x": 417.0,
+        "y": 362.0,
+        "width": 38.0,
+        "height": 19.0,
+        "cx": 436.0,
+        "cy": 371.5,
+        "polygon": [
+          [
+            417.0,
+            362.0
+          ],
+          [
+            455.0,
+            362.0
+          ],
+          [
+            455.0,
+            381.0
+          ],
+          [
+            417.0,
+            381.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_-1_111",
+      "buildingId": "DKU_ICT",
+      "floor": -1,
+      "floorLabel": "B1",
+      "number": "111",
+      "name": "일반물리실험실2",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 111호 (일반물리실험실2)",
+      "pos": {
+        "x": 417.0,
+        "y": 275.0,
+        "width": 39.0,
+        "height": 84.0,
+        "cx": 436.5,
+        "cy": 317.0,
+        "polygon": [
+          [
+            415.0,
+            275.0
+          ],
+          [
+            454.0,
+            275.0
+          ],
+          [
+            454.0,
+            359.0
+          ],
+          [
+            415.0,
+            359.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_101",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "101",
+      "name": "강의실",
+      "type": "classroom",
+      "displayName": "소프트웨어 ICT관 101호 (강의실)",
+      "pos": {
+        "x": 585.0,
+        "y": 233.0,
+        "width": 83.0,
+        "height": 39.0,
+        "cx": 626.5,
+        "cy": 252.5,
+        "polygon": [
+          [
+            585.0,
+            233.0
+          ],
+          [
+            668.0,
+            233.0
+          ],
+          [
+            668.0,
+            272.0
+          ],
+          [
+            585.0,
+            272.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_102",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "102",
+      "name": "강의실",
+      "type": "classroom",
+      "displayName": "소프트웨어 ICT관 102호 (강의실)",
+      "pos": {
+        "x": 637.0,
+        "y": 234.0,
+        "width": 82.0,
+        "height": 37.0,
+        "cx": 678.0,
+        "cy": 252.5,
+        "polygon": [
+          [
+            673.0,
+            234.0
+          ],
+          [
+            755.0,
+            234.0
+          ],
+          [
+            755.0,
+            271.0
+          ],
+          [
+            673.0,
+            271.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_103",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "103",
+      "name": "상담학과 사무실",
+      "type": "department_office",
+      "displayName": "소프트웨어 ICT관 103호 (상담학과 사무실)",
+      "pos": {
+        "x": 737.0,
+        "y": 164.0,
+        "width": 18.0,
+        "height": 51.0,
+        "cx": 746.0,
+        "cy": 189.5,
+        "polygon": [
+          [
+            737.0,
+            164.0
+          ],
+          [
+            755.0,
+            164.0
+          ],
+          [
+            755.0,
+            215.0
+          ],
+          [
+            737.0,
+            215.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_104",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "104",
+      "name": "강의실",
+      "type": "classroom",
+      "displayName": "소프트웨어 ICT관 104호 (강의실)",
+      "pos": {
+        "x": 672.0,
+        "y": 164.0,
+        "width": 60.0,
+        "height": 53.0,
+        "cx": 702.0,
+        "cy": 190.5,
+        "polygon": [
+          [
+            672.0,
+            164.0
+          ],
+          [
+            732.0,
+            164.0
+          ],
+          [
+            732.0,
+            217.0
+          ],
+          [
+            672.0,
+            217.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_105",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "105",
+      "name": "자동녹화강의실",
+      "type": "classroom",
+      "displayName": "소프트웨어 ICT관 105호 (자동녹화강의실)",
+      "pos": {
+        "x": 585.0,
+        "y": 174.0,
+        "width": 40.0,
+        "height": 41.0,
+        "cx": 605.0,
+        "cy": 194.5,
+        "polygon": [
+          [
+            585.0,
+            174.0
+          ],
+          [
+            625.0,
+            174.0
+          ],
+          [
+            625.0,
+            215.0
+          ],
+          [
+            585.0,
+            215.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_106",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "106",
+      "name": "",
+      "type": "unknown",
+      "displayName": "소프트웨어 ICT관 106호",
+      "pos": {
+        "x": 564.0,
+        "y": 173.0,
+        "width": 18.0,
+        "height": 31.0,
+        "cx": 573.0,
+        "cy": 188.5,
+        "polygon": [
+          [
+            564.0,
+            173.0
+          ],
+          [
+            582.0,
+            173.0
+          ],
+          [
+            582.0,
+            204.0
+          ],
+          [
+            564.0,
+            204.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_107",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "107",
+      "name": "AI융합대학 서버실",
+      "type": "server_room",
+      "displayName": "소프트웨어 ICT관 107호 (AI융합대학 서버실)",
+      "pos": {
+        "x": 544.0,
+        "y": 173.0,
+        "width": 16.0,
+        "height": 31.0,
+        "cx": 552.0,
+        "cy": 188.5,
+        "polygon": [
+          [
+            544.0,
+            173.0
+          ],
+          [
+            560.0,
+            173.0
+          ],
+          [
+            560.0,
+            204.0
+          ],
+          [
+            544.0,
+            204.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_108",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "108",
+      "name": "동물생리학실험실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 108호 (동물생리학실험실)",
+      "pos": {
+        "x": 355.0,
+        "y": 230.0,
+        "width": 39.0,
+        "height": 41.0,
+        "cx": 374.5,
+        "cy": 250.5,
+        "polygon": [
+          [
+            355.0,
+            230.0
+          ],
+          [
+            394.0,
+            230.0
+          ],
+          [
+            394.0,
+            271.0
+          ],
+          [
+            355.0,
+            271.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_109",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "109",
+      "name": "ND-COSS 물리과학실험실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 109호 (ND-COSS 물리과학실험실)",
+      "pos": {
+        "x": 357.0,
+        "y": 275.0,
+        "width": 38.0,
+        "height": 64.0,
+        "cx": 376.0,
+        "cy": 307.0,
+        "polygon": [
+          [
+            357.0,
+            275.0
+          ],
+          [
+            395.0,
+            275.0
+          ],
+          [
+            395.0,
+            339.0
+          ],
+          [
+            357.0,
+            339.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_110",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "110",
+      "name": "ND-COSS 물리과학실험준비실",
+      "type": "prep_room",
+      "displayName": "소프트웨어 ICT관 110호 (ND-COSS 물리과학실험준비실)",
+      "pos": {
+        "x": 355.0,
+        "y": 343.0,
+        "width": 38.0,
+        "height": 16.0,
+        "cx": 374.0,
+        "cy": 351.0,
+        "polygon": [
+          [
+            355.0,
+            343.0
+          ],
+          [
+            393.0,
+            343.0
+          ],
+          [
+            393.0,
+            359.0
+          ],
+          [
+            355.0,
+            359.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_111",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "111",
+      "name": "융합전자바이오실험실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 111호 (융합전자바이오실험실)",
+      "pos": {
+        "x": 372.0,
+        "y": 362.0,
+        "width": 21.0,
+        "height": 38.0,
+        "cx": 382.5,
+        "cy": 381.0,
+        "polygon": [
+          [
+            372.0,
+            362.0
+          ],
+          [
+            393.0,
+            362.0
+          ],
+          [
+            393.0,
+            400.0
+          ],
+          [
+            372.0,
+            400.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_111_1",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "111-1",
+      "name": "유기재료전자실험실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 111-1호 (유기재료전자실험실)",
+      "pos": null
+    },
+    {
+      "id": "DKU_ICT_1_112",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "112",
+      "name": "생태학 실험실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 112호 (생태학 실험실)",
+      "pos": {
+        "x": 372.0,
+        "y": 403.0,
+        "width": 23.0,
+        "height": 39.0,
+        "cx": 383.5,
+        "cy": 422.5,
+        "polygon": [
+          [
+            372.0,
+            403.0
+          ],
+          [
+            395.0,
+            403.0
+          ],
+          [
+            395.0,
+            442.0
+          ],
+          [
+            372.0,
+            442.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_112_1",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "112-1",
+      "name": "생태학 실험준비실",
+      "type": "prep_room",
+      "displayName": "소프트웨어 ICT관 112-1호 (생태학 실험준비실)",
+      "pos": null
+    },
+    {
+      "id": "DKU_ICT_1_113",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "113",
+      "name": "기계공작실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 113호 (기계공작실)",
+      "pos": {
+        "x": 347.0,
+        "y": 466.0,
+        "width": 48.0,
+        "height": 44.0,
+        "cx": 371.0,
+        "cy": 488.0,
+        "polygon": [
+          [
+            347.0,
+            466.0
+          ],
+          [
+            395.0,
+            466.0
+          ],
+          [
+            395.0,
+            510.0
+          ],
+          [
+            347.0,
+            510.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_114",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "114",
+      "name": "",
+      "type": "unknown",
+      "displayName": "소프트웨어 ICT관 114호",
+      "pos": {
+        "x": 345.0,
+        "y": 535.0,
+        "width": 48.0,
+        "height": 14.0,
+        "cx": 369.0,
+        "cy": 542.0,
+        "polygon": [
+          [
+            345.0,
+            535.0
+          ],
+          [
+            393.0,
+            535.0
+          ],
+          [
+            393.0,
+            549.0
+          ],
+          [
+            345.0,
+            549.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_115",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "115",
+      "name": "편의점",
+      "type": "convenience_store",
+      "displayName": "소프트웨어 ICT관 115호 (편의점)",
+      "pos": null
+    },
+    {
+      "id": "DKU_ICT_1_116",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "116",
+      "name": "",
+      "type": "unknown",
+      "displayName": "소프트웨어 ICT관 116호",
+      "pos": null
+    },
+    {
+      "id": "DKU_ICT_1_117",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "117",
+      "name": "",
+      "type": "unknown",
+      "displayName": "소프트웨어 ICT관 117호",
+      "pos": {
+        "x": 416.0,
+        "y": 512.0,
+        "width": 38.0,
+        "height": 19.0,
+        "cx": 435.0,
+        "cy": 521.5,
+        "polygon": [
+          [
+            416.0,
+            512.0
+          ],
+          [
+            454.0,
+            512.0
+          ],
+          [
+            454.0,
+            531.0
+          ],
+          [
+            416.0,
+            531.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_118",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "118",
+      "name": "라수현",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 118호 (라수현)",
+      "pos": {
+        "x": 414.0,
+        "y": 491.0,
+        "width": 40.0,
+        "height": 19.0,
+        "cx": 434.0,
+        "cy": 500.5,
+        "polygon": [
+          [
+            414.0,
+            491.0
+          ],
+          [
+            454.0,
+            491.0
+          ],
+          [
+            454.0,
+            510.0
+          ],
+          [
+            414.0,
+            510.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_119",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "119",
+      "name": "동물생리학실험실(사무실)",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 119호 (동물생리학실험실(사무실))",
+      "pos": {
+        "x": 415.0,
+        "y": 470.0,
+        "width": 39.0,
+        "height": 19.0,
+        "cx": 434.5,
+        "cy": 479.5,
+        "polygon": [
+          [
+            415.0,
+            470.0
+          ],
+          [
+            454.0,
+            470.0
+          ],
+          [
+            454.0,
+            489.0
+          ],
+          [
+            415.0,
+            489.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_120",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "120",
+      "name": "정책과학연구소",
+      "type": "research_lab",
+      "displayName": "소프트웨어 ICT관 120호 (정책과학연구소)",
+      "pos": {
+        "x": 416.0,
+        "y": 449.0,
+        "width": 38.0,
+        "height": 17.0,
+        "cx": 435.0,
+        "cy": 457.5,
+        "polygon": [
+          [
+            416.0,
+            449.0
+          ],
+          [
+            454.0,
+            449.0
+          ],
+          [
+            454.0,
+            466.0
+          ],
+          [
+            416.0,
+            466.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_121",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "121",
+      "name": "이주영",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 121호 (이주영)",
+      "pos": {
+        "x": 416.0,
+        "y": 427.0,
+        "width": 38.0,
+        "height": 18.0,
+        "cx": 435.0,
+        "cy": 436.0,
+        "polygon": [
+          [
+            416.0,
+            427.0
+          ],
+          [
+            454.0,
+            427.0
+          ],
+          [
+            454.0,
+            445.0
+          ],
+          [
+            416.0,
+            445.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_122",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "122",
+      "name": "김수임",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 122호 (김수임)",
+      "pos": {
+        "x": 415.0,
+        "y": 406.0,
+        "width": 38.0,
+        "height": 18.0,
+        "cx": 434.0,
+        "cy": 415.0,
+        "polygon": [
+          [
+            415.0,
+            406.0
+          ],
+          [
+            453.0,
+            406.0
+          ],
+          [
+            453.0,
+            424.0
+          ],
+          [
+            415.0,
+            424.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_123",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "123",
+      "name": "유현실",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 123호 (유현실)",
+      "pos": {
+        "x": 416.0,
+        "y": 384.0,
+        "width": 38.0,
+        "height": 17.0,
+        "cx": 435.0,
+        "cy": 392.5,
+        "polygon": [
+          [
+            416.0,
+            384.0
+          ],
+          [
+            454.0,
+            384.0
+          ],
+          [
+            454.0,
+            401.0
+          ],
+          [
+            416.0,
+            401.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_124",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "124",
+      "name": "임은주",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 124호 (임은주)",
+      "pos": {
+        "x": 415.0,
+        "y": 361.0,
+        "width": 38.0,
+        "height": 18.0,
+        "cx": 434.0,
+        "cy": 370.0,
+        "polygon": [
+          [
+            415.0,
+            361.0
+          ],
+          [
+            453.0,
+            361.0
+          ],
+          [
+            453.0,
+            379.0
+          ],
+          [
+            415.0,
+            379.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_125",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "125",
+      "name": "노지현",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 125호 (노지현)",
+      "pos": {
+        "x": 415.0,
+        "y": 341.0,
+        "width": 40.0,
+        "height": 17.0,
+        "cx": 435.0,
+        "cy": 349.5,
+        "polygon": [
+          [
+            415.0,
+            341.0
+          ],
+          [
+            455.0,
+            341.0
+          ],
+          [
+            455.0,
+            358.0
+          ],
+          [
+            415.0,
+            358.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_126",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "126",
+      "name": "최나연",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 126호 (최나연)",
+      "pos": {
+        "x": 417.0,
+        "y": 317.0,
+        "width": 37.0,
+        "height": 19.0,
+        "cx": 435.5,
+        "cy": 326.5,
+        "polygon": [
+          [
+            417.0,
+            317.0
+          ],
+          [
+            454.0,
+            317.0
+          ],
+          [
+            454.0,
+            336.0
+          ],
+          [
+            417.0,
+            336.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_127",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "127",
+      "name": "AI융합연구원/원장실",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 127호 (AI융합연구원/원장실)",
+      "pos": {
+        "x": 416.0,
+        "y": 273.0,
+        "width": 38.0,
+        "height": 20.0,
+        "cx": 435.0,
+        "cy": 283.0,
+        "polygon": [
+          [
+            416.0,
+            273.0
+          ],
+          [
+            454.0,
+            273.0
+          ],
+          [
+            454.0,
+            293.0
+          ],
+          [
+            416.0,
+            293.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_1_128",
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "128",
+      "name": "AI융합대학 학생회실",
+      "type": "student_room",
+      "displayName": "소프트웨어 ICT관 128호 (AI융합대학 학생회실)",
+      "pos": null
+    },
+    {
+      "id": "DKU_ICT_2_201",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "201",
+      "name": "단국G-RISE사업단 사업지원팀",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 201호 (단국G-RISE사업단 사업지원팀)",
+      "pos": {
+        "x": 542.0,
+        "y": 232.0,
+        "width": 40.0,
+        "height": 40.0,
+        "cx": 562.0,
+        "cy": 252.0,
+        "polygon": [
+          [
+            542.0,
+            232.0
+          ],
+          [
+            582.0,
+            232.0
+          ],
+          [
+            582.0,
+            272.0
+          ],
+          [
+            542.0,
+            272.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_202",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "202",
+      "name": "단국G-RISE사업단장실",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 202호 (단국G-RISE사업단장실)",
+      "pos": {
+        "x": 586.0,
+        "y": 234.0,
+        "width": 40.0,
+        "height": 39.0,
+        "cx": 606.0,
+        "cy": 253.5,
+        "polygon": [
+          [
+            586.0,
+            234.0
+          ],
+          [
+            626.0,
+            234.0
+          ],
+          [
+            626.0,
+            273.0
+          ],
+          [
+            586.0,
+            273.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_203",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "203",
+      "name": "단국G-RISE사업단 산학협력중점교수연구실",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 203호 (단국G-RISE사업단 산학협력중점교수연구실)",
+      "pos": {
+        "x": 629.0,
+        "y": 232.0,
+        "width": 60.0,
+        "height": 41.0,
+        "cx": 659.0,
+        "cy": 252.5,
+        "polygon": [
+          [
+            629.0,
+            232.0
+          ],
+          [
+            689.0,
+            232.0
+          ],
+          [
+            689.0,
+            273.0
+          ],
+          [
+            629.0,
+            273.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_204",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "204",
+      "name": "단국G-RISE사업단 서고",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 204호 (단국G-RISE사업단 서고)",
+      "pos": {
+        "x": 695.0,
+        "y": 232.0,
+        "width": 59.0,
+        "height": 42.0,
+        "cx": 724.5,
+        "cy": 253.0,
+        "polygon": [
+          [
+            695.0,
+            232.0
+          ],
+          [
+            754.0,
+            232.0
+          ],
+          [
+            754.0,
+            274.0
+          ],
+          [
+            695.0,
+            274.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_205",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "205",
+      "name": "단국G-RISE사업단 러닝팩토리",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 205호 (단국G-RISE사업단 러닝팩토리)",
+      "pos": {
+        "x": 672.0,
+        "y": 175.0,
+        "width": 82.0,
+        "height": 40.0,
+        "cx": 713.0,
+        "cy": 195.0,
+        "polygon": [
+          [
+            672.0,
+            175.0
+          ],
+          [
+            754.0,
+            175.0
+          ],
+          [
+            754.0,
+            215.0
+          ],
+          [
+            672.0,
+            215.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_206",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "206",
+      "name": "단국G-RISE사업단 하이브리드강의실",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 206호 (단국G-RISE사업단 하이브리드강의실)",
+      "pos": {
+        "x": 629.0,
+        "y": 174.0,
+        "width": 41.0,
+        "height": 42.0,
+        "cx": 649.5,
+        "cy": 195.0,
+        "polygon": [
+          [
+            629.0,
+            174.0
+          ],
+          [
+            670.0,
+            174.0
+          ],
+          [
+            670.0,
+            216.0
+          ],
+          [
+            629.0,
+            216.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_207",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "207",
+      "name": "",
+      "type": "unknown",
+      "displayName": "소프트웨어 ICT관 207호",
+      "pos": {
+        "x": 544.0,
+        "y": 173.0,
+        "width": 81.0,
+        "height": 43.0,
+        "cx": 584.5,
+        "cy": 194.5,
+        "polygon": [
+          [
+            544.0,
+            173.0
+          ],
+          [
+            625.0,
+            173.0
+          ],
+          [
+            625.0,
+            216.0
+          ],
+          [
+            544.0,
+            216.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_208",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "208",
+      "name": "동물실험실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 208호 (동물실험실)",
+      "pos": {
+        "x": 356.0,
+        "y": 232.0,
+        "width": 39.0,
+        "height": 39.0,
+        "cx": 375.5,
+        "cy": 251.5,
+        "polygon": [
+          [
+            356.0,
+            232.0
+          ],
+          [
+            395.0,
+            232.0
+          ],
+          [
+            395.0,
+            271.0
+          ],
+          [
+            356.0,
+            271.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_209",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "209",
+      "name": "",
+      "type": "unknown",
+      "displayName": "소프트웨어 ICT관 209호",
+      "pos": null
+    },
+    {
+      "id": "DKU_ICT_2_210",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "210",
+      "name": "강의실",
+      "type": "classroom",
+      "displayName": "소프트웨어 ICT관 210호 (강의실)",
+      "pos": {
+        "x": 357.0,
+        "y": 275.0,
+        "width": 37.0,
+        "height": 40.0,
+        "cx": 375.5,
+        "cy": 295.0,
+        "polygon": [
+          [
+            357.0,
+            275.0
+          ],
+          [
+            394.0,
+            275.0
+          ],
+          [
+            394.0,
+            315.0
+          ],
+          [
+            357.0,
+            315.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_211",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "211",
+      "name": "",
+      "type": "unknown",
+      "displayName": "소프트웨어 ICT관 211호",
+      "pos": {
+        "x": 357.0,
+        "y": 320.0,
+        "width": 38.0,
+        "height": 29.0,
+        "cx": 376.0,
+        "cy": 334.5,
+        "polygon": [
+          [
+            357.0,
+            320.0
+          ],
+          [
+            395.0,
+            320.0
+          ],
+          [
+            395.0,
+            349.0
+          ],
+          [
+            357.0,
+            349.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_212",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "212",
+      "name": "휴먼 데이터 랩",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 212호 (휴먼 데이터 랩)",
+      "pos": {
+        "x": 357.0,
+        "y": 361.0,
+        "width": 38.0,
+        "height": 40.0,
+        "cx": 376.0,
+        "cy": 381.0,
+        "polygon": [
+          [
+            357.0,
+            361.0
+          ],
+          [
+            395.0,
+            361.0
+          ],
+          [
+            395.0,
+            401.0
+          ],
+          [
+            357.0,
+            401.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_213",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "213",
+      "name": "세미나실",
+      "type": "seminar_room",
+      "displayName": "소프트웨어 ICT관 213호 (세미나실)",
+      "pos": {
+        "x": 356.0,
+        "y": 406.0,
+        "width": 40.0,
+        "height": 36.0,
+        "cx": 376.0,
+        "cy": 424.0,
+        "polygon": [
+          [
+            356.0,
+            406.0
+          ],
+          [
+            396.0,
+            406.0
+          ],
+          [
+            396.0,
+            442.0
+          ],
+          [
+            356.0,
+            442.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_214",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "214",
+      "name": "천연물식의약소재산업화센터 연구센터",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 214호 (천연물식의약소재산업화센터 연구센터)",
+      "pos": {
+        "x": 348.0,
+        "y": 466.0,
+        "width": 49.0,
+        "height": 43.0,
+        "cx": 372.5,
+        "cy": 487.5,
+        "polygon": [
+          [
+            348.0,
+            466.0
+          ],
+          [
+            397.0,
+            466.0
+          ],
+          [
+            397.0,
+            509.0
+          ],
+          [
+            348.0,
+            509.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_214_1",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "214-1",
+      "name": "세미나실",
+      "type": "seminar_room",
+      "displayName": "소프트웨어 ICT관 214-1호 (세미나실)",
+      "pos": null
+    },
+    {
+      "id": "DKU_ICT_2_215",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "215",
+      "name": "직원노동조합 사무실",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 215호 (직원노동조합 사무실)",
+      "pos": {
+        "x": 457.0,
+        "y": 593.0,
+        "width": 62.0,
+        "height": 24.0,
+        "cx": 488.0,
+        "cy": 605.0,
+        "polygon": [
+          [
+            457.0,
+            593.0
+          ],
+          [
+            519.0,
+            593.0
+          ],
+          [
+            519.0,
+            617.0
+          ],
+          [
+            457.0,
+            617.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_215_1",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "215-1",
+      "name": "직원노동조합 세미나실",
+      "type": "seminar_room",
+      "displayName": "소프트웨어 ICT관 215-1호 (직원노동조합 세미나실)",
+      "pos": null
+    },
+    {
+      "id": "DKU_ICT_2_216",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "216",
+      "name": "상담학과 학생회실",
+      "type": "student_room",
+      "displayName": "소프트웨어 ICT관 216호 (상담학과 학생회실)",
+      "pos": {
+        "x": 522.0,
+        "y": 594.0,
+        "width": 27.0,
+        "height": 23.0,
+        "cx": 535.5,
+        "cy": 605.5,
+        "polygon": [
+          [
+            522.0,
+            594.0
+          ],
+          [
+            549.0,
+            594.0
+          ],
+          [
+            549.0,
+            617.0
+          ],
+          [
+            522.0,
+            617.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_216_1",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "216-1",
+      "name": "상담학과 스터디룸",
+      "type": "studyroom",
+      "displayName": "소프트웨어 ICT관 216-1호 (상담학과 스터디룸)",
+      "pos": null
+    },
+    {
+      "id": "DKU_ICT_2_217",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "217",
+      "name": "",
+      "type": "unknown",
+      "displayName": "소프트웨어 ICT관 217호",
+      "pos": {
+        "x": 415.0,
+        "y": 556.0,
+        "width": 38.0,
+        "height": 18.0,
+        "cx": 434.0,
+        "cy": 565.0,
+        "polygon": [
+          [
+            415.0,
+            556.0
+          ],
+          [
+            453.0,
+            556.0
+          ],
+          [
+            453.0,
+            574.0
+          ],
+          [
+            415.0,
+            574.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_218",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "218",
+      "name": "단국G-RISE사업단 경기북부지원실",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 218호 (단국G-RISE사업단 경기북부지원실)",
+      "pos": {
+        "x": 415.0,
+        "y": 534.0,
+        "width": 38.0,
+        "height": 18.0,
+        "cx": 434.0,
+        "cy": 543.0,
+        "polygon": [
+          [
+            415.0,
+            534.0
+          ],
+          [
+            453.0,
+            534.0
+          ],
+          [
+            453.0,
+            552.0
+          ],
+          [
+            415.0,
+            552.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_219",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "219",
+      "name": "경기도 단국-삼성모바일연구소",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 219호 (경기도 단국-삼성모바일연구소)",
+      "pos": {
+        "x": 416.0,
+        "y": 513.0,
+        "width": 36.0,
+        "height": 19.0,
+        "cx": 434.0,
+        "cy": 522.5,
+        "polygon": [
+          [
+            416.0,
+            513.0
+          ],
+          [
+            452.0,
+            513.0
+          ],
+          [
+            452.0,
+            532.0
+          ],
+          [
+            416.0,
+            532.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_220",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "220",
+      "name": "김용진",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 220호 (김용진)",
+      "pos": {
+        "x": 415.0,
+        "y": 494.0,
+        "width": 37.0,
+        "height": 14.0,
+        "cx": 433.5,
+        "cy": 501.0,
+        "polygon": [
+          [
+            415.0,
+            494.0
+          ],
+          [
+            452.0,
+            494.0
+          ],
+          [
+            452.0,
+            508.0
+          ],
+          [
+            415.0,
+            508.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_221",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "221",
+      "name": "산학협력중점교수 연구실",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 221호 (산학협력중점교수 연구실)",
+      "pos": {
+        "x": 416.0,
+        "y": 468.0,
+        "width": 37.0,
+        "height": 20.0,
+        "cx": 434.5,
+        "cy": 478.0,
+        "polygon": [
+          [
+            416.0,
+            468.0
+          ],
+          [
+            453.0,
+            468.0
+          ],
+          [
+            453.0,
+            488.0
+          ],
+          [
+            416.0,
+            488.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_222",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "222",
+      "name": "정유한",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 222호 (정유한)",
+      "pos": {
+        "x": 414.0,
+        "y": 449.0,
+        "width": 40.0,
+        "height": 17.0,
+        "cx": 434.0,
+        "cy": 457.5,
+        "polygon": [
+          [
+            414.0,
+            449.0
+          ],
+          [
+            454.0,
+            449.0
+          ],
+          [
+            454.0,
+            466.0
+          ],
+          [
+            414.0,
+            466.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_223",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "223",
+      "name": "산학협력중점교수 연구실",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 223호 (산학협력중점교수 연구실)",
+      "pos": {
+        "x": 418.0,
+        "y": 405.0,
+        "width": 38.0,
+        "height": 20.0,
+        "cx": 437.0,
+        "cy": 415.0,
+        "polygon": [
+          [
+            416.0,
+            428.0
+          ],
+          [
+            454.0,
+            428.0
+          ],
+          [
+            454.0,
+            446.0
+          ],
+          [
+            416.0,
+            446.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_224",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "224",
+      "name": "과학기술성과실용화사업단 사무실",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 224호 (과학기술성과실용화사업단 사무실)",
+      "pos": {
+        "x": 418.0,
+        "y": 405.0,
+        "width": 36.0,
+        "height": 20.0,
+        "cx": 436.0,
+        "cy": 415.0,
+        "polygon": [
+          [
+            418.0,
+            405.0
+          ],
+          [
+            454.0,
+            405.0
+          ],
+          [
+            454.0,
+            425.0
+          ],
+          [
+            418.0,
+            425.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_225",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "225",
+      "name": "과학기술성과실용화사업단 교육과정지원센터",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 225호 (과학기술성과실용화사업단 교육과정지원센터)",
+      "pos": {
+        "x": 417.0,
+        "y": 384.0,
+        "width": 36.0,
+        "height": 19.0,
+        "cx": 435.0,
+        "cy": 393.5,
+        "polygon": [
+          [
+            417.0,
+            384.0
+          ],
+          [
+            453.0,
+            384.0
+          ],
+          [
+            453.0,
+            403.0
+          ],
+          [
+            417.0,
+            403.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_226",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "226",
+      "name": "과학기술성과실용화사업단 실용화지원센터",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 226호 (과학기술성과실용화사업단 실용화지원센터)",
+      "pos": {
+        "x": 417.0,
+        "y": 360.0,
+        "width": 38.0,
+        "height": 20.0,
+        "cx": 436.0,
+        "cy": 370.0,
+        "polygon": [
+          [
+            417.0,
+            360.0
+          ],
+          [
+            455.0,
+            360.0
+          ],
+          [
+            455.0,
+            380.0
+          ],
+          [
+            417.0,
+            380.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_2_227",
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "227",
+      "name": "강의실",
+      "type": "classroom",
+      "displayName": "소프트웨어 ICT관 227호 (강의실)",
+      "pos": {
+        "x": 416.0,
+        "y": 274.0,
+        "width": 39.0,
+        "height": 84.0,
+        "cx": 435.5,
+        "cy": 316.0,
+        "polygon": [
+          [
+            416.0,
+            274.0
+          ],
+          [
+            455.0,
+            274.0
+          ],
+          [
+            455.0,
+            358.0
+          ],
+          [
+            416.0,
+            358.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_301",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "301",
+      "name": "OSS실습실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 301호 (OSS실습실)",
+      "pos": {
+        "x": 542.0,
+        "y": 234.0,
+        "width": 40.0,
+        "height": 39.0,
+        "cx": 562.0,
+        "cy": 253.5,
+        "polygon": [
+          [
+            542.0,
+            234.0
+          ],
+          [
+            582.0,
+            234.0
+          ],
+          [
+            582.0,
+            273.0
+          ],
+          [
+            542.0,
+            273.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_302",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "302",
+      "name": "Solid Cloud 서버실",
+      "type": "server_room",
+      "displayName": "소프트웨어 ICT관 302호 (Solid Cloud 서버실)",
+      "pos": {
+        "x": 629.0,
+        "y": 254.0,
+        "width": 19.0,
+        "height": 19.0,
+        "cx": 638.5,
+        "cy": 263.5,
+        "polygon": [
+          [
+            629.0,
+            254.0
+          ],
+          [
+            648.0,
+            254.0
+          ],
+          [
+            648.0,
+            273.0
+          ],
+          [
+            629.0,
+            273.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_303",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "303",
+      "name": "OSS실습실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 303호 (OSS실습실)",
+      "pos": {
+        "x": 651.0,
+        "y": 237.0,
+        "width": 60.0,
+        "height": 35.0,
+        "cx": 681.0,
+        "cy": 254.5,
+        "polygon": [
+          [
+            651.0,
+            237.0
+          ],
+          [
+            711.0,
+            237.0
+          ],
+          [
+            711.0,
+            272.0
+          ],
+          [
+            651.0,
+            272.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_304",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "304",
+      "name": "강의실",
+      "type": "classroom",
+      "displayName": "소프트웨어 ICT관 304호 (강의실)",
+      "pos": {
+        "x": 715.0,
+        "y": 235.0,
+        "width": 40.0,
+        "height": 38.0,
+        "cx": 735.0,
+        "cy": 254.0,
+        "polygon": [
+          [
+            715.0,
+            235.0
+          ],
+          [
+            755.0,
+            235.0
+          ],
+          [
+            755.0,
+            273.0
+          ],
+          [
+            715.0,
+            273.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_305",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "305",
+      "name": "강의실",
+      "type": "classroom",
+      "displayName": "소프트웨어 ICT관 305호 (강의실)",
+      "pos": {
+        "x": 698.0,
+        "y": 177.0,
+        "width": 56.0,
+        "height": 40.0,
+        "cx": 726.0,
+        "cy": 197.0,
+        "polygon": [
+          [
+            698.0,
+            177.0
+          ],
+          [
+            754.0,
+            177.0
+          ],
+          [
+            754.0,
+            217.0
+          ],
+          [
+            698.0,
+            217.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_306",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "306",
+      "name": "OSS실습실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 306호 (OSS실습실)",
+      "pos": {
+        "x": 627.0,
+        "y": 177.0,
+        "width": 67.0,
+        "height": 39.0,
+        "cx": 660.5,
+        "cy": 196.5,
+        "polygon": [
+          [
+            627.0,
+            177.0
+          ],
+          [
+            694.0,
+            177.0
+          ],
+          [
+            694.0,
+            216.0
+          ],
+          [
+            627.0,
+            216.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_307",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "307",
+      "name": "첨단강의실",
+      "type": "classroom",
+      "displayName": "소프트웨어 ICT관 307호 (첨단강의실)",
+      "pos": {
+        "x": 586.0,
+        "y": 176.0,
+        "width": 38.0,
+        "height": 39.0,
+        "cx": 605.0,
+        "cy": 195.5,
+        "polygon": [
+          [
+            586.0,
+            176.0
+          ],
+          [
+            624.0,
+            176.0
+          ],
+          [
+            624.0,
+            215.0
+          ],
+          [
+            586.0,
+            215.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_308",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "308",
+      "name": "",
+      "type": "unknown",
+      "displayName": "소프트웨어 ICT관 308호",
+      "pos": {
+        "x": 544.0,
+        "y": 176.0,
+        "width": 37.0,
+        "height": 39.0,
+        "cx": 562.5,
+        "cy": 195.5,
+        "polygon": [
+          [
+            544.0,
+            176.0
+          ],
+          [
+            581.0,
+            176.0
+          ],
+          [
+            581.0,
+            215.0
+          ],
+          [
+            544.0,
+            215.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_309",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "309",
+      "name": "SW융합대학학장실",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 309호 (SW융합대학학장실)",
+      "pos": {
+        "x": 528.0,
+        "y": 166.0,
+        "width": 11.0,
+        "height": 35.0,
+        "cx": 533.5,
+        "cy": 183.5,
+        "polygon": [
+          [
+            528.0,
+            166.0
+          ],
+          [
+            539.0,
+            166.0
+          ],
+          [
+            539.0,
+            201.0
+          ],
+          [
+            528.0,
+            201.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_310",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "310",
+      "name": "첨단강의실",
+      "type": "classroom",
+      "displayName": "소프트웨어 ICT관 310호 (첨단강의실)",
+      "pos": {
+        "x": 457.0,
+        "y": 167.0,
+        "width": 53.0,
+        "height": 50.0,
+        "cx": 483.5,
+        "cy": 192.0,
+        "polygon": [
+          [
+            457.0,
+            167.0
+          ],
+          [
+            510.0,
+            167.0
+          ],
+          [
+            510.0,
+            217.0
+          ],
+          [
+            457.0,
+            217.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_311",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "311",
+      "name": "AI융합대학 통합사무실 / SW중심대학사업단 행정실",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 311호 (AI융합대학 통합사무실 / SW중심대학사업단 행정실)",
+      "pos": {
+        "x": 354.0,
+        "y": 230.0,
+        "width": 39.0,
+        "height": 44.0,
+        "cx": 373.5,
+        "cy": 252.0,
+        "polygon": [
+          [
+            354.0,
+            230.0
+          ],
+          [
+            393.0,
+            230.0
+          ],
+          [
+            393.0,
+            274.0
+          ],
+          [
+            354.0,
+            274.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_312",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "312",
+      "name": "분자유전학실험실1",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 312호 (분자유전학실험실1)",
+      "pos": {
+        "x": 354.0,
+        "y": 277.0,
+        "width": 41.0,
+        "height": 40.0,
+        "cx": 374.5,
+        "cy": 297.0,
+        "polygon": [
+          [
+            354.0,
+            277.0
+          ],
+          [
+            395.0,
+            277.0
+          ],
+          [
+            395.0,
+            317.0
+          ],
+          [
+            354.0,
+            317.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_313",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "313",
+      "name": "세포배양 및 무균실험실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 313호 (세포배양 및 무균실험실)",
+      "pos": {
+        "x": 354.0,
+        "y": 345.0,
+        "width": 41.0,
+        "height": 15.0,
+        "cx": 374.5,
+        "cy": 352.5,
+        "polygon": [
+          [
+            354.0,
+            345.0
+          ],
+          [
+            395.0,
+            345.0
+          ],
+          [
+            395.0,
+            360.0
+          ],
+          [
+            354.0,
+            360.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_314",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "314",
+      "name": "암실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 314호 (암실)",
+      "pos": {
+        "x": 354.0,
+        "y": 362.0,
+        "width": 40.0,
+        "height": 41.0,
+        "cx": 374.0,
+        "cy": 382.5,
+        "polygon": [
+          [
+            354.0,
+            362.0
+          ],
+          [
+            394.0,
+            362.0
+          ],
+          [
+            394.0,
+            403.0
+          ],
+          [
+            354.0,
+            403.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_315",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "315",
+      "name": "방사선실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 315호 (방사선실)",
+      "pos": {
+        "x": 377.0,
+        "y": 406.0,
+        "width": 18.0,
+        "height": 31.0,
+        "cx": 386.0,
+        "cy": 421.5,
+        "polygon": [
+          [
+            377.0,
+            406.0
+          ],
+          [
+            395.0,
+            406.0
+          ],
+          [
+            395.0,
+            437.0
+          ],
+          [
+            377.0,
+            437.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_316",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "316",
+      "name": "분자세포학실험실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 316호 (분자세포학실험실)",
+      "pos": {
+        "x": 376.0,
+        "y": 440.0,
+        "width": 23.0,
+        "height": 27.0,
+        "cx": 387.5,
+        "cy": 453.5,
+        "polygon": [
+          [
+            376.0,
+            440.0
+          ],
+          [
+            399.0,
+            440.0
+          ],
+          [
+            399.0,
+            467.0
+          ],
+          [
+            376.0,
+            467.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_317",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "317",
+      "name": "현미경실험실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 317호 (현미경실험실)",
+      "pos": {
+        "x": 344.0,
+        "y": 471.0,
+        "width": 53.0,
+        "height": 39.0,
+        "cx": 370.5,
+        "cy": 490.5,
+        "polygon": [
+          [
+            344.0,
+            471.0
+          ],
+          [
+            397.0,
+            471.0
+          ],
+          [
+            397.0,
+            510.0
+          ],
+          [
+            344.0,
+            510.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_318",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "318",
+      "name": "국가지정연구실(세포생물연구실)",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 318호 (국가지정연구실(세포생물연구실))",
+      "pos": {
+        "x": 345.0,
+        "y": 513.0,
+        "width": 50.0,
+        "height": 38.0,
+        "cx": 370.0,
+        "cy": 532.0,
+        "polygon": [
+          [
+            345.0,
+            513.0
+          ],
+          [
+            395.0,
+            513.0
+          ],
+          [
+            395.0,
+            551.0
+          ],
+          [
+            345.0,
+            551.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_319",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "319",
+      "name": "",
+      "type": "unknown",
+      "displayName": "소프트웨어 ICT관 319호",
+      "pos": {
+        "x": 413.0,
+        "y": 558.0,
+        "width": 38.0,
+        "height": 16.0,
+        "cx": 432.0,
+        "cy": 566.0,
+        "polygon": [
+          [
+            413.0,
+            558.0
+          ],
+          [
+            451.0,
+            558.0
+          ],
+          [
+            451.0,
+            574.0
+          ],
+          [
+            413.0,
+            574.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_320",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "320",
+      "name": "공동(남) 2-1 / 김연중(공학교육)",
+      "type": "mixed-use",
+      "displayName": "소프트웨어 ICT관 320호 (공동(남) 2-1 / 김연중(공학교육))",
+      "pos": {
+        "x": 413.0,
+        "y": 535.0,
+        "width": 41.0,
+        "height": 18.0,
+        "cx": 433.5,
+        "cy": 544.0,
+        "polygon": [
+          [
+            413.0,
+            535.0
+          ],
+          [
+            454.0,
+            535.0
+          ],
+          [
+            454.0,
+            553.0
+          ],
+          [
+            413.0,
+            553.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_321",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "321",
+      "name": "",
+      "type": "unknown",
+      "displayName": "소프트웨어 ICT관 321호",
+      "pos": {
+        "x": 416.0,
+        "y": 515.0,
+        "width": 36.0,
+        "height": 17.0,
+        "cx": 434.0,
+        "cy": 523.5,
+        "polygon": [
+          [
+            416.0,
+            515.0
+          ],
+          [
+            452.0,
+            515.0
+          ],
+          [
+            452.0,
+            532.0
+          ],
+          [
+            416.0,
+            532.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_322",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "322",
+      "name": "정선주",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 322호 (정선주)",
+      "pos": {
+        "x": 414.0,
+        "y": 494.0,
+        "width": 40.0,
+        "height": 17.0,
+        "cx": 434.0,
+        "cy": 502.5,
+        "polygon": [
+          [
+            414.0,
+            494.0
+          ],
+          [
+            454.0,
+            494.0
+          ],
+          [
+            454.0,
+            511.0
+          ],
+          [
+            414.0,
+            511.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_323",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "323",
+      "name": "",
+      "type": "unknown",
+      "displayName": "소프트웨어 ICT관 323호",
+      "pos": {
+        "x": 415.0,
+        "y": 472.0,
+        "width": 37.0,
+        "height": 15.0,
+        "cx": 433.5,
+        "cy": 479.5,
+        "polygon": [
+          [
+            415.0,
+            472.0
+          ],
+          [
+            452.0,
+            472.0
+          ],
+          [
+            452.0,
+            487.0
+          ],
+          [
+            415.0,
+            487.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_324",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "324",
+      "name": "교육대학원 상담실",
+      "type": "counseling_room",
+      "displayName": "소프트웨어 ICT관 324호 (교육대학원 상담실)",
+      "pos": {
+        "x": 416.0,
+        "y": 449.0,
+        "width": 36.0,
+        "height": 19.0,
+        "cx": 434.0,
+        "cy": 458.5,
+        "polygon": [
+          [
+            416.0,
+            449.0
+          ],
+          [
+            452.0,
+            449.0
+          ],
+          [
+            452.0,
+            468.0
+          ],
+          [
+            416.0,
+            468.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_325",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "325",
+      "name": "이성욱",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 325호 (이성욱)",
+      "pos": {
+        "x": 415.0,
+        "y": 428.0,
+        "width": 37.0,
+        "height": 17.0,
+        "cx": 433.5,
+        "cy": 436.5,
+        "polygon": [
+          [
+            415.0,
+            428.0
+          ],
+          [
+            452.0,
+            428.0
+          ],
+          [
+            452.0,
+            445.0
+          ],
+          [
+            415.0,
+            445.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_326",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "326",
+      "name": "분자유전학실험준비실",
+      "type": "prep_room",
+      "displayName": "소프트웨어 ICT관 326호 (분자유전학실험준비실)",
+      "pos": null
+    },
+    {
+      "id": "DKU_ICT_3_327",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "327",
+      "name": "분자유전학실험실2",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 327호 (분자유전학실험실2)",
+      "pos": {
+        "x": 414.0,
+        "y": 385.0,
+        "width": 40.0,
+        "height": 38.0,
+        "cx": 434.0,
+        "cy": 404.0,
+        "polygon": [
+          [
+            414.0,
+            385.0
+          ],
+          [
+            454.0,
+            385.0
+          ],
+          [
+            454.0,
+            423.0
+          ],
+          [
+            414.0,
+            423.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_328",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "328",
+      "name": "단국G-RISE사업단 지역상생협력센터",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 328호 (단국G-RISE사업단 지역상생협력센터)",
+      "pos": {
+        "x": 416.0,
+        "y": 363.0,
+        "width": 37.0,
+        "height": 19.0,
+        "cx": 434.5,
+        "cy": 372.5,
+        "polygon": [
+          [
+            416.0,
+            363.0
+          ],
+          [
+            453.0,
+            363.0
+          ],
+          [
+            453.0,
+            382.0
+          ],
+          [
+            416.0,
+            382.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_329",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "329",
+      "name": "SW중심대학사업단 회의실",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 329호 (SW중심대학사업단 회의실)",
+      "pos": {
+        "x": 415.0,
+        "y": 340.0,
+        "width": 38.0,
+        "height": 19.0,
+        "cx": 434.0,
+        "cy": 349.5,
+        "polygon": [
+          [
+            415.0,
+            340.0
+          ],
+          [
+            453.0,
+            340.0
+          ],
+          [
+            453.0,
+            359.0
+          ],
+          [
+            415.0,
+            359.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_330",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "330",
+      "name": "SW중심대학사업단 서고",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 330호 (SW중심대학사업단 서고)",
+      "pos": {
+        "x": 415.0,
+        "y": 320.0,
+        "width": 38.0,
+        "height": 19.0,
+        "cx": 434.0,
+        "cy": 329.5,
+        "polygon": [
+          [
+            415.0,
+            320.0
+          ],
+          [
+            453.0,
+            320.0
+          ],
+          [
+            453.0,
+            339.0
+          ],
+          [
+            415.0,
+            339.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_331",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "331",
+      "name": "SW중심대학사업단 행정실",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 331호 (SW중심대학사업단 행정실)",
+      "pos": {
+        "x": 415.0,
+        "y": 276.0,
+        "width": 39.0,
+        "height": 39.0,
+        "cx": 434.5,
+        "cy": 295.5,
+        "polygon": [
+          [
+            415.0,
+            276.0
+          ],
+          [
+            454.0,
+            276.0
+          ],
+          [
+            454.0,
+            315.0
+          ],
+          [
+            415.0,
+            315.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_3_332",
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "332",
+      "name": "강의실",
+      "type": "classroom",
+      "displayName": "소프트웨어 ICT관 332호 (강의실)",
+      "pos": {
+        "x": 477.0,
+        "y": 234.0,
+        "width": 21.0,
+        "height": 39.0,
+        "cx": 487.5,
+        "cy": 253.5,
+        "polygon": [
+          [
+            477.0,
+            234.0
+          ],
+          [
+            498.0,
+            234.0
+          ],
+          [
+            498.0,
+            273.0
+          ],
+          [
+            477.0,
+            273.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_401",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "401",
+      "name": "박용범",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 401호 (박용범)",
+      "pos": {
+        "x": 543.0,
+        "y": 233.0,
+        "width": 17.0,
+        "height": 42.0,
+        "cx": 551.5,
+        "cy": 254.0,
+        "polygon": [
+          [
+            543.0,
+            233.0
+          ],
+          [
+            560.0,
+            233.0
+          ],
+          [
+            560.0,
+            275.0
+          ],
+          [
+            543.0,
+            275.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_402",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "402",
+      "name": "오세종",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 402호 (오세종)",
+      "pos": {
+        "x": 585.0,
+        "y": 234.0,
+        "width": 18.0,
+        "height": 38.0,
+        "cx": 594.0,
+        "cy": 253.0,
+        "polygon": [
+          [
+            585.0,
+            234.0
+          ],
+          [
+            603.0,
+            234.0
+          ],
+          [
+            603.0,
+            272.0
+          ],
+          [
+            585.0,
+            272.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_403",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "403",
+      "name": "조남수",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 403호 (조남수)",
+      "pos": {
+        "x": 608.0,
+        "y": 235.0,
+        "width": 16.0,
+        "height": 39.0,
+        "cx": 616.0,
+        "cy": 254.5,
+        "polygon": [
+          [
+            608.0,
+            235.0
+          ],
+          [
+            624.0,
+            235.0
+          ],
+          [
+            624.0,
+            274.0
+          ],
+          [
+            608.0,
+            274.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_404",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "404",
+      "name": "최현민",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 404호 (최현민)",
+      "pos": {
+        "x": 629.0,
+        "y": 231.0,
+        "width": 16.0,
+        "height": 43.0,
+        "cx": 637.0,
+        "cy": 252.5,
+        "polygon": [
+          [
+            629.0,
+            231.0
+          ],
+          [
+            645.0,
+            231.0
+          ],
+          [
+            645.0,
+            274.0
+          ],
+          [
+            629.0,
+            274.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_405",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "405",
+      "name": "황두성",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 405호 (황두성)",
+      "pos": {
+        "x": 650.0,
+        "y": 236.0,
+        "width": 17.0,
+        "height": 36.0,
+        "cx": 658.5,
+        "cy": 254.0,
+        "polygon": [
+          [
+            650.0,
+            236.0
+          ],
+          [
+            667.0,
+            236.0
+          ],
+          [
+            667.0,
+            272.0
+          ],
+          [
+            650.0,
+            272.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_406",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "406",
+      "name": "PC멀티실습실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 406호 (PC멀티실습실)",
+      "pos": {
+        "x": 672.0,
+        "y": 232.0,
+        "width": 83.0,
+        "height": 41.0,
+        "cx": 713.5,
+        "cy": 252.5,
+        "polygon": [
+          [
+            672.0,
+            232.0
+          ],
+          [
+            755.0,
+            232.0
+          ],
+          [
+            755.0,
+            273.0
+          ],
+          [
+            672.0,
+            273.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_407",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "407",
+      "name": "PC멀티실습실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 407호 (PC멀티실습실)",
+      "pos": {
+        "x": 715.0,
+        "y": 176.0,
+        "width": 37.0,
+        "height": 43.0,
+        "cx": 733.5,
+        "cy": 197.5,
+        "polygon": [
+          [
+            715.0,
+            176.0
+          ],
+          [
+            752.0,
+            176.0
+          ],
+          [
+            752.0,
+            219.0
+          ],
+          [
+            715.0,
+            219.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_408",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "408",
+      "name": "컴네트윅/지능자료분석연구실",
+      "type": "research_lab",
+      "displayName": "소프트웨어 ICT관 408호 (컴네트윅/지능자료분석연구실)",
+      "pos": {
+        "x": 672.0,
+        "y": 175.0,
+        "width": 39.0,
+        "height": 42.0,
+        "cx": 691.5,
+        "cy": 196.0,
+        "polygon": [
+          [
+            672.0,
+            175.0
+          ],
+          [
+            711.0,
+            175.0
+          ],
+          [
+            711.0,
+            217.0
+          ],
+          [
+            672.0,
+            217.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_409",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "409",
+      "name": "지능형 교통 시스템 보안연구실",
+      "type": "research_lab",
+      "displayName": "소프트웨어 ICT관 409호 (지능형 교통 시스템 보안연구실)",
+      "pos": {
+        "x": 586.0,
+        "y": 174.0,
+        "width": 36.0,
+        "height": 41.0,
+        "cx": 604.0,
+        "cy": 194.5,
+        "polygon": [
+          [
+            586.0,
+            174.0
+          ],
+          [
+            622.0,
+            174.0
+          ],
+          [
+            622.0,
+            215.0
+          ],
+          [
+            586.0,
+            215.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_410",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "410",
+      "name": "생명정보기술실험실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 410호 (생명정보기술실험실)",
+      "pos": {
+        "x": 500.0,
+        "y": 165.0,
+        "width": 39.0,
+        "height": 51.0,
+        "cx": 519.5,
+        "cy": 190.5,
+        "polygon": [
+          [
+            500.0,
+            165.0
+          ],
+          [
+            539.0,
+            165.0
+          ],
+          [
+            539.0,
+            216.0
+          ],
+          [
+            500.0,
+            216.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_411",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "411",
+      "name": "지능형보안기술연구실",
+      "type": "research_lab",
+      "displayName": "소프트웨어 ICT관 411호 (지능형보안기술연구실)",
+      "pos": {
+        "x": 355.0,
+        "y": 231.0,
+        "width": 40.0,
+        "height": 41.0,
+        "cx": 375.0,
+        "cy": 251.5,
+        "polygon": [
+          [
+            355.0,
+            231.0
+          ],
+          [
+            395.0,
+            231.0
+          ],
+          [
+            395.0,
+            272.0
+          ],
+          [
+            355.0,
+            272.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_412",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "412",
+      "name": "멀티미디어/모바일연구실",
+      "type": "research_lab",
+      "displayName": "소프트웨어 ICT관 412호 (멀티미디어/모바일연구실)",
+      "pos": {
+        "x": 354.0,
+        "y": 277.0,
+        "width": 37.0,
+        "height": 38.0,
+        "cx": 372.5,
+        "cy": 296.0,
+        "polygon": [
+          [
+            354.0,
+            277.0
+          ],
+          [
+            391.0,
+            277.0
+          ],
+          [
+            391.0,
+            315.0
+          ],
+          [
+            354.0,
+            315.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_413",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "413",
+      "name": "AI스마트 강의실",
+      "type": "classroom",
+      "displayName": "소프트웨어 ICT관 413호 (AI스마트 강의실)",
+      "pos": {
+        "x": 351.0,
+        "y": 318.0,
+        "width": 43.0,
+        "height": 40.0,
+        "cx": 372.5,
+        "cy": 338.0,
+        "polygon": [
+          [
+            351.0,
+            318.0
+          ],
+          [
+            394.0,
+            318.0
+          ],
+          [
+            394.0,
+            358.0
+          ],
+          [
+            351.0,
+            358.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_414",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "414",
+      "name": "강의실",
+      "type": "classroom",
+      "displayName": "소프트웨어 ICT관 414호 (강의실)",
+      "pos": {
+        "x": 352.0,
+        "y": 362.0,
+        "width": 43.0,
+        "height": 37.0,
+        "cx": 373.5,
+        "cy": 380.5,
+        "polygon": [
+          [
+            352.0,
+            362.0
+          ],
+          [
+            395.0,
+            362.0
+          ],
+          [
+            395.0,
+            399.0
+          ],
+          [
+            352.0,
+            399.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_415",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "415",
+      "name": "",
+      "type": "unknown",
+      "displayName": "소프트웨어 ICT관 415호",
+      "pos": {
+        "x": 355.0,
+        "y": 403.0,
+        "width": 38.0,
+        "height": 40.0,
+        "cx": 374.0,
+        "cy": 423.0,
+        "polygon": [
+          [
+            355.0,
+            403.0
+          ],
+          [
+            393.0,
+            403.0
+          ],
+          [
+            393.0,
+            443.0
+          ],
+          [
+            355.0,
+            443.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_416",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "416",
+      "name": "사이버보안학과 실습실1",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 416호 (사이버보안학과 실습실1)",
+      "pos": {
+        "x": 346.0,
+        "y": 469.0,
+        "width": 46.0,
+        "height": 61.0,
+        "cx": 369.0,
+        "cy": 499.5,
+        "polygon": [
+          [
+            346.0,
+            469.0
+          ],
+          [
+            392.0,
+            469.0
+          ],
+          [
+            392.0,
+            530.0
+          ],
+          [
+            346.0,
+            530.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_417",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "417",
+      "name": "사이버보안학과 학생회실",
+      "type": "student_room",
+      "displayName": "소프트웨어 ICT관 417호 (사이버보안학과 학생회실)",
+      "pos": {
+        "x": 346.0,
+        "y": 534.0,
+        "width": 47.0,
+        "height": 19.0,
+        "cx": 369.5,
+        "cy": 543.5,
+        "polygon": [
+          [
+            346.0,
+            534.0
+          ],
+          [
+            393.0,
+            534.0
+          ],
+          [
+            393.0,
+            553.0
+          ],
+          [
+            346.0,
+            553.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_418",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "418",
+      "name": "멘토링 룸",
+      "type": "mentor_room",
+      "displayName": "소프트웨어 ICT관 418호 (멘토링 룸)",
+      "pos": {
+        "x": 414.0,
+        "y": 558.0,
+        "width": 37.0,
+        "height": 18.0,
+        "cx": 432.5,
+        "cy": 567.0,
+        "polygon": [
+          [
+            414.0,
+            558.0
+          ],
+          [
+            451.0,
+            558.0
+          ],
+          [
+            451.0,
+            576.0
+          ],
+          [
+            414.0,
+            576.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_419",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "419",
+      "name": "공동(여) 4-1 / 황윤지(공학교육혁신센터)",
+      "type": "mixed-use",
+      "displayName": "소프트웨어 ICT관 419호 (공동(여) 4-1 / 황윤지(공학교육혁신센터))",
+      "pos": {
+        "x": 414.0,
+        "y": 536.0,
+        "width": 40.0,
+        "height": 17.0,
+        "cx": 434.0,
+        "cy": 544.5,
+        "polygon": [
+          [
+            414.0,
+            536.0
+          ],
+          [
+            454.0,
+            536.0
+          ],
+          [
+            454.0,
+            553.0
+          ],
+          [
+            414.0,
+            553.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_420",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "420",
+      "name": "인간과 인공지능 연구실",
+      "type": "research_lab",
+      "displayName": "소프트웨어 ICT관 420호 (인간과 인공지능 연구실)",
+      "pos": {
+        "x": 412.0,
+        "y": 514.0,
+        "width": 42.0,
+        "height": 18.0,
+        "cx": 433.0,
+        "cy": 523.0,
+        "polygon": [
+          [
+            412.0,
+            514.0
+          ],
+          [
+            454.0,
+            514.0
+          ],
+          [
+            454.0,
+            532.0
+          ],
+          [
+            412.0,
+            532.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_421",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "421",
+      "name": "",
+      "type": "unknown",
+      "displayName": "소프트웨어 ICT관 421호",
+      "pos": {
+        "x": 415.0,
+        "y": 493.0,
+        "width": 38.0,
+        "height": 17.0,
+        "cx": 434.0,
+        "cy": 501.5,
+        "polygon": [
+          [
+            415.0,
+            493.0
+          ],
+          [
+            453.0,
+            493.0
+          ],
+          [
+            453.0,
+            510.0
+          ],
+          [
+            415.0,
+            510.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_422",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "422",
+      "name": "인문사회융합인재양성사업 공동연구실",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 422호 (인문사회융합인재양성사업 공동연구실)",
+      "pos": {
+        "x": 414.0,
+        "y": 470.0,
+        "width": 39.0,
+        "height": 18.0,
+        "cx": 433.5,
+        "cy": 479.0,
+        "polygon": [
+          [
+            414.0,
+            470.0
+          ],
+          [
+            453.0,
+            470.0
+          ],
+          [
+            453.0,
+            488.0
+          ],
+          [
+            414.0,
+            488.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_423",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "423",
+      "name": "인문사회융합인재양성사업단 행정실",
+      "type": "office",
+      "displayName": "소프트웨어 ICT관 423호 (인문사회융합인재양성사업단 행정실)",
+      "pos": {
+        "x": 415.0,
+        "y": 451.0,
+        "width": 38.0,
+        "height": 17.0,
+        "cx": 434.0,
+        "cy": 459.5,
+        "polygon": [
+          [
+            415.0,
+            451.0
+          ],
+          [
+            453.0,
+            451.0
+          ],
+          [
+            453.0,
+            468.0
+          ],
+          [
+            415.0,
+            468.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_424",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "424",
+      "name": "김동재",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 424호 (김동재)",
+      "pos": {
+        "x": 416.0,
+        "y": 427.0,
+        "width": 37.0,
+        "height": 19.0,
+        "cx": 434.5,
+        "cy": 436.5,
+        "polygon": [
+          [
+            416.0,
+            427.0
+          ],
+          [
+            453.0,
+            427.0
+          ],
+          [
+            453.0,
+            446.0
+          ],
+          [
+            416.0,
+            446.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_425",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "425",
+      "name": "이건석",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 425호 (이건석)",
+      "pos": {
+        "x": 414.0,
+        "y": 406.0,
+        "width": 37.0,
+        "height": 17.0,
+        "cx": 432.5,
+        "cy": 414.5,
+        "polygon": [
+          [
+            414.0,
+            406.0
+          ],
+          [
+            451.0,
+            406.0
+          ],
+          [
+            451.0,
+            423.0
+          ],
+          [
+            414.0,
+            423.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_426",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "426",
+      "name": "공동(여)4-박소현",
+      "type": "mixed-use",
+      "displayName": "소프트웨어 ICT관 426호 (공동(여)4-박소현)",
+      "pos": {
+        "x": 414.0,
+        "y": 384.0,
+        "width": 39.0,
+        "height": 18.0,
+        "cx": 433.5,
+        "cy": 393.0,
+        "polygon": [
+          [
+            414.0,
+            384.0
+          ],
+          [
+            453.0,
+            384.0
+          ],
+          [
+            453.0,
+            402.0
+          ],
+          [
+            414.0,
+            402.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_427",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "427",
+      "name": "인공지능부트캠프사업단 산학중점교수연구실",
+      "type": "research_lab",
+      "displayName": "소프트웨어 ICT관 427호 (인공지능부트캠프사업단 산학중점교수연구실)",
+      "pos": {
+        "x": 415.0,
+        "y": 362.0,
+        "width": 38.0,
+        "height": 19.0,
+        "cx": 434.0,
+        "cy": 371.5,
+        "polygon": [
+          [
+            415.0,
+            362.0
+          ],
+          [
+            453.0,
+            362.0
+          ],
+          [
+            453.0,
+            381.0
+          ],
+          [
+            415.0,
+            381.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_428",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "428",
+      "name": "Red Beanz",
+      "type": "club_room",
+      "displayName": "소프트웨어 ICT관 428호 (Red Beanz)",
+      "pos": {
+        "x": 415.0,
+        "y": 342.0,
+        "width": 37.0,
+        "height": 18.0,
+        "cx": 433.5,
+        "cy": 351.0,
+        "polygon": [
+          [
+            415.0,
+            342.0
+          ],
+          [
+            452.0,
+            342.0
+          ],
+          [
+            452.0,
+            360.0
+          ],
+          [
+            415.0,
+            360.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_429",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "429",
+      "name": "박태근",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 429호 (박태근)",
+      "pos": {
+        "x": 416.0,
+        "y": 297.0,
+        "width": 35.0,
+        "height": 20.0,
+        "cx": 433.5,
+        "cy": 307.0,
+        "polygon": [
+          [
+            416.0,
+            297.0
+          ],
+          [
+            451.0,
+            297.0
+          ],
+          [
+            451.0,
+            317.0
+          ],
+          [
+            416.0,
+            317.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_4_430",
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "430",
+      "name": "송현민",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 430호 (송현민)",
+      "pos": {
+        "x": 476.0,
+        "y": 235.0,
+        "width": 22.0,
+        "height": 39.0,
+        "cx": 487.0,
+        "cy": 254.5,
+        "polygon": [
+          [
+            476.0,
+            235.0
+          ],
+          [
+            498.0,
+            235.0
+          ],
+          [
+            498.0,
+            274.0
+          ],
+          [
+            476.0,
+            274.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_5_501",
+      "buildingId": "DKU_ICT",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "501",
+      "name": "코딩존",
+      "type": "club_room",
+      "displayName": "소프트웨어 ICT관 501호 (코딩존)",
+      "pos": {
+        "x": 499.0,
+        "y": 233.0,
+        "width": 19.0,
+        "height": 37.0,
+        "cx": 508.5,
+        "cy": 251.5,
+        "polygon": [
+          [
+            499.0,
+            233.0
+          ],
+          [
+            518.0,
+            233.0
+          ],
+          [
+            518.0,
+            270.0
+          ],
+          [
+            499.0,
+            270.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_5_502",
+      "buildingId": "DKU_ICT",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "502",
+      "name": "소프트웨어학과 학생회실",
+      "type": "student_room",
+      "displayName": "소프트웨어 ICT관 502호 (소프트웨어학과 학생회실)",
+      "pos": {
+        "x": 521.0,
+        "y": 232.0,
+        "width": 17.0,
+        "height": 39.0,
+        "cx": 529.5,
+        "cy": 251.5,
+        "polygon": [
+          [
+            521.0,
+            232.0
+          ],
+          [
+            538.0,
+            232.0
+          ],
+          [
+            538.0,
+            271.0
+          ],
+          [
+            521.0,
+            271.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_5_503",
+      "buildingId": "DKU_ICT",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "503",
+      "name": "강필성",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 503호 (강필성)",
+      "pos": {
+        "x": 542.0,
+        "y": 234.0,
+        "width": 21.0,
+        "height": 35.0,
+        "cx": 552.5,
+        "cy": 251.5,
+        "polygon": [
+          [
+            542.0,
+            234.0
+          ],
+          [
+            563.0,
+            234.0
+          ],
+          [
+            563.0,
+            269.0
+          ],
+          [
+            542.0,
+            269.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_5_504",
+      "buildingId": "DKU_ICT",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "504",
+      "name": "최종무",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 504호 (최종무)",
+      "pos": {
+        "x": 566.0,
+        "y": 232.0,
+        "width": 15.0,
+        "height": 36.0,
+        "cx": 573.5,
+        "cy": 250.0,
+        "polygon": [
+          [
+            566.0,
+            232.0
+          ],
+          [
+            581.0,
+            232.0
+          ],
+          [
+            581.0,
+            268.0
+          ],
+          [
+            566.0,
+            268.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_5_505",
+      "buildingId": "DKU_ICT",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "505",
+      "name": "이재동",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 505호 (이재동)",
+      "pos": {
+        "x": 584.0,
+        "y": 232.0,
+        "width": 20.0,
+        "height": 37.0,
+        "cx": 594.0,
+        "cy": 250.5,
+        "polygon": [
+          [
+            584.0,
+            232.0
+          ],
+          [
+            604.0,
+            232.0
+          ],
+          [
+            604.0,
+            269.0
+          ],
+          [
+            584.0,
+            269.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_5_506",
+      "buildingId": "DKU_ICT",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "506",
+      "name": "김보은",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 506호 (김보은)",
+      "pos": {
+        "x": 606.0,
+        "y": 233.0,
+        "width": 20.0,
+        "height": 35.0,
+        "cx": 616.0,
+        "cy": 250.5,
+        "polygon": [
+          [
+            606.0,
+            233.0
+          ],
+          [
+            626.0,
+            233.0
+          ],
+          [
+            626.0,
+            268.0
+          ],
+          [
+            606.0,
+            268.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_5_507",
+      "buildingId": "DKU_ICT",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "507",
+      "name": "김하연",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 507호 (김하연)",
+      "pos": {
+        "x": 628.0,
+        "y": 233.0,
+        "width": 18.0,
+        "height": 40.0,
+        "cx": 637.0,
+        "cy": 253.0,
+        "polygon": [
+          [
+            628.0,
+            233.0
+          ],
+          [
+            646.0,
+            233.0
+          ],
+          [
+            646.0,
+            273.0
+          ],
+          [
+            628.0,
+            273.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_5_508",
+      "buildingId": "DKU_ICT",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "508",
+      "name": "서지원",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 508호 (서지원)",
+      "pos": {
+        "x": 651.0,
+        "y": 233.0,
+        "width": 16.0,
+        "height": 35.0,
+        "cx": 659.0,
+        "cy": 250.5,
+        "polygon": [
+          [
+            651.0,
+            233.0
+          ],
+          [
+            667.0,
+            233.0
+          ],
+          [
+            667.0,
+            268.0
+          ],
+          [
+            651.0,
+            268.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_5_509",
+      "buildingId": "DKU_ICT",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "509",
+      "name": "우사무엘",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 509호 (우사무엘)",
+      "pos": {
+        "x": 673.0,
+        "y": 232.0,
+        "width": 15.0,
+        "height": 38.0,
+        "cx": 680.5,
+        "cy": 251.0,
+        "polygon": [
+          [
+            673.0,
+            232.0
+          ],
+          [
+            688.0,
+            232.0
+          ],
+          [
+            688.0,
+            270.0
+          ],
+          [
+            673.0,
+            270.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_5_510",
+      "buildingId": "DKU_ICT",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "510",
+      "name": "조성제",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 510호 (조성제)",
+      "pos": {
+        "x": 693.0,
+        "y": 233.0,
+        "width": 17.0,
+        "height": 36.0,
+        "cx": 701.5,
+        "cy": 251.0,
+        "polygon": [
+          [
+            693.0,
+            233.0
+          ],
+          [
+            710.0,
+            233.0
+          ],
+          [
+            710.0,
+            269.0
+          ],
+          [
+            693.0,
+            269.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_5_511",
+      "buildingId": "DKU_ICT",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "511",
+      "name": "설진석",
+      "type": "professor_office",
+      "displayName": "소프트웨어 ICT관 511호 (설진석)",
+      "pos": {
+        "x": 714.0,
+        "y": 232.0,
+        "width": 17.0,
+        "height": 37.0,
+        "cx": 722.5,
+        "cy": 250.5,
+        "polygon": [
+          [
+            714.0,
+            232.0
+          ],
+          [
+            731.0,
+            232.0
+          ],
+          [
+            731.0,
+            269.0
+          ],
+          [
+            714.0,
+            269.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_5_512",
+      "buildingId": "DKU_ICT",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "512",
+      "name": "AI융합학부 실습실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 512호 (AI융합학부 실습실)",
+      "pos": {
+        "x": 735.0,
+        "y": 233.0,
+        "width": 18.0,
+        "height": 37.0,
+        "cx": 744.0,
+        "cy": 251.5,
+        "polygon": [
+          [
+            735.0,
+            233.0
+          ],
+          [
+            753.0,
+            233.0
+          ],
+          [
+            753.0,
+            270.0
+          ],
+          [
+            735.0,
+            270.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_5_513",
+      "buildingId": "DKU_ICT",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "513",
+      "name": "XR-AI 연구실",
+      "type": "research_lab",
+      "displayName": "소프트웨어 ICT관 513호 (XR-AI 연구실)",
+      "pos": {
+        "x": 715.0,
+        "y": 165.0,
+        "width": 37.0,
+        "height": 52.0,
+        "cx": 733.5,
+        "cy": 191.0,
+        "polygon": [
+          [
+            715.0,
+            165.0
+          ],
+          [
+            752.0,
+            165.0
+          ],
+          [
+            752.0,
+            217.0
+          ],
+          [
+            715.0,
+            217.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_5_514",
+      "buildingId": "DKU_ICT",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "514",
+      "name": "빅데이터/AI실습실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 514호 (빅데이터/AI실습실)",
+      "pos": {
+        "x": 671.0,
+        "y": 165.0,
+        "width": 42.0,
+        "height": 50.0,
+        "cx": 692.0,
+        "cy": 190.0,
+        "polygon": [
+          [
+            671.0,
+            165.0
+          ],
+          [
+            713.0,
+            165.0
+          ],
+          [
+            713.0,
+            215.0
+          ],
+          [
+            671.0,
+            215.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_5_515",
+      "buildingId": "DKU_ICT",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "515",
+      "name": "시스템 소프트웨어 연구실",
+      "type": "research_lab",
+      "displayName": "소프트웨어 ICT관 515호 (시스템 소프트웨어 연구실)",
+      "pos": {
+        "x": 628.0,
+        "y": 165.0,
+        "width": 38.0,
+        "height": 49.0,
+        "cx": 647.0,
+        "cy": 189.5,
+        "polygon": [
+          [
+            628.0,
+            165.0
+          ],
+          [
+            666.0,
+            165.0
+          ],
+          [
+            666.0,
+            214.0
+          ],
+          [
+            628.0,
+            214.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_5_516",
+      "buildingId": "DKU_ICT",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "516",
+      "name": "PC멀티실습실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 516호 (PC멀티실습실)",
+      "pos": {
+        "x": 541.0,
+        "y": 166.0,
+        "width": 85.0,
+        "height": 49.0,
+        "cx": 583.5,
+        "cy": 190.5,
+        "polygon": [
+          [
+            541.0,
+            166.0
+          ],
+          [
+            626.0,
+            166.0
+          ],
+          [
+            626.0,
+            215.0
+          ],
+          [
+            541.0,
+            215.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_ICT_5_517",
+      "buildingId": "DKU_ICT",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "517",
+      "name": "PC멀티실습실",
+      "type": "laboratory",
+      "displayName": "소프트웨어 ICT관 517호 (PC멀티실습실)",
+      "pos": {
+        "x": 476.0,
+        "y": 167.0,
+        "width": 65.0,
+        "height": 49.0,
+        "cx": 508.5,
+        "cy": 191.5,
+        "polygon": [
+          [
+            476.0,
+            167.0
+          ],
+          [
+            541.0,
+            167.0
+          ],
+          [
+            541.0,
+            216.0
+          ],
+          [
+            476.0,
+            216.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_1_103",
+      "buildingId": "DKU_LIB",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "103",
+      "name": "1열람실",
+      "type": "reading_room",
+      "displayName": "퇴계기념중앙도서관 103호 (1열람실)",
+      "pos": {
+        "x": 682.0,
+        "y": 392.0,
+        "width": 235.0,
+        "height": 130.0,
+        "cx": 799.5,
+        "cy": 457.0,
+        "polygon": [
+          [
+            682.0,
+            392.0
+          ],
+          [
+            917.0,
+            392.0
+          ],
+          [
+            917.0,
+            522.0
+          ],
+          [
+            682.0,
+            522.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_1_110",
+      "buildingId": "DKU_LIB",
+      "floor": 1,
+      "floorLabel": "1F",
+      "number": "110",
+      "name": "1보존서고",
+      "type": "archive",
+      "displayName": "퇴계기념중앙도서관 110호 (1보존서고)",
+      "pos": {
+        "x": 277.0,
+        "y": 390.0,
+        "width": 236.0,
+        "height": 131.0,
+        "cx": 395.0,
+        "cy": 455.5,
+        "polygon": [
+          [
+            277.0,
+            390.0
+          ],
+          [
+            513.0,
+            390.0
+          ],
+          [
+            513.0,
+            521.0
+          ],
+          [
+            277.0,
+            521.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_2_201",
+      "buildingId": "DKU_LIB",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "201",
+      "name": "대학원열람실",
+      "type": "reading_room",
+      "displayName": "퇴계기념중앙도서관 201호 (대학원열람실)",
+      "pos": {
+        "x": 656.0,
+        "y": 462.0,
+        "width": 51.0,
+        "height": 183.0,
+        "cx": 681.5,
+        "cy": 553.5,
+        "polygon": [
+          [
+            656.0,
+            462.0
+          ],
+          [
+            707.0,
+            462.0
+          ],
+          [
+            707.0,
+            645.0
+          ],
+          [
+            656.0,
+            645.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_2_202",
+      "buildingId": "DKU_LIB",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "202",
+      "name": "4열람실",
+      "type": "reading_room",
+      "displayName": "퇴계기념중앙도서관 202호 (4열람실)",
+      "pos": {
+        "x": 712.0,
+        "y": 462.0,
+        "width": 168.0,
+        "height": 185.0,
+        "cx": 796.0,
+        "cy": 554.5,
+        "polygon": [
+          [
+            712.0,
+            462.0
+          ],
+          [
+            880.0,
+            462.0
+          ],
+          [
+            880.0,
+            647.0
+          ],
+          [
+            712.0,
+            647.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_2_205",
+      "buildingId": "DKU_LIB",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "205",
+      "name": "휴게실",
+      "type": "restroom",
+      "displayName": "퇴계기념중앙도서관 205호 (휴게실)",
+      "pos": {
+        "x": 713.0,
+        "y": 266.0,
+        "width": 170.0,
+        "height": 79.0,
+        "cx": 798.0,
+        "cy": 305.5,
+        "polygon": [
+          [
+            713.0,
+            266.0
+          ],
+          [
+            883.0,
+            266.0
+          ],
+          [
+            883.0,
+            345.0
+          ],
+          [
+            713.0,
+            345.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_2_206",
+      "buildingId": "DKU_LIB",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "206",
+      "name": "편의점",
+      "type": "convenience_store",
+      "displayName": "퇴계기념중앙도서관 206호 (편의점)",
+      "pos": {
+        "x": 654.0,
+        "y": 265.0,
+        "width": 58.0,
+        "height": 28.0,
+        "cx": 683.0,
+        "cy": 279.0,
+        "polygon": [
+          [
+            654.0,
+            265.0
+          ],
+          [
+            712.0,
+            265.0
+          ],
+          [
+            712.0,
+            293.0
+          ],
+          [
+            654.0,
+            293.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_2_207",
+      "buildingId": "DKU_LIB",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "207",
+      "name": "저수조",
+      "type": "?",
+      "displayName": "퇴계기념중앙도서관 207호 (저수조)",
+      "pos": {
+        "x": 257.0,
+        "y": 192.0,
+        "width": 225.0,
+        "height": 155.0,
+        "cx": 369.5,
+        "cy": 269.5,
+        "polygon": [
+          [
+            257.0,
+            192.0
+          ],
+          [
+            482.0,
+            192.0
+          ],
+          [
+            482.0,
+            347.0
+          ],
+          [
+            257.0,
+            347.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_2_211",
+      "buildingId": "DKU_LIB",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "211",
+      "name": "2열람실",
+      "type": "reading_room",
+      "displayName": "퇴계기념중앙도서관 211호 (2열람실)",
+      "pos": {
+        "x": 256.0,
+        "y": 461.0,
+        "width": 112.0,
+        "height": 182.0,
+        "cx": 312.0,
+        "cy": 552.0,
+        "polygon": [
+          [
+            256.0,
+            461.0
+          ],
+          [
+            368.0,
+            461.0
+          ],
+          [
+            368.0,
+            643.0
+          ],
+          [
+            256.0,
+            643.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_2_212",
+      "buildingId": "DKU_LIB",
+      "floor": 2,
+      "floorLabel": "2F",
+      "number": "212",
+      "name": "3열람실",
+      "type": "reading_room",
+      "displayName": "퇴계기념중앙도서관 212호 (3열람실)",
+      "pos": {
+        "x": 373.0,
+        "y": 523.0,
+        "width": 111.0,
+        "height": 119.0,
+        "cx": 428.5,
+        "cy": 582.5,
+        "polygon": [
+          [
+            373.0,
+            523.0
+          ],
+          [
+            484.0,
+            523.0
+          ],
+          [
+            484.0,
+            642.0
+          ],
+          [
+            373.0,
+            642.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_3_301",
+      "buildingId": "DKU_LIB",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "301",
+      "name": "도산라운지",
+      "type": "lounge",
+      "displayName": "퇴계기념중앙도서관 301호 (도산라운지)",
+      "pos": {
+        "x": 659.0,
+        "y": 504.0,
+        "width": 239.0,
+        "height": 134.0,
+        "cx": 778.5,
+        "cy": 571.0,
+        "polygon": [
+          [
+            659.0,
+            504.0
+          ],
+          [
+            898.0,
+            504.0
+          ],
+          [
+            898.0,
+            638.0
+          ],
+          [
+            659.0,
+            638.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_3_302",
+      "buildingId": "DKU_LIB",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "302",
+      "name": "자율 학습 라운지",
+      "type": "lounge",
+      "displayName": "퇴계기념중앙도서관 302호 (자율 학습 라운지)",
+      "pos": {
+        "x": 839.0,
+        "y": 252.0,
+        "width": 61.0,
+        "height": 109.0,
+        "cx": 869.5,
+        "cy": 306.5,
+        "polygon": [
+          [
+            839.0,
+            252.0
+          ],
+          [
+            900.0,
+            252.0
+          ],
+          [
+            900.0,
+            361.0
+          ],
+          [
+            839.0,
+            361.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_3_303",
+      "buildingId": "DKU_LIB",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "303",
+      "name": "세미나실 / ALC",
+      "type": "seminar_room",
+      "displayName": "퇴계기념중앙도서관 303호 (세미나실 / ALC)",
+      "pos": {
+        "x": 776.0,
+        "y": 165.0,
+        "width": 122.0,
+        "height": 82.0,
+        "cx": 837.0,
+        "cy": 206.0,
+        "polygon": [
+          [
+            776.0,
+            165.0
+          ],
+          [
+            898.0,
+            165.0
+          ],
+          [
+            898.0,
+            247.0
+          ],
+          [
+            776.0,
+            247.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_3_304",
+      "buildingId": "DKU_LIB",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "304",
+      "name": "취창업진로1팀",
+      "type": "office",
+      "displayName": "퇴계기념중앙도서관 304호 (취창업진로1팀)",
+      "pos": {
+        "x": 718.0,
+        "y": 166.0,
+        "width": 54.0,
+        "height": 33.0,
+        "cx": 745.0,
+        "cy": 182.5,
+        "polygon": [
+          [
+            718.0,
+            166.0
+          ],
+          [
+            772.0,
+            166.0
+          ],
+          [
+            772.0,
+            199.0
+          ],
+          [
+            718.0,
+            199.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_3_305",
+      "buildingId": "DKU_LIB",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "305",
+      "name": "대학일자리플러스센터 사업운영팀",
+      "type": "office",
+      "displayName": "퇴계기념중앙도서관 305호 (대학일자리플러스센터 사업운영팀)",
+      "pos": {
+        "x": 690.0,
+        "y": 166.0,
+        "width": 27.0,
+        "height": 33.0,
+        "cx": 703.5,
+        "cy": 182.5,
+        "polygon": [
+          [
+            690.0,
+            166.0
+          ],
+          [
+            717.0,
+            166.0
+          ],
+          [
+            717.0,
+            199.0
+          ],
+          [
+            690.0,
+            199.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_3_306",
+      "buildingId": "DKU_LIB",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "306",
+      "name": "취창업지원처장실",
+      "type": "office",
+      "displayName": "퇴계기념중앙도서관 306호 (취창업지원처장실)",
+      "pos": {
+        "x": 660.0,
+        "y": 167.0,
+        "width": 28.0,
+        "height": 32.0,
+        "cx": 674.0,
+        "cy": 183.0,
+        "polygon": [
+          [
+            660.0,
+            167.0
+          ],
+          [
+            688.0,
+            167.0
+          ],
+          [
+            688.0,
+            199.0
+          ],
+          [
+            660.0,
+            199.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_3_307",
+      "buildingId": "DKU_LIB",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "307",
+      "name": "잡카페/고교 재학생 맞춤형 고용서비스 사무실",
+      "type": "office",
+      "displayName": "퇴계기념중앙도서관 307호 (잡카페/고교 재학생 맞춤형 고용서비스 사무실)",
+      "pos": {
+        "x": 662.0,
+        "y": 203.0,
+        "width": 108.0,
+        "height": 94.0,
+        "cx": 716.0,
+        "cy": 250.0,
+        "polygon": [
+          [
+            662.0,
+            203.0
+          ],
+          [
+            770.0,
+            203.0
+          ],
+          [
+            770.0,
+            297.0
+          ],
+          [
+            662.0,
+            297.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_3_308",
+      "buildingId": "DKU_LIB",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "308",
+      "name": "수위실",
+      "type": "secuirty_office",
+      "displayName": "퇴계기념중앙도서관 308호 (수위실)",
+      "pos": {
+        "x": 499.0,
+        "y": 302.0,
+        "width": 54.0,
+        "height": 29.0,
+        "cx": 526.0,
+        "cy": 316.5,
+        "polygon": [
+          [
+            499.0,
+            302.0
+          ],
+          [
+            553.0,
+            302.0
+          ],
+          [
+            553.0,
+            331.0
+          ],
+          [
+            499.0,
+            331.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_3_309",
+      "buildingId": "DKU_LIB",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "309",
+      "name": "",
+      "type": "unknown",
+      "displayName": "퇴계기념중앙도서관 309호",
+      "pos": null
+    },
+    {
+      "id": "DKU_LIB_3_310",
+      "buildingId": "DKU_LIB",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "310",
+      "name": "출판미디어운영팀",
+      "type": "office",
+      "displayName": "퇴계기념중앙도서관 310호 (출판미디어운영팀)",
+      "pos": {
+        "x": 254.0,
+        "y": 165.0,
+        "width": 43.0,
+        "height": 81.0,
+        "cx": 275.5,
+        "cy": 205.5,
+        "polygon": [
+          [
+            254.0,
+            165.0
+          ],
+          [
+            297.0,
+            165.0
+          ],
+          [
+            297.0,
+            246.0
+          ],
+          [
+            254.0,
+            246.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_3_311",
+      "buildingId": "DKU_LIB",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "311",
+      "name": "사서장실",
+      "type": "office",
+      "displayName": "퇴계기념중앙도서관 311호 (사서장실)",
+      "pos": {
+        "x": 255.0,
+        "y": 248.0,
+        "width": 46.0,
+        "height": 51.0,
+        "cx": 278.0,
+        "cy": 273.5,
+        "polygon": [
+          [
+            255.0,
+            248.0
+          ],
+          [
+            301.0,
+            248.0
+          ],
+          [
+            301.0,
+            299.0
+          ],
+          [
+            255.0,
+            299.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_3_312",
+      "buildingId": "DKU_LIB",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "312",
+      "name": "도서관장실",
+      "type": "office",
+      "displayName": "퇴계기념중앙도서관 312호 (도서관장실)",
+      "pos": {
+        "x": 254.0,
+        "y": 302.0,
+        "width": 44.0,
+        "height": 62.0,
+        "cx": 276.0,
+        "cy": 333.0,
+        "polygon": [
+          [
+            254.0,
+            302.0
+          ],
+          [
+            298.0,
+            302.0
+          ],
+          [
+            298.0,
+            364.0
+          ],
+          [
+            254.0,
+            364.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_3_313",
+      "buildingId": "DKU_LIB",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "313",
+      "name": "부속실",
+      "type": "equipment_room",
+      "displayName": "퇴계기념중앙도서관 313호 (부속실)",
+      "pos": {
+        "x": 300.0,
+        "y": 302.0,
+        "width": 43.0,
+        "height": 31.0,
+        "cx": 321.5,
+        "cy": 317.5,
+        "polygon": [
+          [
+            300.0,
+            302.0
+          ],
+          [
+            343.0,
+            302.0
+          ],
+          [
+            343.0,
+            333.0
+          ],
+          [
+            300.0,
+            333.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_3_314",
+      "buildingId": "DKU_LIB",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "314",
+      "name": "창고",
+      "type": "equipment_room",
+      "displayName": "퇴계기념중앙도서관 314호 (창고)",
+      "pos": {
+        "x": 345.0,
+        "y": 334.0,
+        "width": 14.0,
+        "height": 30.0,
+        "cx": 352.0,
+        "cy": 349.0,
+        "polygon": [
+          [
+            345.0,
+            334.0
+          ],
+          [
+            359.0,
+            334.0
+          ],
+          [
+            359.0,
+            364.0
+          ],
+          [
+            345.0,
+            364.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_3_315",
+      "buildingId": "DKU_LIB",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "315",
+      "name": "방송실",
+      "type": "broadcast_room",
+      "displayName": "퇴계기념중앙도서관 315호 (방송실)",
+      "pos": {
+        "x": 438.0,
+        "y": 326.0,
+        "width": 24.0,
+        "height": 37.0,
+        "cx": 450.0,
+        "cy": 344.5,
+        "polygon": [
+          [
+            438.0,
+            326.0
+          ],
+          [
+            462.0,
+            326.0
+          ],
+          [
+            462.0,
+            363.0
+          ],
+          [
+            438.0,
+            363.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_3_316",
+      "buildingId": "DKU_LIB",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "316",
+      "name": "다목적실",
+      "type": "multi_room",
+      "displayName": "퇴계기념중앙도서관 316호 (다목적실)",
+      "pos": {
+        "x": 318.0,
+        "y": 369.0,
+        "width": 42.0,
+        "height": 70.0,
+        "cx": 339.0,
+        "cy": 404.0,
+        "polygon": [
+          [
+            318.0,
+            369.0
+          ],
+          [
+            360.0,
+            369.0
+          ],
+          [
+            360.0,
+            439.0
+          ],
+          [
+            318.0,
+            439.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_3_317",
+      "buildingId": "DKU_LIB",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "317",
+      "name": "수서창고",
+      "type": "?",
+      "displayName": "퇴계기념중앙도서관 317호 (수서창고)",
+      "pos": {
+        "x": 254.0,
+        "y": 444.0,
+        "width": 103.0,
+        "height": 56.0,
+        "cx": 305.5,
+        "cy": 472.0,
+        "polygon": [
+          [
+            254.0,
+            444.0
+          ],
+          [
+            357.0,
+            444.0
+          ],
+          [
+            357.0,
+            500.0
+          ],
+          [
+            254.0,
+            500.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_3_318",
+      "buildingId": "DKU_LIB",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "318",
+      "name": "3보존서고",
+      "type": "archive",
+      "displayName": "퇴계기념중앙도서관 318호 (3보존서고)",
+      "pos": {
+        "x": 252.0,
+        "y": 504.0,
+        "width": 107.0,
+        "height": 135.0,
+        "cx": 305.5,
+        "cy": 571.5,
+        "polygon": [
+          [
+            252.0,
+            504.0
+          ],
+          [
+            359.0,
+            504.0
+          ],
+          [
+            359.0,
+            639.0
+          ],
+          [
+            252.0,
+            639.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_3_319",
+      "buildingId": "DKU_LIB",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "319",
+      "name": "대출실",
+      "type": "circulation_room",
+      "displayName": "퇴계기념중앙도서관 319호 (대출실)",
+      "pos": {
+        "x": 430.0,
+        "y": 479.0,
+        "width": 222.0,
+        "height": 80.0,
+        "cx": 541.0,
+        "cy": 519.0,
+        "polygon": [
+          [
+            430.0,
+            479.0
+          ],
+          [
+            652.0,
+            479.0
+          ],
+          [
+            652.0,
+            559.0
+          ],
+          [
+            430.0,
+            559.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_3_320",
+      "buildingId": "DKU_LIB",
+      "floor": 3,
+      "floorLabel": "3F",
+      "number": "320",
+      "name": "도서관사무실",
+      "type": "office",
+      "displayName": "퇴계기념중앙도서관 320호 (도서관사무실)",
+      "pos": {
+        "x": 361.0,
+        "y": 568.0,
+        "width": 75.0,
+        "height": 72.0,
+        "cx": 398.5,
+        "cy": 604.0,
+        "polygon": [
+          [
+            361.0,
+            568.0
+          ],
+          [
+            436.0,
+            568.0
+          ],
+          [
+            436.0,
+            640.0
+          ],
+          [
+            361.0,
+            640.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_4_401",
+      "buildingId": "DKU_LIB",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "401",
+      "name": "자연과학실",
+      "type": "archive",
+      "displayName": "퇴계기념중앙도서관 401호 (자연과학실)",
+      "pos": {
+        "x": 677.0,
+        "y": 511.0,
+        "width": 232.0,
+        "height": 129.0,
+        "cx": 793.0,
+        "cy": 575.5,
+        "polygon": [
+          [
+            677.0,
+            511.0
+          ],
+          [
+            909.0,
+            511.0
+          ],
+          [
+            909.0,
+            640.0
+          ],
+          [
+            677.0,
+            640.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_4_402",
+      "buildingId": "DKU_LIB",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "402",
+      "name": "2인문과학실",
+      "type": "archive",
+      "displayName": "퇴계기념중앙도서관 402호 (2인문과학실)",
+      "pos": {
+        "x": 677.0,
+        "y": 166.0,
+        "width": 232.0,
+        "height": 161.0,
+        "cx": 793.0,
+        "cy": 246.5,
+        "polygon": [
+          [
+            677.0,
+            166.0
+          ],
+          [
+            909.0,
+            166.0
+          ],
+          [
+            909.0,
+            327.0
+          ],
+          [
+            677.0,
+            327.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_4_403",
+      "buildingId": "DKU_LIB",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "403",
+      "name": "팀프로젝트룸",
+      "type": "studyroom",
+      "displayName": "퇴계기념중앙도서관 403호 (팀프로젝트룸)",
+      "pos": {
+        "x": 624.0,
+        "y": 305.0,
+        "width": 49.0,
+        "height": 25.0,
+        "cx": 648.5,
+        "cy": 317.5,
+        "polygon": [
+          [
+            624.0,
+            305.0
+          ],
+          [
+            673.0,
+            305.0
+          ],
+          [
+            673.0,
+            330.0
+          ],
+          [
+            624.0,
+            330.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_4_404",
+      "buildingId": "DKU_LIB",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "404",
+      "name": "그룹스터디룸 4-3",
+      "type": "studyroom",
+      "displayName": "퇴계기념중앙도서관 404호 (그룹스터디룸 4-3)",
+      "pos": {
+        "x": 569.0,
+        "y": 305.0,
+        "width": 54.0,
+        "height": 27.0,
+        "cx": 596.0,
+        "cy": 318.5,
+        "polygon": [
+          [
+            569.0,
+            305.0
+          ],
+          [
+            623.0,
+            305.0
+          ],
+          [
+            623.0,
+            332.0
+          ],
+          [
+            569.0,
+            332.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_4_405",
+      "buildingId": "DKU_LIB",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "405",
+      "name": "그룹스터디룸 4-2",
+      "type": "studyroom",
+      "displayName": "퇴계기념중앙도서관 405호 (그룹스터디룸 4-2)",
+      "pos": {
+        "x": 539.0,
+        "y": 303.0,
+        "width": 30.0,
+        "height": 26.0,
+        "cx": 554.0,
+        "cy": 316.0,
+        "polygon": [
+          [
+            539.0,
+            303.0
+          ],
+          [
+            569.0,
+            303.0
+          ],
+          [
+            569.0,
+            329.0
+          ],
+          [
+            539.0,
+            329.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_4_406",
+      "buildingId": "DKU_LIB",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "406",
+      "name": "그룹스터디룸 4-1",
+      "type": "studyroom",
+      "displayName": "퇴계기념중앙도서관 406호 (그룹스터디룸 4-1)",
+      "pos": {
+        "x": 511.0,
+        "y": 303.0,
+        "width": 28.0,
+        "height": 29.0,
+        "cx": 525.0,
+        "cy": 317.5,
+        "polygon": [
+          [
+            511.0,
+            303.0
+          ],
+          [
+            539.0,
+            303.0
+          ],
+          [
+            539.0,
+            332.0
+          ],
+          [
+            511.0,
+            332.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_4_407",
+      "buildingId": "DKU_LIB",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "407",
+      "name": "1인문과학실",
+      "type": "archive",
+      "displayName": "퇴계기념중앙도서관 407호 (1인문과학실)",
+      "pos": {
+        "x": 266.0,
+        "y": 164.0,
+        "width": 241.0,
+        "height": 171.0,
+        "cx": 386.5,
+        "cy": 249.5,
+        "polygon": [
+          [
+            266.0,
+            164.0
+          ],
+          [
+            507.0,
+            164.0
+          ],
+          [
+            507.0,
+            335.0
+          ],
+          [
+            266.0,
+            335.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_4_408",
+      "buildingId": "DKU_LIB",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "408",
+      "name": "4보존서고",
+      "type": "archive",
+      "displayName": "퇴계기념중앙도서관 408호 (4보존서고)",
+      "pos": {
+        "x": 271.0,
+        "y": 445.0,
+        "width": 117.0,
+        "height": 194.0,
+        "cx": 329.5,
+        "cy": 542.0,
+        "polygon": [
+          [
+            271.0,
+            445.0
+          ],
+          [
+            388.0,
+            445.0
+          ],
+          [
+            388.0,
+            639.0
+          ],
+          [
+            271.0,
+            639.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_4_409",
+      "buildingId": "DKU_LIB",
+      "floor": 4,
+      "floorLabel": "4F",
+      "number": "409",
+      "name": "학위논문실",
+      "type": "archive",
+      "displayName": "퇴계기념중앙도서관 409호 (학위논문실)",
+      "pos": {
+        "x": 392.0,
+        "y": 526.0,
+        "width": 116.0,
+        "height": 115.0,
+        "cx": 450.0,
+        "cy": 583.5,
+        "polygon": [
+          [
+            392.0,
+            526.0
+          ],
+          [
+            508.0,
+            526.0
+          ],
+          [
+            508.0,
+            641.0
+          ],
+          [
+            392.0,
+            641.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_5_501",
+      "buildingId": "DKU_LIB",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "501",
+      "name": "예체능실",
+      "type": "archive",
+      "displayName": "퇴계기념중앙도서관 501호 (예체능실)",
+      "pos": {
+        "x": 682.0,
+        "y": 500.0,
+        "width": 234.0,
+        "height": 143.0,
+        "cx": 799.0,
+        "cy": 571.5,
+        "polygon": [
+          [
+            682.0,
+            500.0
+          ],
+          [
+            916.0,
+            500.0
+          ],
+          [
+            916.0,
+            643.0
+          ],
+          [
+            682.0,
+            643.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_5_502",
+      "buildingId": "DKU_LIB",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "502",
+      "name": "2사회과학실",
+      "type": "archive",
+      "displayName": "퇴계기념중앙도서관 502호 (2사회과학실)",
+      "pos": {
+        "x": 677.0,
+        "y": 164.0,
+        "width": 242.0,
+        "height": 164.0,
+        "cx": 798.0,
+        "cy": 246.0,
+        "polygon": [
+          [
+            677.0,
+            164.0
+          ],
+          [
+            919.0,
+            164.0
+          ],
+          [
+            919.0,
+            328.0
+          ],
+          [
+            677.0,
+            328.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_5_503",
+      "buildingId": "DKU_LIB",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "503",
+      "name": "그룹스터디룸 5-4",
+      "type": "studyroom",
+      "displayName": "퇴계기념중앙도서관 503호 (그룹스터디룸 5-4)",
+      "pos": {
+        "x": 631.0,
+        "y": 302.0,
+        "width": 43.0,
+        "height": 26.0,
+        "cx": 652.5,
+        "cy": 315.0,
+        "polygon": [
+          [
+            631.0,
+            302.0
+          ],
+          [
+            674.0,
+            302.0
+          ],
+          [
+            674.0,
+            328.0
+          ],
+          [
+            631.0,
+            328.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_5_504",
+      "buildingId": "DKU_LIB",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "504",
+      "name": "그룹스터디룸 5-3",
+      "type": "studyroom",
+      "displayName": "퇴계기념중앙도서관 504호 (그룹스터디룸 5-3)",
+      "pos": {
+        "x": 574.0,
+        "y": 303.0,
+        "width": 50.0,
+        "height": 26.0,
+        "cx": 599.0,
+        "cy": 316.0,
+        "polygon": [
+          [
+            574.0,
+            303.0
+          ],
+          [
+            624.0,
+            303.0
+          ],
+          [
+            624.0,
+            329.0
+          ],
+          [
+            574.0,
+            329.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_5_505",
+      "buildingId": "DKU_LIB",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "505",
+      "name": "그룹스터디룸 5-2",
+      "type": "studyroom",
+      "displayName": "퇴계기념중앙도서관 505호 (그룹스터디룸 5-2)",
+      "pos": {
+        "x": 545.0,
+        "y": 302.0,
+        "width": 26.0,
+        "height": 26.0,
+        "cx": 558.0,
+        "cy": 315.0,
+        "polygon": [
+          [
+            545.0,
+            302.0
+          ],
+          [
+            571.0,
+            302.0
+          ],
+          [
+            571.0,
+            328.0
+          ],
+          [
+            545.0,
+            328.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_5_506",
+      "buildingId": "DKU_LIB",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "506",
+      "name": "그룹스터디룸 5-1",
+      "type": "studyroom",
+      "displayName": "퇴계기념중앙도서관 506호 (그룹스터디룸 5-1)",
+      "pos": {
+        "x": 516.0,
+        "y": 303.0,
+        "width": 24.0,
+        "height": 27.0,
+        "cx": 528.0,
+        "cy": 316.5,
+        "polygon": [
+          [
+            516.0,
+            303.0
+          ],
+          [
+            540.0,
+            303.0
+          ],
+          [
+            540.0,
+            330.0
+          ],
+          [
+            516.0,
+            330.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_5_507",
+      "buildingId": "DKU_LIB",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "507",
+      "name": "1사회과학실",
+      "type": "archive",
+      "displayName": "퇴계기념중앙도서관 507호 (1사회과학실)",
+      "pos": {
+        "x": 274.0,
+        "y": 164.0,
+        "width": 238.0,
+        "height": 168.0,
+        "cx": 393.0,
+        "cy": 248.0,
+        "polygon": [
+          [
+            274.0,
+            164.0
+          ],
+          [
+            512.0,
+            164.0
+          ],
+          [
+            512.0,
+            332.0
+          ],
+          [
+            274.0,
+            332.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_5_508",
+      "buildingId": "DKU_LIB",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "508",
+      "name": "5보존서고",
+      "type": "archive",
+      "displayName": "퇴계기념중앙도서관 508호 (5보존서고)",
+      "pos": {
+        "x": 272.0,
+        "y": 444.0,
+        "width": 122.0,
+        "height": 197.0,
+        "cx": 333.0,
+        "cy": 542.5,
+        "polygon": [
+          [
+            272.0,
+            444.0
+          ],
+          [
+            394.0,
+            444.0
+          ],
+          [
+            394.0,
+            641.0
+          ],
+          [
+            272.0,
+            641.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_5_509",
+      "buildingId": "DKU_LIB",
+      "floor": 5,
+      "floorLabel": "5F",
+      "number": "509",
+      "name": "고문헌실",
+      "type": "archive",
+      "displayName": "퇴계기념중앙도서관 509호 (고문헌실)",
+      "pos": {
+        "x": 399.0,
+        "y": 538.0,
+        "width": 114.0,
+        "height": 99.0,
+        "cx": 456.0,
+        "cy": 587.5,
+        "polygon": [
+          [
+            399.0,
+            538.0
+          ],
+          [
+            513.0,
+            538.0
+          ],
+          [
+            513.0,
+            637.0
+          ],
+          [
+            399.0,
+            637.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_6_601",
+      "buildingId": "DKU_LIB",
+      "floor": 6,
+      "floorLabel": "6F",
+      "number": "601",
+      "name": "동양학자료실",
+      "type": "archive",
+      "displayName": "퇴계기념중앙도서관 601호 (동양학자료실)",
+      "pos": {
+        "x": 668.0,
+        "y": 562.0,
+        "width": 114.0,
+        "height": 79.0,
+        "cx": 725.0,
+        "cy": 601.5,
+        "polygon": [
+          [
+            668.0,
+            562.0
+          ],
+          [
+            782.0,
+            562.0
+          ],
+          [
+            782.0,
+            641.0
+          ],
+          [
+            668.0,
+            641.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_6_602",
+      "buildingId": "DKU_LIB",
+      "floor": 6,
+      "floorLabel": "6F",
+      "number": "602",
+      "name": "2정기간행물실",
+      "type": "office",
+      "displayName": "퇴계기념중앙도서관 602호 (2정기간행물실)",
+      "pos": {
+        "x": 787.0,
+        "y": 446.0,
+        "width": 122.0,
+        "height": 196.0,
+        "cx": 848.0,
+        "cy": 544.0,
+        "polygon": [
+          [
+            787.0,
+            446.0
+          ],
+          [
+            909.0,
+            446.0
+          ],
+          [
+            909.0,
+            642.0
+          ],
+          [
+            787.0,
+            642.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_6_603",
+      "buildingId": "DKU_LIB",
+      "floor": 6,
+      "floorLabel": "6F",
+      "number": "603",
+      "name": "동양학연구원장실, 연구실, 행정지원팀",
+      "type": "office",
+      "displayName": "퇴계기념중앙도서관 603호 (동양학연구원장실, 연구실, 행정지원팀)",
+      "pos": {
+        "x": 785.0,
+        "y": 169.0,
+        "width": 123.0,
+        "height": 77.0,
+        "cx": 846.5,
+        "cy": 207.5,
+        "polygon": [
+          [
+            785.0,
+            169.0
+          ],
+          [
+            908.0,
+            169.0
+          ],
+          [
+            908.0,
+            246.0
+          ],
+          [
+            785.0,
+            246.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_6_604",
+      "buildingId": "DKU_LIB",
+      "floor": 6,
+      "floorLabel": "6F",
+      "number": "604",
+      "name": "편찬실, 연구기획팀",
+      "type": "office",
+      "displayName": "퇴계기념중앙도서관 604호 (편찬실, 연구기획팀)",
+      "pos": {
+        "x": 667.0,
+        "y": 169.0,
+        "width": 111.0,
+        "height": 75.0,
+        "cx": 722.5,
+        "cy": 206.5,
+        "polygon": [
+          [
+            667.0,
+            169.0
+          ],
+          [
+            778.0,
+            169.0
+          ],
+          [
+            778.0,
+            244.0
+          ],
+          [
+            667.0,
+            244.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_6_605",
+      "buildingId": "DKU_LIB",
+      "floor": 6,
+      "floorLabel": "6F",
+      "number": "605",
+      "name": "고전번역연구실",
+      "type": "research_lab",
+      "displayName": "퇴계기념중앙도서관 605호 (고전번역연구실)",
+      "pos": {
+        "x": 672.0,
+        "y": 250.0,
+        "width": 54.0,
+        "height": 54.0,
+        "cx": 699.0,
+        "cy": 277.0,
+        "polygon": [
+          [
+            672.0,
+            250.0
+          ],
+          [
+            726.0,
+            250.0
+          ],
+          [
+            726.0,
+            304.0
+          ],
+          [
+            672.0,
+            304.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_6_606",
+      "buildingId": "DKU_LIB",
+      "floor": 6,
+      "floorLabel": "6F",
+      "number": "606",
+      "name": "그룹스터디룸 6-4",
+      "type": "studyroom",
+      "displayName": "퇴계기념중앙도서관 606호 (그룹스터디룸 6-4)",
+      "pos": {
+        "x": 619.0,
+        "y": 304.0,
+        "width": 45.0,
+        "height": 28.0,
+        "cx": 641.5,
+        "cy": 318.0,
+        "polygon": [
+          [
+            619.0,
+            304.0
+          ],
+          [
+            664.0,
+            304.0
+          ],
+          [
+            664.0,
+            332.0
+          ],
+          [
+            619.0,
+            332.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_6_607",
+      "buildingId": "DKU_LIB",
+      "floor": 6,
+      "floorLabel": "6F",
+      "number": "607",
+      "name": "그룹스터디룸 6-3",
+      "type": "studyroom",
+      "displayName": "퇴계기념중앙도서관 607호 (그룹스터디룸 6-3)",
+      "pos": {
+        "x": 565.0,
+        "y": 305.0,
+        "width": 53.0,
+        "height": 29.0,
+        "cx": 591.5,
+        "cy": 319.5,
+        "polygon": [
+          [
+            565.0,
+            305.0
+          ],
+          [
+            618.0,
+            305.0
+          ],
+          [
+            618.0,
+            334.0
+          ],
+          [
+            565.0,
+            334.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_6_608",
+      "buildingId": "DKU_LIB",
+      "floor": 6,
+      "floorLabel": "6F",
+      "number": "608",
+      "name": "그룹스터디룸 6-2",
+      "type": "studyroom",
+      "displayName": "퇴계기념중앙도서관 608호 (그룹스터디룸 6-2)",
+      "pos": {
+        "x": 535.0,
+        "y": 304.0,
+        "width": 28.0,
+        "height": 28.0,
+        "cx": 549.0,
+        "cy": 318.0,
+        "polygon": [
+          [
+            535.0,
+            304.0
+          ],
+          [
+            563.0,
+            304.0
+          ],
+          [
+            563.0,
+            332.0
+          ],
+          [
+            535.0,
+            332.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_6_609",
+      "buildingId": "DKU_LIB",
+      "floor": 6,
+      "floorLabel": "6F",
+      "number": "609",
+      "name": "그룹스터디룸 6-1",
+      "type": "studyroom",
+      "displayName": "퇴계기념중앙도서관 609호 (그룹스터디룸 6-1)",
+      "pos": {
+        "x": 507.0,
+        "y": 305.0,
+        "width": 29.0,
+        "height": 30.0,
+        "cx": 521.5,
+        "cy": 320.0,
+        "polygon": [
+          [
+            507.0,
+            305.0
+          ],
+          [
+            536.0,
+            305.0
+          ],
+          [
+            536.0,
+            335.0
+          ],
+          [
+            507.0,
+            335.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_6_610",
+      "buildingId": "DKU_LIB",
+      "floor": 6,
+      "floorLabel": "6F",
+      "number": "610",
+      "name": "열린도서관",
+      "type": "library",
+      "displayName": "퇴계기념중앙도서관 610호 (열린도서관)",
+      "pos": {
+        "x": 263.0,
+        "y": 167.0,
+        "width": 243.0,
+        "height": 165.0,
+        "cx": 384.5,
+        "cy": 249.5,
+        "polygon": [
+          [
+            263.0,
+            167.0
+          ],
+          [
+            506.0,
+            167.0
+          ],
+          [
+            506.0,
+            332.0
+          ],
+          [
+            263.0,
+            332.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "DKU_LIB_6_611",
+      "buildingId": "DKU_LIB",
+      "floor": 6,
+      "floorLabel": "6F",
+      "number": "611",
+      "name": "1정기간행물실",
+      "type": "?",
+      "displayName": "퇴계기념중앙도서관 611호 (1정기간행물실)",
+      "pos": {
+        "x": 263.0,
+        "y": 445.0,
+        "width": 122.0,
+        "height": 197.0,
+        "cx": 324.0,
+        "cy": 543.5,
+        "polygon": [
+          [
+            263.0,
+            445.0
+          ],
+          [
+            385.0,
+            445.0
+          ],
+          [
+            385.0,
+            642.0
+          ],
+          [
+            263.0,
+            642.0
+          ]
+        ]
+      }
+    }
+  ],
+  "indoorMaps": [
+    {
+      "buildingId": "DKU_ICT",
+      "floor": -1,
+      "floorLabel": "B1",
+      "image": "/floorplans/ICT/ICT_B1-1.png",
+      "canvasWidth": 1000,
+      "canvasHeight": 707
+    },
+    {
+      "buildingId": "DKU_ICT",
+      "floor": 1,
+      "floorLabel": "1F",
+      "image": "/floorplans/ICT/ICT_1Fa-1.png",
+      "canvasWidth": 1000,
+      "canvasHeight": 707
+    },
+    {
+      "buildingId": "DKU_ICT",
+      "floor": 2,
+      "floorLabel": "2F",
+      "image": "/floorplans/ICT/ICT_2Fa-1.png",
+      "canvasWidth": 1000,
+      "canvasHeight": 707
+    },
+    {
+      "buildingId": "DKU_ICT",
+      "floor": 3,
+      "floorLabel": "3F",
+      "image": "/floorplans/ICT/ICT_3Fa-1.png",
+      "canvasWidth": 1000,
+      "canvasHeight": 707
+    },
+    {
+      "buildingId": "DKU_ICT",
+      "floor": 4,
+      "floorLabel": "4F",
+      "image": "/floorplans/ICT/ICT_4Fa-1.png",
+      "canvasWidth": 1000,
+      "canvasHeight": 707
+    },
+    {
+      "buildingId": "DKU_ICT",
+      "floor": 5,
+      "floorLabel": "5F",
+      "image": "/floorplans/ICT/ICT_5Fa-1.png",
+      "canvasWidth": 1000,
+      "canvasHeight": 707
+    },
+    {
+      "buildingId": "DKU_LIB",
+      "floor": 1,
+      "floorLabel": "1F",
+      "image": "/floorplans/LIB/LIB_1Fa-1.png",
+      "canvasWidth": 1000,
+      "canvasHeight": 707
+    },
+    {
+      "buildingId": "DKU_LIB",
+      "floor": 2,
+      "floorLabel": "2F",
+      "image": "/floorplans/LIB/LIB_2Fa-1.png",
+      "canvasWidth": 1000,
+      "canvasHeight": 707
+    },
+    {
+      "buildingId": "DKU_LIB",
+      "floor": 3,
+      "floorLabel": "3F",
+      "image": "/floorplans/LIB/LIB_3Fa-1.png",
+      "canvasWidth": 1000,
+      "canvasHeight": 707
+    },
+    {
+      "buildingId": "DKU_LIB",
+      "floor": 4,
+      "floorLabel": "4F",
+      "image": "/floorplans/LIB/LIB_4Fa-1.png",
+      "canvasWidth": 1000,
+      "canvasHeight": 707
+    },
+    {
+      "buildingId": "DKU_LIB",
+      "floor": 5,
+      "floorLabel": "5F",
+      "image": "/floorplans/LIB/LIB_5Fa-1.png",
+      "canvasWidth": 1000,
+      "canvasHeight": 707
+    },
+    {
+      "buildingId": "DKU_LIB",
+      "floor": 6,
+      "floorLabel": "6F",
+      "image": "/floorplans/LIB/LIB_6Fa-1.png",
+      "canvasWidth": 1000,
+      "canvasHeight": 707
+    }
+  ]
+}

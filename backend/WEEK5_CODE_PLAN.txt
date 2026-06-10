@@ -1,0 +1,483 @@
+DKU Campus Map Backend - 5주차 해야 할 코드 정리
+
+1. 5주차 백엔드 목표
+
+5주차 백엔드의 핵심 목표는 4주차에 import한 건물, 강의실, 층별 지도 데이터를 실제 프론트엔드에서 사용할 수 있는 수준으로 완성하는 것이다.
+
+특히 아래 기능을 완성해야 한다.
+
+- 강의실 검색 API 완성
+- 건물별 층별 실내 지도 API 완성
+- room_positions.csv 기반 강의실 좌표 import
+- indoor_maps, rooms, room_positions 조인 응답 구현
+- 검색 실패 응답 정리
+- 건물명/약칭/호실 검색 우선순위 정렬
+- Swagger에서 응답 구조 확인 가능하게 정리
+- 프론트엔드가 사용할 JSON 구조 확정
+
+
+2. 5주차에 필요한 데이터
+
+5주차 코드를 완성하려면 DB 담당자에게 아래 파일을 받아야 한다.
+
+필수 파일:
+
+- room_positions.csv
+
+권장 파일:
+
+- indoor_nodes.csv
+- indoor_edges.csv
+
+5주차의 최소 완성 기준은 room_positions.csv까지 연결하는 것이다.
+indoor_nodes.csv와 indoor_edges.csv는 6주차 실내 경로 계산에서 본격적으로 필요하지만, 5주차에 미리 import 구조를 만들어두면 이후 작업이 편하다.
+
+
+3. room_positions.csv 예상 컬럼
+
+room_positions.csv는 강의실을 실내 지도 위에 표시하기 위한 좌표 데이터다.
+
+예상 컬럼:
+
+room_position_id
+room_id
+indoor_map_id
+x
+y
+width
+height
+polygon_points
+label_x
+label_y
+
+최소 필수 컬럼:
+
+room_id
+x
+y
+width
+height
+
+polygon_points는 강의실 모양이 사각형이 아닐 때 사용한다.
+label_x, label_y는 지도 위에 강의실 번호 텍스트를 표시할 위치가 필요할 때 사용한다.
+
+
+4. 5주차에 새로 만들거나 수정할 파일
+
+4.1 backend/app/seed/week5_positions.py 새로 만들기
+
+역할:
+
+- room_positions.csv를 읽는다.
+- room_id가 rooms 테이블에 존재하는지 확인한다.
+- indoor_map_id가 없으면 room_id를 통해 rooms.indoor_map_id를 사용한다.
+- x, y, width, height 값을 숫자로 변환한다.
+- RoomPosition 테이블에 저장한다.
+- 중복 room_position_id 또는 중복 room_id 좌표를 검증한다.
+
+필요 함수:
+
+- load_room_positions(data_dir)
+- validate_room_positions(db, data_dir)
+- import_room_positions(db, data_dir, replace=False)
+
+예상 코드 구조:
+
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Any
+
+from app.models import Room, RoomPosition
+
+
+@dataclass
+class Week5PositionReport:
+    stats: dict[str, int] = field(default_factory=dict)
+    errors: list[str] = field(default_factory=list)
+    warnings: list[str] = field(default_factory=list)
+
+    @property
+    def ok(self) -> bool:
+        return not self.errors
+
+
+def validate_room_positions(db: Any, data_dir: Path) -> Week5PositionReport:
+    # room_positions.csv의 필수 컬럼과 rooms 테이블 연결 상태를 확인한다.
+    pass
+
+
+def import_room_positions(db: Any, data_dir: Path, replace: bool = False) -> Week5PositionReport:
+    # 검증을 통과한 room_positions.csv를 RoomPosition 테이블에 저장한다.
+    pass
+
+
+4.2 backend/tools/validate_week5_positions.py 새로 만들기
+
+역할:
+
+- room_positions.csv를 DB에 넣기 전에 검증한다.
+- 누락된 room_id, 잘못된 좌표, 중복 좌표를 확인한다.
+
+실행 예시:
+
+cd backend
+python tools/validate_week5_positions.py "D:\과제\3-2\오픈소스SW기초\#Project\W5"
+
+
+4.3 backend/tools/import_week5_positions.py 새로 만들기
+
+역할:
+
+- room_positions.csv를 실제 DB에 import한다.
+- --replace 옵션을 주면 기존 RoomPosition 데이터를 지우고 다시 넣는다.
+
+실행 예시:
+
+cd backend
+python tools/import_week5_positions.py "D:\과제\3-2\오픈소스SW기초\#Project\W5" --replace
+
+
+4.4 backend/app/services/resolver.py 수정
+
+현재 역할:
+
+- 검색어에서 건물명/약칭과 호실 번호를 분리한다.
+- BuildingAlias로 건물을 찾는다.
+- Room을 찾는다.
+- IndoorMap과 RoomPosition을 연결해서 반환한다.
+
+5주차 수정 방향:
+
+- 정확한 room_code 검색 우선
+- 건물 약칭 priority 반영
+- 같은 호실 번호가 여러 층에 있을 때 floor_number 우선
+- 검색 실패 이유를 더 명확히 구분
+
+검색 우선순위:
+
+1. 건물명 전체 + 호실 정확 매칭
+2. 건물 약칭 priority 높은 순 + 호실 정확 매칭
+3. room_code 정확 매칭
+4. room_number + floor 추정 매칭
+5. fallback으로 같은 건물의 room_number 첫 번째 결과
+
+반환해야 할 실패 코드:
+
+- EMPTY_KEYWORD
+- ROOM_NUMBER_NOT_FOUND
+- BUILDING_NOT_FOUND
+- ROOM_NOT_FOUND
+- INDOOR_MAP_NOT_FOUND
+
+
+4.5 backend/app/routers/rooms.py 수정
+
+현재 API:
+
+GET /api/rooms/search?keyword=ICT401
+
+5주차 완성 방향:
+
+- resolver.py의 실패 코드를 HTTP 응답으로 명확히 반환한다.
+- 성공 시 room, building, indoor_map, position 정보를 모두 반환한다.
+- Swagger description을 추가한다.
+
+성공 응답에 포함할 내용:
+
+- roomId
+- roomCode
+- roomNumber
+- buildingId
+- buildingName
+- floorNumber
+- floorLabel
+- indoorMap
+- position
+- nearestIndoorNodeId
+
+실패 응답 예시:
+
+{
+  "errorCode": "ROOM_NOT_FOUND",
+  "message": "검색한 강의실을 찾을 수 없습니다."
+}
+
+
+4.6 backend/app/routers/indoor.py 수정
+
+현재 API:
+
+GET /api/buildings/{building_id}/floors/{floor}/indoor-map
+
+5주차 완성 방향:
+
+- IndoorMap을 찾는다.
+- 해당 층의 rooms를 가져온다.
+- room_positions를 함께 가져온다.
+- 프론트엔드가 바로 지도에 하이라이트를 표시할 수 있도록 응답 구조를 정리한다.
+
+응답에 포함할 내용:
+
+- indoorMapId
+- buildingId
+- floorNumber
+- floorLabel
+- mapFileUrl
+- canvasWidth
+- canvasHeight
+- rooms
+- roomPositions
+- indoorNodes
+- indoorEdges
+
+roomPositions 예시:
+
+[
+  {
+    "roomPositionId": "POS_DKU_ICT_4_401",
+    "roomId": "DKU_ICT_4_401",
+    "x": 320,
+    "y": 180,
+    "width": 80,
+    "height": 45,
+    "polygonPoints": null,
+    "labelX": 360,
+    "labelY": 202
+  }
+]
+
+
+4.7 backend/app/schemas/rooms.py 수정
+
+5주차에 필요한 schema:
+
+- RoomSearchResponse
+- RoomSearchErrorResponse
+- RoomPositionResponse
+- IndoorMapSummaryResponse
+
+목표:
+
+- API 응답 JSON 구조를 프론트엔드가 그대로 타입으로 옮길 수 있게 한다.
+- null 가능 필드는 명확히 Optional 처리한다.
+
+
+4.8 backend/app/schemas/indoor.py 수정
+
+5주차에 필요한 수정:
+
+- RoomPositionResponse에 label_x, label_y가 없으면 추가 여부 검토
+- IndoorMapResponse에서 rooms와 room_positions의 응답 구조 확정
+- indoor_nodes, indoor_edges는 아직 비어 있을 수 있으므로 빈 배열 기본 응답 유지
+
+
+4.9 backend/app/models/entities.py 확인 또는 수정
+
+현재 RoomPosition 모델에 필요한 필드가 있는지 확인해야 한다.
+
+필요 필드:
+
+- room_position_id
+- room_id
+- indoor_map_id
+- x
+- y
+- width
+- height
+- polygon_points
+- label_x
+- label_y
+
+현재 모델에 label_x, label_y가 없다면 추가를 검토한다.
+단, 프론트엔드에서 강의실 박스 중앙에 자동으로 라벨을 찍는 방식이면 label_x, label_y는 없어도 된다.
+
+
+4.10 backend/app/database.py 수정 가능성
+
+기존 SQLite DB에 RoomPosition 새 컬럼을 추가해야 한다면 ensure_sqlite_schema()에 보정 코드를 추가한다.
+
+예:
+
+- label_x
+- label_y
+
+단, 모델에 새 컬럼을 추가하지 않는다면 수정하지 않아도 된다.
+
+
+5. 5주차 API 동작 예시
+
+5.1 강의실 검색
+
+요청:
+
+GET /api/rooms/search?keyword=ICT401
+
+응답:
+
+{
+  "roomId": "DKU_ICT_4_401",
+  "roomCode": "ICT-4F-401",
+  "roomNumber": "401",
+  "buildingId": "DKU_ICT",
+  "buildingName": "소프트웨어 ICT관",
+  "floorNumber": 4,
+  "floorLabel": "4F",
+  "indoorMap": {
+    "indoorMapId": "MAP_DKU_ICT_4F",
+    "mapFileUrl": "/maps/ICT_4Fa.svg",
+    "canvasWidth": 1000,
+    "canvasHeight": 700
+  },
+  "position": {
+    "roomPositionId": "POS_DKU_ICT_4_401",
+    "x": 320,
+    "y": 180,
+    "width": 80,
+    "height": 45,
+    "polygonPoints": null
+  },
+  "nearestIndoorNodeId": null
+}
+
+
+5.2 층별 실내 지도 조회
+
+요청:
+
+GET /api/buildings/DKU_ICT/floors/4/indoor-map
+
+응답:
+
+{
+  "indoorMapId": "MAP_DKU_ICT_4F",
+  "buildingId": "DKU_ICT",
+  "floorNumber": 4,
+  "floorLabel": "4F",
+  "mapFileUrl": "/maps/ICT_4Fa.svg",
+  "canvasWidth": 1000,
+  "canvasHeight": 700,
+  "rooms": [
+    {
+      "roomId": "DKU_ICT_4_401",
+      "roomCode": "ICT-4F-401",
+      "roomNumber": "401",
+      "roomType": "LECTURE"
+    }
+  ],
+  "roomPositions": [
+    {
+      "roomPositionId": "POS_DKU_ICT_4_401",
+      "roomId": "DKU_ICT_4_401",
+      "x": 320,
+      "y": 180,
+      "width": 80,
+      "height": 45,
+      "polygonPoints": null
+    }
+  ],
+  "indoorNodes": [],
+  "indoorEdges": []
+}
+
+
+6. 5주차 검증해야 할 테스트
+
+6.1 데이터 검증 테스트
+
+명령어:
+
+cd backend
+python tools/validate_week5_positions.py "D:\과제\3-2\오픈소스SW기초\#Project\W5"
+
+확인할 것:
+
+- room_positions.csv 파일 존재 여부
+- 필수 컬럼 존재 여부
+- room_id가 rooms 테이블에 존재하는지
+- x, y, width, height가 숫자인지
+- width, height가 0보다 큰지
+- 중복 room_position_id가 없는지
+
+
+6.2 데이터 import 테스트
+
+명령어:
+
+cd backend
+python tools/import_week5_positions.py "D:\과제\3-2\오픈소스SW기초\#Project\W5" --replace
+
+확인할 것:
+
+- RoomPosition row 개수
+- 특정 room_id의 position 저장 여부
+- indoor_map_id 연결 여부
+
+
+6.3 API 테스트
+
+확인할 API:
+
+- GET /api/buildings
+- GET /api/rooms/search?keyword=ICT401
+- GET /api/rooms/search?keyword=소프트401
+- GET /api/buildings/DKU_ICT/floors/4/indoor-map
+
+확인할 것:
+
+- position이 null이 아니라 실제 좌표로 반환되는지
+- roomPositions 배열이 비어 있지 않은지
+- 검색 실패 시 errorCode가 명확히 반환되는지
+- Swagger에서 응답 구조가 확인되는지
+
+
+7. 5주차 완료 기준
+
+5주차 백엔드 완료 기준은 아래와 같다.
+
+- room_positions.csv 검증 가능
+- room_positions.csv import 가능
+- 강의실 검색 API가 room position까지 반환
+- 층별 실내 지도 API가 rooms와 room_positions를 함께 반환
+- 검색 실패 응답이 errorCode 기준으로 정리됨
+- Swagger에서 API 응답 구조 확인 가능
+- 프론트엔드가 지도 위에 강의실 하이라이트를 표시할 수 있는 JSON 구조 확정
+
+
+8. 5주차에서 아직 하지 않아도 되는 것
+
+아래 기능은 6주차 이후 작업으로 남겨도 된다.
+
+- Dijkstra 실내 경로 계산 완성
+- 실외 경로 계산 완성
+- 실내/실외 통합 경로 계산
+- 계단, 엘리베이터, 구름다리, 출입구 층수 변경을 포함한 전체 그래프 완성
+- POST /api/routes 완성
+- 학번 로그인, 제보 API
+
+
+9. DB 담당자에게 요청할 내용
+
+5주차 백엔드 구현을 위해 DB 담당자에게 아래 내용을 요청해야 한다.
+
+필수 요청:
+
+- room_positions.csv 파일 업로드
+- room_id가 rooms_master.csv의 room_id와 정확히 일치해야 함
+- x, y, width, height 좌표 입력
+- 좌표 기준은 지도 이미지 왼쪽 위를 원점으로 통일
+- canvasWidth, canvasHeight 기준과 맞는 좌표인지 확인
+
+가능하면 같이 요청:
+
+- indoor_nodes.csv
+- indoor_edges.csv
+- rooms_master.csv의 nearest_indoor_node_id 업데이트 예정 여부
+
+
+10. 5주차 결론
+
+4주차까지는 건물, 강의실, 층별 지도 데이터를 DB에 넣고 검색하는 기반을 만들었다.
+
+5주차에는 여기에 room_positions.csv를 연결해서 강의실 검색 결과가 실제 실내 지도 좌표까지 반환되도록 완성해야 한다.
+
+즉, 5주차 백엔드의 핵심은 "검색한 강의실을 지도 위에 표시할 수 있게 만드는 것"이다.

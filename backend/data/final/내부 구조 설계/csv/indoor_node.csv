@@ -1,0 +1,486 @@
+﻿node_id,building_id,floor_number,node_type,x,y,Unnamed: 7,Unnamed: 8,Unnamed: 9,Unnamed: 10,indoor_map_id,label,vertical_group_id,description
+ICT_3_N001,DKU_ICT,3.0,stair,378.0,606.0,,,,,,,,
+ICT_3_N002,DKU_ICT,3.0,corner,408.0,605.0,,,,,,,,
+ICT_3_N003,DKU_ICT,3.0,corridor,406.0,397.0,,,,,,,,
+ICT_3_N004,DKU_ICT,3.0,corner,408.0,230.0,,,,,,,,
+ICT_3_N005,DKU_ICT,3.0,junction,463.0,229.0,,,,,,,,
+ICT_3_N006,DKU_ICT,3.0,stair,439.0,259.0,,,,,,,,
+ICT_3_N007,DKU_ICT,3.0,elevator,445.0,210.0,,,,,,,,
+ICT_3_N008,DKU_ICT,3.0,corridor,579.0,225.0,,,,,,,,
+ICT_3_N009,DKU_ICT,3.0,corner,768.0,226.0,,,,,,,,
+ICT_3_N010,DKU_ICT,3.0,corridor,768.0,273.0,,,,,,,,
+ICT_3_N011,DKU_ICT,3.0,stair,767.0,195.0,,,,,,,,
+ICT_4_N012,DKU_ICT,4.0,stair,377.0,606.0,,,,,,,,
+ICT_4_N013,DKU_ICT,4.0,corner,407.0,604.0,,,,,,,,
+ICT_4_N014,DKU_ICT,4.0,corridor,405.0,408.0,,,,,,,,
+ICT_4_N015,DKU_ICT,4.0,corner,408.0,227.0,,,,,,,,
+ICT_4_N016,DKU_ICT,4.0,junction,464.0,225.0,,,,,,,,
+ICT_4_N017,DKU_ICT,4.0,stair,436.0,259.0,,,,,,,,
+ICT_4_N018,DKU_ICT,4.0,elevator,447.0,211.0,,,,,,,,
+ICT_4_N019,DKU_ICT,4.0,corridor,586.0,224.0,,,,,,,,
+ICT_4_N020,DKU_ICT,4.0,corner,767.0,224.0,,,,,,,,
+ICT_4_N021,DKU_ICT,4.0,corridor,768.0,273.0,,,,,,,,
+ICT_4_N022,DKU_ICT,4.0,stair,768.0,191.0,,,,,,,,
+ICT_5_N023,DKU_ICT,5.0,stair,374.0,606.0,,,,,,,,
+ICT_5_N024,DKU_ICT,5.0,corner,412.0,602.0,,,,,,,,
+ICT_5_N025,DKU_ICT,5.0,corridor,411.0,416.0,,,,,,,,
+ICT_5_N026,DKU_ICT,5.0,corner,407.0,230.0,,,,,,,,
+ICT_5_N027,DKU_ICT,5.0,junction,479.0,228.0,,,,,,,,
+ICT_5_N028,DKU_ICT,5.0,stair,436.0,261.0,,,,,,,,
+ICT_5_N029,DKU_ICT,5.0,elevator,449.0,212.0,,,,,,,,
+ICT_5_N030,DKU_ICT,5.0,corridor,598.0,224.0,,,,,,,,
+ICT_5_N031,DKU_ICT,5.0,corner,761.0,225.0,,,,,,,,
+ICT_5_N032,DKU_ICT,5.0,corridor,766.0,272.0,,,,,,,,
+ICT_5_N033,DKU_ICT,5.0,stair,768.0,193.0,,,,,,,,
+ICT_2_N034,DKU_ICT,2.0,stair,375.0,605.0,,,,,,,,
+ICT_2_N035,DKU_ICT,2.0,corner,408.0,602.0,,,,,,,,
+ICT_2_N036,DKU_ICT,2.0,corridor,404.0,421.0,,,,,,,,
+ICT_2_N037,DKU_ICT,2.0,corner,408.0,227.0,,,,,,,,
+ICT_2_N038,DKU_ICT,2.0,junction,482.0,226.0,,,,,,,,
+ICT_2_N039,DKU_ICT,2.0,stair,434.0,259.0,,,,,,,,
+ICT_2_N040,DKU_ICT,2.0,elevator,448.0,209.0,,,,,,,,
+ICT_2_N041,DKU_ICT,2.0,corridor,598.0,225.0,,,,,,,,
+ICT_2_N042,DKU_ICT,2.0,corner,767.0,226.0,,,,,,,,
+ICT_2_N043,DKU_ICT,2.0,corridor,768.0,272.0,,,,,,,,
+ICT_2_N044,DKU_ICT,2.0,stair,771.0,195.0,,,,,,,,
+ICT_2_N045,DKU_ICT,2.0,corridor,502.0,598.0,,,,,,,,
+ICT_1_N046,DKU_ICT,1.0,stair,374.0,603.0,,,,,,,,
+ICT_1_N047,DKU_ICT,1.0,corner,408.0,605.0,,,,,,,,
+ICT_1_N048,DKU_ICT,1.0,corridor,405.0,392.0,,,,,,,,
+ICT_1_N049,DKU_ICT,1.0,corner,407.0,229.0,,,,,,,,
+ICT_1_N050,DKU_ICT,1.0,junction,472.0,229.0,,,,,,,,
+ICT_1_N051,DKU_ICT,1.0,stair,433.0,251.0,,,,,,,,
+ICT_1_N052,DKU_ICT,1.0,elevator,448.0,211.0,,,,,,,,
+ICT_1_N053,DKU_ICT,1.0,junction,530.0,223.0,,,,,,,,
+ICT_1_N054,DKU_ICT,1.0,corridor,646.0,221.0,,,,,,,,
+ICT_1_N055,DKU_ICT,1.0,corner,768.0,229.0,,,,,,,,
+ICT_1_N056,DKU_ICT,1.0,corridor,770.0,271.0,,,,,,,,
+ICT_1_N057,DKU_ICT,1.0,stair,769.0,194.0,,,,,,,,
+ICT_1_N058,DKU_ICT,1.0,entrance,526.0,254.0,,,,,,,,
+ICT_1_N059,DKU_ICT,1.0,entrance,465.0,178.0,,,,,,,,
+ICT_1_N060,DKU_ICT,1.0,entrance,433.0,552.0,,,,,,,,
+ICT_1_N061,DKU_ICT,1.0,junction,410.0,554.0,,,,,,,,
+ICT_-1_N062,DKU_ICT,-1.0,stair,373.0,603.0,,,,,,,,
+ICT_-1_N063,DKU_ICT,-1.0,corner,406.0,601.0,,,,,,,,
+ICT_-1_N064,DKU_ICT,-1.0,corridor,407.0,403.0,,,,,,,,
+ICT_-1_N065,DKU_ICT,-1.0,corner,409.0,228.0,,,,,,,,
+ICT_-1_N066,DKU_ICT,-1.0,corner,449.0,227.0,,,,,,,,
+ICT_-1_N067,DKU_ICT,-1.0,stair,434.0,247.0,,,,,,,,
+ICT_-1_N068,DKU_ICT,-1.0,elevator,448.0,209.0,,,,,,,,
+ICT_-1_N069,DKU_ICT,-1.0,entrance,370.0,586.0,,,,,,,,
+LIB_2_N001,DKU_LIB,2.0,entrance,283.0,417.0,,,,,,,,
+LIB_2_N002,DKU_LIB,2.0,corridor,345.0,419.0,,,,,,,,
+LIB_2_N003,DKU_LIB,2.0,corridor,421.0,419.0,,,,,,,,
+LIB_2_N004,DKU_LIB,2.0,entrance,489.0,416.0,,,,,,,,
+LIB_2_N005,DKU_LIB,2.0,corridor,573.0,415.0,,,,,,,,
+LIB_2_N006,DKU_LIB,2.0,entrance,646.0,415.0,,,,,,,,
+LIB_2_N007,DKU_LIB,2.0,corridor,719.0,407.0,,,,,,,,
+LIB_2_N008,DKU_LIB,2.0,corridor,783.0,408.0,,,,,,,,
+LIB_2_N009,DKU_LIB,2.0,entrance,854.0,409.0,,,,,,,,
+LIB_2_N010,DKU_LIB,2.0,stair,768.0,444.0,,,,,,,,
+LIB_2_N011,DKU_LIB,2.0,stair,569.0,534.0,,,,,,,,
+LIB_2_N012,DKU_LIB,2.0,stair,632.0,264.0,,,,,,,,
+LIB_2_N013,DKU_LIB,2.0,stair,511.0,261.0,,,,,,,,
+LIB_2_N014,DKU_LIB,2.0,stair,414.0,471.0,,,,,,,,
+LIB_2_N015,DKU_LIB,2.0,stair,372.0,391.0,,,,,,,,
+LIB_3_N016,DKU_LIB,3.0,stair,421.0,377.0,,,,,,,,
+LIB_3_N017,DKU_LIB,3.0,junction,482.0,377.0,,,,,,,,
+LIB_3_N018,DKU_LIB,3.0,corner,484.0,321.0,,,,,,,,
+LIB_3_N019,DKU_LIB,3.0,corridor,522.0,431.0,,,,,,,,
+LIB_3_N020,DKU_LIB,3.0,corridor,573.0,379.0,,,,,,,,
+LIB_3_N021,DKU_LIB,3.0,entrance,577.0,304.0,,,,,,,,
+LIB_3_N022,DKU_LIB,3.0,junction,668.0,383.0,,,,,,,,
+LIB_3_N023,DKU_LIB,3.0,corner,678.0,313.0,,,,,,,,
+LIB_3_N024,DKU_LIB,3.0,corridor,669.0,428.0,,,,,,,,
+LIB_3_N025,DKU_LIB,3.0,stair,729.0,427.0,,,,,,,,
+LIB_3_N026,DKU_LIB,3.0,corridor,521.0,486.0,,,,,,,,
+LIB_3_N027,DKU_LIB,3.0,elevator,417.0,485.0,,,,,,,,
+LIB_3_N028,DKU_LIB,3.0,corridor,663.0,479.0,,,,,,,,
+LIB_3_N029,DKU_LIB,3.0,stair,744.0,453.0,,,,,,,,
+LIB_3_N030,DKU_LIB,3.0,corridor,448.0,486.0,,,,,,,,
+LIB_3_N031,DKU_LIB,3.0,corner,449.0,535.0,,,,,,,,
+LIB_4_N032,DKU_LIB,4.0,stair,424.0,458.0,,,,,,,,
+LIB_4_N033,DKU_LIB,4.0,junction,477.0,454.0,,,,,,,,
+LIB_4_N034,DKU_LIB,4.0,corner,477.0,485.0,,,,,,,,
+LIB_4_N035,DKU_LIB,4.0,elevator,427.0,484.0,,,,,,,,
+LIB_4_N036,DKU_LIB,4.0,corner,482.0,356.0,,,,,,,,
+LIB_4_N037,DKU_LIB,4.0,corridor,583.0,347.0,,,,,,,,
+LIB_4_N038,DKU_LIB,4.0,corner,707.0,347.0,,,,,,,,
+LIB_4_N039,DKU_LIB,4.0,corridor,706.0,414.0,,,,,,,,
+LIB_4_N040,DKU_LIB,4.0,corner,707.0,471.0,,,,,,,,
+LIB_4_N041,DKU_LIB,4.0,corridor,594.0,477.0,,,,,,,,
+LIB_4_N042,DKU_LIB,4.0,stair,762.0,453.0,,,,,,,,
+LIB_5_N043,DKU_LIB,5.0,stair,421.0,456.0,,,,,,,,
+LIB_5_N044,DKU_LIB,5.0,junction,488.0,456.0,,,,,,,,
+LIB_5_N045,DKU_LIB,5.0,corner,491.0,480.0,,,,,,,,
+LIB_5_N046,DKU_LIB,5.0,elevator,437.0,482.0,,,,,,,,
+LIB_5_N047,DKU_LIB,5.0,corridor,484.0,403.0,,,,,,,,
+LIB_5_N048,DKU_LIB,5.0,corner,485.0,348.0,,,,,,,,
+LIB_5_N049,DKU_LIB,5.0,corridor,588.0,343.0,,,,,,,,
+LIB_5_N050,DKU_LIB,5.0,corner,709.0,342.0,,,,,,,,
+LIB_5_N051,DKU_LIB,5.0,corridor,711.0,401.0,,,,,,,,
+LIB_5_N052,DKU_LIB,5.0,corner,710.0,467.0,,,,,,,,
+LIB_5_N053,DKU_LIB,5.0,corridor,593.0,466.0,,,,,,,,
+LIB_5_N054,DKU_LIB,5.0,stair,766.0,452.0,,,,,,,,
+LIB_6_N055,DKU_LIB,6.0,stair,415.0,458.0,,,,,,,,
+LIB_6_N056,DKU_LIB,6.0,junction,478.0,456.0,,,,,,,,
+LIB_6_N057,DKU_LIB,6.0,corner,478.0,486.0,,,,,,,,
+LIB_6_N058,DKU_LIB,6.0,elevator,422.0,486.0,,,,,,,,
+LIB_6_N059,DKU_LIB,6.0,corridor,480.0,404.0,,,,,,,,
+LIB_6_N060,DKU_LIB,6.0,corner,477.0,350.0,,,,,,,,
+LIB_6_N061,DKU_LIB,6.0,corridor,583.0,346.0,,,,,,,,
+LIB_6_N062,DKU_LIB,6.0,corner,697.0,345.0,,,,,,,,
+LIB_6_N063,DKU_LIB,6.0,corridor,700.0,405.0,,,,,,,,
+LIB_6_N064,DKU_LIB,6.0,corner,697.0,470.0,,,,,,,,
+LIB_6_N065,DKU_LIB,6.0,corridor,583.0,470.0,,,,,,,,
+LIB_6_N066,DKU_LIB,6.0,stair,757.0,454.0,,,,,,,,
+LIB_1_N067,DKU_LIB,1.0,entrance,543.0,401.0,,,,,,,,
+LIB_1_N068,DKU_LIB,1.0,corridor,536.0,347.0,,,,,,,,
+LIB_1_N069,DKU_LIB,1.0,corridor,650.0,343.0,,,,,,,,
+LIB_1_N070,DKU_LIB,1.0,entrance,653.0,405.0,,,,,,,,
+LIB_1_N071,DKU_LIB,1.0,corner,750.0,349.0,,,,,,,,
+LIB_1_N072,DKU_LIB,1.0,stair,752.0,307.0,,,,,,,,
+LIB_1_N073,DKU_LIB,1.0,junction,479.0,343.0,,,,,,,,
+LIB_1_N074,DKU_LIB,1.0,corridor,484.0,374.0,,,,,,,,
+LIB_1_N075,DKU_LIB,1.0,elevator,430.0,374.0,,,,,,,,
+LIB_1_N076,DKU_LIB,1.0,stair,435.0,349.0,,,,,,,,
+SCI1_3_N001,DKU_SCI1,3.0,elevator,783.0,573.0,,,,,,,,
+SCI1_3_N002,DKU_SCI1,3.0,junction,786.0,541.0,,,,,,,,
+SCI1_3_N003,DKU_SCI1,3.0,corridor,877.0,540.0,,,,,,,,
+SCI1_3_N004,DKU_SCI1,3.0,junction,754.0,543.0,,,,,,,,
+SCI1_3_N005,DKU_SCI1,3.0,stair,760.0,499.0,,,,,,,,
+SCI1_3_N006,DKU_SCI1,3.0,corridor,703.0,542.0,,,,,,,,
+SCI1_3_N007,DKU_SCI1,3.0,corridor,594.0,542.0,,,,,,,,
+SCI1_3_N008,DKU_SCI1,3.0,corridor,428.0,543.0,,,,,,,,
+SCI1_3_N009,DKU_SCI1,3.0,junction,323.0,541.0,,,,,,,,
+SCI1_3_N010,DKU_SCI1,3.0,bridge,325.0,600.0,,,,,,,,
+SCI1_3_N011,DKU_SCI1,3.0,corridor,272.0,539.0,,,,,,,,
+SCI1_3_N012,DKU_SCI1,3.0,stair,285.0,505.0,,,,,,,,
+SCI1_3_N013,DKU_SCI1,3.0,corridor,321.0,435.0,,,,,,,,
+SCI1_3_N014,DKU_SCI1,3.0,corridor,324.0,309.0,,,,,,,,
+SCI1_3_N015,DKU_SCI1,3.0,corridor,325.0,221.0,,,,,,,,
+SCI2_2_N016,DKU_SCI2,2.0,elevator,780.0,585.0,,,,,,,,
+SCI2_2_N017,DKU_SCI2,2.0,junction,786.0,556.0,,,,,,,,
+SCI2_2_N018,DKU_SCI2,2.0,corridor,862.0,555.0,,,,,,,,
+SCI2_2_N019,DKU_SCI2,2.0,junction,757.0,558.0,,,,,,,,
+SCI2_2_N020,DKU_SCI2,2.0,stair,766.0,512.0,,,,,,,,
+SCI2_2_N021,DKU_SCI2,2.0,corridor,705.0,555.0,,,,,,,,
+SCI2_2_N022,DKU_SCI2,2.0,corridor,593.0,555.0,,,,,,,,
+SCI2_2_N023,DKU_SCI2,2.0,corridor,453.0,553.0,,,,,,,,
+SCI2_2_N024,DKU_SCI2,2.0,junction,356.0,546.0,,,,,,,,
+SCI2_2_N025,DKU_SCI2,2.0,corridor,292.0,549.0,,,,,,,,
+SCI2_2_N026,DKU_SCI2,2.0,stair,291.0,519.0,,,,,,,,
+SCI2_2_N027,DKU_SCI2,2.0,corridor,327.0,432.0,,,,,,,,
+SCI2_2_N028,DKU_SCI2,2.0,corridor,326.0,310.0,,,,,,,,
+SCI2_2_N029,DKU_SCI2,2.0,corridor,325.0,194.0,,,,,,,,
+SCI2_4_N030,DKU_SCI2,4.0,stair,779.0,567.0,,,,,,,,
+SCI2_4_N031,DKU_SCI2,4.0,junction,776.0,536.0,,,,,,,,
+SCI2_4_N032,DKU_SCI2,4.0,corridor,864.0,534.0,,,,,,,,
+SCI2_4_N033,DKU_SCI2,4.0,junction,752.0,538.0,,,,,,,,
+SCI2_4_N034,DKU_SCI2,4.0,stair,754.0,500.0,,,,,,,,
+SCI2_4_N035,DKU_SCI2,4.0,corridor,695.0,532.0,,,,,,,,
+SCI2_4_N036,DKU_SCI2,4.0,corridor,585.0,537.0,,,,,,,,
+SCI2_4_N037,DKU_SCI2,4.0,corridor,440.0,532.0,,,,,,,,
+SCI2_4_N038,DKU_SCI2,4.0,junction,320.0,533.0,,,,,,,,
+SCI2_4_N039,DKU_SCI2,4.0,corridor,278.0,534.0,,,,,,,,
+SCI2_4_N040,DKU_SCI2,4.0,stair,279.0,496.0,,,,,,,,
+SCI2_4_N041,DKU_SCI2,4.0,bridge,320.0,592.0,,,,,,,,
+SCI2_4_N042,DKU_SCI2,4.0,corridor,318.0,421.0,,,,,,,,
+SCI2_4_N043,DKU_SCI2,4.0,corridor,318.0,296.0,,,,,,,,
+SCI2_4_N044,DKU_SCI2,4.0,corridor,321.0,203.0,,,,,,,,
+SCI3_3_N045,DKU_SCI3,3.0,elevator,798.0,589.0,,,,,,,,
+SCI3_3_N046,DKU_SCI3,3.0,junction,799.0,560.0,,,,,,,,
+SCI3_3_N047,DKU_SCI3,3.0,corridor,880.0,559.0,,,,,,,,
+SCI3_3_N048,DKU_SCI3,3.0,junction,775.0,560.0,,,,,,,,
+SCI3_3_N049,DKU_SCI3,3.0,stair,776.0,516.0,,,,,,,,
+SCI3_3_N050,DKU_SCI3,3.0,corridor,720.0,559.0,,,,,,,,
+SCI3_3_N051,DKU_SCI3,3.0,corridor,609.0,556.0,,,,,,,,
+SCI3_3_N052,DKU_SCI3,3.0,corridor,503.0,551.0,,,,,,,,
+SCI3_3_N053,DKU_SCI3,3.0,junction,335.0,557.0,,,,,,,,
+SCI3_3_N054,DKU_SCI3,3.0,corridor,295.0,560.0,,,,,,,,
+SCI3_3_N055,DKU_SCI3,3.0,stair,297.0,517.0,,,,,,,,
+SCI3_3_N056,DKU_SCI3,3.0,corridor,342.0,448.0,,,,,,,,
+SCI3_3_N057,DKU_SCI3,3.0,corridor,340.0,333.0,,,,,,,,
+SCI3_3_N058,DKU_SCI3,3.0,bridge,339.0,206.0,,,,,,,,
+,,,,,,,,,,,,,
+SCI1_1_V001,DKU_SCI1,1.0,elevator,783.0,573.0,,,,,MAP_DKU_SCI1_1F,SCI1 1F vertical connector,SCI1_V001,auto-generated from evacuation PDF
+SCI1_1_R_101,DKU_SCI1,1.0,room_anchor,811.2,407.2,,,,,MAP_DKU_SCI1_1F,101,,auto-generated room anchor from evacuation PDF room label
+SCI1_1_R_102,DKU_SCI1,1.0,room_anchor,874.6,407.2,,,,,MAP_DKU_SCI1_1F,102,,auto-generated room anchor from evacuation PDF room label
+SCI1_1_R_103,DKU_SCI1,1.0,room_anchor,874.1,320.1,,,,,MAP_DKU_SCI1_1F,103,,auto-generated room anchor from evacuation PDF room label
+SCI1_1_R_104,DKU_SCI1,1.0,room_anchor,796.5,320.1,,,,,MAP_DKU_SCI1_1F,104,,auto-generated room anchor from evacuation PDF room label
+SCI1_1_R_105,DKU_SCI1,1.0,room_anchor,626.9,320.1,,,,,MAP_DKU_SCI1_1F,105,,auto-generated room anchor from evacuation PDF room label
+SCI1_1_R_106,DKU_SCI1,1.0,room_anchor,554.6,320.1,,,,,MAP_DKU_SCI1_1F,106,,auto-generated room anchor from evacuation PDF room label
+SCI1_1_R_107,DKU_SCI1,1.0,room_anchor,510.2,320.1,,,,,MAP_DKU_SCI1_1F,107,,auto-generated room anchor from evacuation PDF room label
+SCI1_1_R_108,DKU_SCI1,1.0,room_anchor,448.1,320.1,,,,,MAP_DKU_SCI1_1F,108,,auto-generated room anchor from evacuation PDF room label
+SCI1_1_R_110,DKU_SCI1,1.0,room_anchor,359.6,407.2,,,,,MAP_DKU_SCI1_1F,110,,auto-generated room anchor from evacuation PDF room label
+SCI1_1_R_111,DKU_SCI1,1.0,room_anchor,464.7,407.2,,,,,MAP_DKU_SCI1_1F,111,,auto-generated room anchor from evacuation PDF room label
+SCI1_1_R_112,DKU_SCI1,1.0,room_anchor,568.1,407.2,,,,,MAP_DKU_SCI1_1F,112,,auto-generated room anchor from evacuation PDF room label
+SCI1_1_R_113,DKU_SCI1,1.0,room_anchor,708.8,407.2,,,,,MAP_DKU_SCI1_1F,113,,auto-generated room anchor from evacuation PDF room label
+SCI1_1_R_113_1,DKU_SCI1,1.0,room_anchor,663.0,407.2,,,,,MAP_DKU_SCI1_1F,113-1,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_V001,DKU_SCI1,2.0,elevator,783.0,573.0,,,,,MAP_DKU_SCI1_2F,SCI1 2F vertical connector,SCI1_V001,auto-generated from evacuation PDF
+SCI1_2_R_201,DKU_SCI1,2.0,room_anchor,328.3,602.9,,,,,MAP_DKU_SCI1_2F,201,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_202,DKU_SCI1,2.0,room_anchor,368.8,602.9,,,,,MAP_DKU_SCI1_2F,202,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_203,DKU_SCI1,2.0,room_anchor,430.3,602.9,,,,,MAP_DKU_SCI1_2F,203,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_204,DKU_SCI1,2.0,room_anchor,477.4,602.9,,,,,MAP_DKU_SCI1_2F,204,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_205,DKU_SCI1,2.0,room_anchor,597.5,602.9,,,,,MAP_DKU_SCI1_2F,205,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_206,DKU_SCI1,2.0,room_anchor,829.8,602.9,,,,,MAP_DKU_SCI1_2F,206,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_207,DKU_SCI1,2.0,room_anchor,860.0,602.9,,,,,MAP_DKU_SCI1_2F,207,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_208,DKU_SCI1,2.0,room_anchor,890.7,602.9,,,,,MAP_DKU_SCI1_2F,208,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_209,DKU_SCI1,2.0,room_anchor,921.3,602.9,,,,,MAP_DKU_SCI1_2F,209,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_210,DKU_SCI1,2.0,room_anchor,921.0,513.0,,,,,MAP_DKU_SCI1_2F,210,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_211,DKU_SCI1,2.0,room_anchor,891.8,513.0,,,,,MAP_DKU_SCI1_2F,211,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_212,DKU_SCI1,2.0,room_anchor,859.9,513.0,,,,,MAP_DKU_SCI1_2F,212,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_213,DKU_SCI1,2.0,room_anchor,828.8,513.0,,,,,MAP_DKU_SCI1_2F,213,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_214,DKU_SCI1,2.0,room_anchor,799.3,513.0,,,,,MAP_DKU_SCI1_2F,214,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_215,DKU_SCI1,2.0,room_anchor,675.2,513.0,,,,,MAP_DKU_SCI1_2F,215,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_216,DKU_SCI1,2.0,room_anchor,630.3,513.0,,,,,MAP_DKU_SCI1_2F,216,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_217,DKU_SCI1,2.0,room_anchor,599.1,513.0,,,,,MAP_DKU_SCI1_2F,217,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_218,DKU_SCI1,2.0,room_anchor,569.3,513.0,,,,,MAP_DKU_SCI1_2F,218,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_219,DKU_SCI1,2.0,room_anchor,537.6,513.0,,,,,MAP_DKU_SCI1_2F,219,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_220,DKU_SCI1,2.0,room_anchor,507.1,513.0,,,,,MAP_DKU_SCI1_2F,220,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_221,DKU_SCI1,2.0,room_anchor,448.4,513.0,,,,,MAP_DKU_SCI1_2F,221,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_222,DKU_SCI1,2.0,room_anchor,375.7,410.2,,,,,MAP_DKU_SCI1_2F,222,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_223,DKU_SCI1,2.0,room_anchor,375.7,360.2,,,,,MAP_DKU_SCI1_2F,223,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_224,DKU_SCI1,2.0,room_anchor,375.6,285.5,,,,,MAP_DKU_SCI1_2F,224,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_225,DKU_SCI1,2.0,room_anchor,375.7,205.0,,,,,MAP_DKU_SCI1_2F,225,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_226,DKU_SCI1,2.0,room_anchor,282.8,219.0,,,,,MAP_DKU_SCI1_2F,226,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_227,DKU_SCI1,2.0,room_anchor,283.0,318.8,,,,,MAP_DKU_SCI1_2F,227,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_228,DKU_SCI1,2.0,room_anchor,282.8,390.8,,,,,MAP_DKU_SCI1_2F,228,,auto-generated room anchor from evacuation PDF room label
+SCI1_2_R_229,DKU_SCI1,2.0,room_anchor,283.0,422.1,,,,,MAP_DKU_SCI1_2F,229,,auto-generated room anchor from evacuation PDF room label
+SCI1_3_V001,DKU_SCI1,3.0,elevator,783.0,573.0,,,,,MAP_DKU_SCI1_3F,SCI1 3F vertical connector,SCI1_V001,auto-generated from evacuation PDF
+SCI1_3_R_327_1,DKU_SCI1,3.0,room_anchor,277.6,283.9,,,,,MAP_DKU_SCI1_3F,327-1,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_V001,DKU_SCI1,4.0,elevator,783.0,573.0,,,,,MAP_DKU_SCI1_4F,SCI1 4F vertical connector,SCI1_V001,auto-generated from evacuation PDF
+SCI1_4_R_401,DKU_SCI1,4.0,room_anchor,365.2,588.0,,,,,MAP_DKU_SCI1_4F,401,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_401_1,DKU_SCI1,4.0,room_anchor,424.0,587.9,,,,,MAP_DKU_SCI1_4F,401-1,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_401_2,DKU_SCI1,4.0,room_anchor,485.1,588.0,,,,,MAP_DKU_SCI1_4F,401-2,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_402,DKU_SCI1,4.0,room_anchor,673.5,588.0,,,,,MAP_DKU_SCI1_4F,402,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_402_1,DKU_SCI1,4.0,room_anchor,614.5,588.0,,,,,MAP_DKU_SCI1_4F,402-1,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_402_2,DKU_SCI1,4.0,room_anchor,550.9,587.9,,,,,MAP_DKU_SCI1_4F,402-2,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_403,DKU_SCI1,4.0,room_anchor,827.4,588.0,,,,,MAP_DKU_SCI1_4F,403,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_404,DKU_SCI1,4.0,room_anchor,857.5,588.0,,,,,MAP_DKU_SCI1_4F,404,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_405,DKU_SCI1,4.0,room_anchor,888.4,588.0,,,,,MAP_DKU_SCI1_4F,405,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_406,DKU_SCI1,4.0,room_anchor,918.9,588.0,,,,,MAP_DKU_SCI1_4F,406,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_407,DKU_SCI1,4.0,room_anchor,918.2,495.2,,,,,MAP_DKU_SCI1_4F,407,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_408,DKU_SCI1,4.0,room_anchor,888.0,495.2,,,,,MAP_DKU_SCI1_4F,408,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_409,DKU_SCI1,4.0,room_anchor,857.2,495.2,,,,,MAP_DKU_SCI1_4F,409,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_410,DKU_SCI1,4.0,room_anchor,826.1,495.2,,,,,MAP_DKU_SCI1_4F,410,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_411,DKU_SCI1,4.0,room_anchor,797.9,495.2,,,,,MAP_DKU_SCI1_4F,411,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_412,DKU_SCI1,4.0,room_anchor,689.0,495.2,,,,,MAP_DKU_SCI1_4F,412,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_413,DKU_SCI1,4.0,room_anchor,658.4,495.2,,,,,MAP_DKU_SCI1_4F,413,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_414,DKU_SCI1,4.0,room_anchor,427.0,495.2,,,,,MAP_DKU_SCI1_4F,414,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_414_1,DKU_SCI1,4.0,room_anchor,488.1,495.3,,,,,MAP_DKU_SCI1_4F,414-1,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_414_2,DKU_SCI1,4.0,room_anchor,550.2,495.3,,,,,MAP_DKU_SCI1_4F,414-2,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_414_3,DKU_SCI1,4.0,room_anchor,612.5,495.3,,,,,MAP_DKU_SCI1_4F,414-3,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_415,DKU_SCI1,4.0,room_anchor,365.9,495.2,,,,,MAP_DKU_SCI1_4F,415,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_416,DKU_SCI1,4.0,room_anchor,367.6,388.5,,,,,MAP_DKU_SCI1_4F,416,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_417,DKU_SCI1,4.0,room_anchor,367.8,342.2,,,,,MAP_DKU_SCI1_4F,417,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_417_1,DKU_SCI1,4.0,room_anchor,373.4,296.4,,,,,MAP_DKU_SCI1_4F,417-1,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_418,DKU_SCI1,4.0,room_anchor,367.6,218.0,,,,,MAP_DKU_SCI1_4F,418,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_419,DKU_SCI1,4.0,room_anchor,282.0,218.0,,,,,MAP_DKU_SCI1_4F,419,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_419_1,DKU_SCI1,4.0,room_anchor,281.1,282.0,,,,,MAP_DKU_SCI1_4F,419-1,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_420,DKU_SCI1,4.0,room_anchor,282.0,327.9,,,,,MAP_DKU_SCI1_4F,420,,auto-generated room anchor from evacuation PDF room label
+SCI1_4_R_421,DKU_SCI1,4.0,room_anchor,283.1,388.7,,,,,MAP_DKU_SCI1_4F,421,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_V001,DKU_SCI1,5.0,elevator,783.0,573.0,,,,,MAP_DKU_SCI1_5F,SCI1 5F vertical connector,SCI1_V001,auto-generated from evacuation PDF
+SCI1_5_R_501,DKU_SCI1,5.0,room_anchor,322.0,592.9,,,,,MAP_DKU_SCI1_5F,501,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_502,DKU_SCI1,5.0,room_anchor,379.9,592.9,,,,,MAP_DKU_SCI1_5F,502,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_503,DKU_SCI1,5.0,room_anchor,468.4,592.9,,,,,MAP_DKU_SCI1_5F,503,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_504,DKU_SCI1,5.0,room_anchor,594.9,592.9,,,,,MAP_DKU_SCI1_5F,504,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_505,DKU_SCI1,5.0,room_anchor,685.4,592.9,,,,,MAP_DKU_SCI1_5F,505,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_506,DKU_SCI1,5.0,room_anchor,823.5,592.9,,,,,MAP_DKU_SCI1_5F,506,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_507,DKU_SCI1,5.0,room_anchor,853.7,592.9,,,,,MAP_DKU_SCI1_5F,507,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_508,DKU_SCI1,5.0,room_anchor,884.5,592.9,,,,,MAP_DKU_SCI1_5F,508,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_509,DKU_SCI1,5.0,room_anchor,915.0,592.9,,,,,MAP_DKU_SCI1_5F,509,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_510,DKU_SCI1,5.0,room_anchor,914.6,495.5,,,,,MAP_DKU_SCI1_5F,510,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_511,DKU_SCI1,5.0,room_anchor,885.5,495.5,,,,,MAP_DKU_SCI1_5F,511,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_512,DKU_SCI1,5.0,room_anchor,853.5,495.5,,,,,MAP_DKU_SCI1_5F,512,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_513,DKU_SCI1,5.0,room_anchor,822.4,495.5,,,,,MAP_DKU_SCI1_5F,513,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_514,DKU_SCI1,5.0,room_anchor,793.0,495.5,,,,,MAP_DKU_SCI1_5F,514,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_515,DKU_SCI1,5.0,room_anchor,667.5,495.5,,,,,MAP_DKU_SCI1_5F,515,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_516,DKU_SCI1,5.0,room_anchor,605.1,495.5,,,,,MAP_DKU_SCI1_5F,516,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_517,DKU_SCI1,5.0,room_anchor,546.3,495.5,,,,,MAP_DKU_SCI1_5F,517,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_518,DKU_SCI1,5.0,room_anchor,466.0,495.5,,,,,MAP_DKU_SCI1_5F,518,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_519,DKU_SCI1,5.0,room_anchor,376.0,495.5,,,,,MAP_DKU_SCI1_5F,519,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_520,DKU_SCI1,5.0,room_anchor,367.3,380.3,,,,,MAP_DKU_SCI1_5F,520,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_521,DKU_SCI1,5.0,room_anchor,368.5,287.7,,,,,MAP_DKU_SCI1_5F,521,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_522,DKU_SCI1,5.0,room_anchor,367.3,208.5,,,,,MAP_DKU_SCI1_5F,522,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_523,DKU_SCI1,5.0,room_anchor,274.7,208.5,,,,,MAP_DKU_SCI1_5F,523,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_524,DKU_SCI1,5.0,room_anchor,274.6,287.7,,,,,MAP_DKU_SCI1_5F,524,,auto-generated room anchor from evacuation PDF room label
+SCI1_5_R_525,DKU_SCI1,5.0,room_anchor,274.7,380.3,,,,,MAP_DKU_SCI1_5F,525,,auto-generated room anchor from evacuation PDF room label
+SCI2_1_V001,DKU_SCI2,1.0,elevator,780.0,585.0,,,,,MAP_DKU_SCI2_1F,SCI2 1F vertical connector,SCI2_V001,auto-generated from evacuation PDF
+SCI2_1_R_101,DKU_SCI2,1.0,room_anchor,850.1,414.5,,,,,MAP_DKU_SCI2_1F,101,,auto-generated room anchor from evacuation PDF room label
+SCI2_1_R_102,DKU_SCI2,1.0,room_anchor,861.9,331.2,,,,,MAP_DKU_SCI2_1F,102,,auto-generated room anchor from evacuation PDF room label
+SCI2_1_R_103,DKU_SCI2,1.0,room_anchor,788.1,331.2,,,,,MAP_DKU_SCI2_1F,103,,auto-generated room anchor from evacuation PDF room label
+SCI2_1_R_104,DKU_SCI2,1.0,room_anchor,653.4,331.1,,,,,MAP_DKU_SCI2_1F,104,,auto-generated room anchor from evacuation PDF room label
+SCI2_1_R_104_1,DKU_SCI2,1.0,room_anchor,611.3,331.1,,,,,MAP_DKU_SCI2_1F,104-1,,auto-generated room anchor from evacuation PDF room label
+SCI2_1_R_105,DKU_SCI2,1.0,room_anchor,550.5,331.1,,,,,MAP_DKU_SCI2_1F,105,,auto-generated room anchor from evacuation PDF room label
+SCI2_1_R_106,DKU_SCI2,1.0,room_anchor,458.7,331.2,,,,,MAP_DKU_SCI2_1F,106,,auto-generated room anchor from evacuation PDF room label
+SCI2_1_R_107,DKU_SCI2,1.0,room_anchor,381.9,331.1,,,,,MAP_DKU_SCI2_1F,107,,auto-generated room anchor from evacuation PDF room label
+SCI2_1_R_107_1,DKU_SCI2,1.0,room_anchor,321.5,331.1,,,,,MAP_DKU_SCI2_1F,107-1,,auto-generated room anchor from evacuation PDF room label
+SCI2_1_R_108,DKU_SCI2,1.0,room_anchor,329.0,414.5,,,,,MAP_DKU_SCI2_1F,108,,auto-generated room anchor from evacuation PDF room label
+SCI2_1_R_109,DKU_SCI2,1.0,room_anchor,411.1,414.5,,,,,MAP_DKU_SCI2_1F,109,,auto-generated room anchor from evacuation PDF room label
+SCI2_1_R_110,DKU_SCI2,1.0,room_anchor,594.6,414.5,,,,,MAP_DKU_SCI2_1F,110,,auto-generated room anchor from evacuation PDF room label
+SCI2_1_R_110_1,DKU_SCI2,1.0,room_anchor,534.8,414.5,,,,,MAP_DKU_SCI2_1F,110-1,,auto-generated room anchor from evacuation PDF room label
+SCI2_1_R_110_2,DKU_SCI2,1.0,room_anchor,490.9,414.5,,,,,MAP_DKU_SCI2_1F,110-2,,auto-generated room anchor from evacuation PDF room label
+SCI2_1_R_111,DKU_SCI2,1.0,room_anchor,676.4,414.5,,,,,MAP_DKU_SCI2_1F,111,,auto-generated room anchor from evacuation PDF room label
+SCI2_2_V001,DKU_SCI2,2.0,elevator,780.0,585.0,,,,,MAP_DKU_SCI2_2F,SCI2 2F vertical connector,SCI2_V001,auto-generated from evacuation PDF
+SCI2_2_R_220_1,DKU_SCI2,2.0,room_anchor,370.8,280.2,,,,,MAP_DKU_SCI2_2F,220-1,,auto-generated room anchor from evacuation PDF room label
+SCI2_2_R_221_1,DKU_SCI2,2.0,room_anchor,279.9,280.3,,,,,MAP_DKU_SCI2_2F,221-1,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_V001,DKU_SCI2,3.0,elevator,780.0,585.0,,,,,MAP_DKU_SCI2_3F,SCI2 3F vertical connector,SCI2_V001,auto-generated from evacuation PDF
+SCI2_3_R_301,DKU_SCI2,3.0,room_anchor,368.6,581.2,,,,,MAP_DKU_SCI2_3F,301,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_302,DKU_SCI2,3.0,room_anchor,428.3,581.2,,,,,MAP_DKU_SCI2_3F,302,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_303,DKU_SCI2,3.0,room_anchor,488.9,581.2,,,,,MAP_DKU_SCI2_3F,303,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_304,DKU_SCI2,3.0,room_anchor,551.6,581.2,,,,,MAP_DKU_SCI2_3F,304,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_305,DKU_SCI2,3.0,room_anchor,604.2,593.6,,,,,MAP_DKU_SCI2_3F,305,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_305_1,DKU_SCI2,3.0,room_anchor,628.9,575.8,,,,,MAP_DKU_SCI2_3F,305-1,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_306,DKU_SCI2,3.0,room_anchor,677.5,581.2,,,,,MAP_DKU_SCI2_3F,306,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_307,DKU_SCI2,3.0,room_anchor,829.1,581.2,,,,,MAP_DKU_SCI2_3F,307,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_308,DKU_SCI2,3.0,room_anchor,859.3,581.2,,,,,MAP_DKU_SCI2_3F,308,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_309,DKU_SCI2,3.0,room_anchor,889.7,581.2,,,,,MAP_DKU_SCI2_3F,309,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_310,DKU_SCI2,3.0,room_anchor,920.9,581.2,,,,,MAP_DKU_SCI2_3F,310,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_311,DKU_SCI2,3.0,room_anchor,922.0,496.5,,,,,MAP_DKU_SCI2_3F,311,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_312,DKU_SCI2,3.0,room_anchor,889.7,496.5,,,,,MAP_DKU_SCI2_3F,312,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_313,DKU_SCI2,3.0,room_anchor,859.3,496.5,,,,,MAP_DKU_SCI2_3F,313,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_314,DKU_SCI2,3.0,room_anchor,828.9,496.5,,,,,MAP_DKU_SCI2_3F,314,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_315,DKU_SCI2,3.0,room_anchor,799.0,496.5,,,,,MAP_DKU_SCI2_3F,315,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_316,DKU_SCI2,3.0,room_anchor,657.1,496.5,,,,,MAP_DKU_SCI2_3F,316,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_316_1,DKU_SCI2,3.0,room_anchor,598.0,496.1,,,,,MAP_DKU_SCI2_3F,316-1,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_317,DKU_SCI2,3.0,room_anchor,552.3,496.5,,,,,MAP_DKU_SCI2_3F,317,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_318,DKU_SCI2,3.0,room_anchor,488.8,496.5,,,,,MAP_DKU_SCI2_3F,318,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_319,DKU_SCI2,3.0,room_anchor,399.5,496.5,,,,,MAP_DKU_SCI2_3F,319,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_320,DKU_SCI2,3.0,room_anchor,373.3,388.1,,,,,MAP_DKU_SCI2_3F,320,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_321,DKU_SCI2,3.0,room_anchor,374.5,325.9,,,,,MAP_DKU_SCI2_3F,321,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_322,DKU_SCI2,3.0,room_anchor,373.3,232.7,,,,,MAP_DKU_SCI2_3F,322,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_323,DKU_SCI2,3.0,room_anchor,277.3,232.7,,,,,MAP_DKU_SCI2_3F,323,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_324,DKU_SCI2,3.0,room_anchor,277.1,283.2,,,,,MAP_DKU_SCI2_3F,324,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_325,DKU_SCI2,3.0,room_anchor,277.3,312.7,,,,,MAP_DKU_SCI2_3F,325,,auto-generated room anchor from evacuation PDF room label
+SCI2_3_R_326,DKU_SCI2,3.0,room_anchor,277.3,372.0,,,,,MAP_DKU_SCI2_3F,326,,auto-generated room anchor from evacuation PDF room label
+SCI2_4_V001,DKU_SCI2,4.0,elevator,780.0,585.0,,,,,MAP_DKU_SCI2_4F,SCI2 4F vertical connector,SCI2_V001,auto-generated from evacuation PDF
+SCI2_4_R_401_1,DKU_SCI2,4.0,room_anchor,428.4,578.9,,,,,MAP_DKU_SCI2_4F,401-1,,auto-generated room anchor from evacuation PDF room label
+SCI2_4_R_402_1,DKU_SCI2,4.0,room_anchor,550.5,578.9,,,,,MAP_DKU_SCI2_4F,402-1,,auto-generated room anchor from evacuation PDF room label
+SCI2_4_R_415_1,DKU_SCI2,4.0,room_anchor,485.4,493.8,,,,,MAP_DKU_SCI2_4F,415-1,,auto-generated room anchor from evacuation PDF room label
+SCI2_4_R_416_1,DKU_SCI2,4.0,room_anchor,358.8,493.9,,,,,MAP_DKU_SCI2_4F,416-1,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_V001,DKU_SCI2,5.0,elevator,780.0,585.0,,,,,MAP_DKU_SCI2_5F,SCI2 5F vertical connector,SCI2_V001,auto-generated from evacuation PDF
+SCI2_5_R_501,DKU_SCI2,5.0,room_anchor,323.0,592.0,,,,,MAP_DKU_SCI2_5F,501,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_502,DKU_SCI2,5.0,room_anchor,390.1,592.0,,,,,MAP_DKU_SCI2_5F,502,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_503,DKU_SCI2,5.0,room_anchor,486.2,592.0,,,,,MAP_DKU_SCI2_5F,503,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_504,DKU_SCI2,5.0,room_anchor,545.3,592.0,,,,,MAP_DKU_SCI2_5F,504,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_505,DKU_SCI2,5.0,room_anchor,591.8,592.0,,,,,MAP_DKU_SCI2_5F,505,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_506,DKU_SCI2,5.0,room_anchor,621.9,592.0,,,,,MAP_DKU_SCI2_5F,506,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_507,DKU_SCI2,5.0,room_anchor,651.7,592.0,,,,,MAP_DKU_SCI2_5F,507,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_508,DKU_SCI2,5.0,room_anchor,685.0,592.0,,,,,MAP_DKU_SCI2_5F,508,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_509,DKU_SCI2,5.0,room_anchor,823.2,592.0,,,,,MAP_DKU_SCI2_5F,509,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_510,DKU_SCI2,5.0,room_anchor,853.5,592.0,,,,,MAP_DKU_SCI2_5F,510,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_511,DKU_SCI2,5.0,room_anchor,884.8,591.9,,,,,MAP_DKU_SCI2_5F,511,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_512,DKU_SCI2,5.0,room_anchor,915.0,592.0,,,,,MAP_DKU_SCI2_5F,512,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_513,DKU_SCI2,5.0,room_anchor,914.9,507.3,,,,,MAP_DKU_SCI2_5F,513,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_514,DKU_SCI2,5.0,room_anchor,883.5,507.3,,,,,MAP_DKU_SCI2_5F,514,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_515,DKU_SCI2,5.0,room_anchor,853.5,507.3,,,,,MAP_DKU_SCI2_5F,515,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_516,DKU_SCI2,5.0,room_anchor,823.1,507.3,,,,,MAP_DKU_SCI2_5F,516,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_517,DKU_SCI2,5.0,room_anchor,793.2,507.3,,,,,MAP_DKU_SCI2_5F,517,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_518,DKU_SCI2,5.0,room_anchor,683.9,507.3,,,,,MAP_DKU_SCI2_5F,518,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_519,DKU_SCI2,5.0,room_anchor,651.5,507.3,,,,,MAP_DKU_SCI2_5F,519,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_520,DKU_SCI2,5.0,room_anchor,609.0,507.3,,,,,MAP_DKU_SCI2_5F,520,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_521,DKU_SCI2,5.0,room_anchor,518.1,507.3,,,,,MAP_DKU_SCI2_5F,521,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_522,DKU_SCI2,5.0,room_anchor,385.4,507.3,,,,,MAP_DKU_SCI2_5F,522,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_523,DKU_SCI2,5.0,room_anchor,366.3,366.7,,,,,MAP_DKU_SCI2_5F,523,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_524,DKU_SCI2,5.0,room_anchor,366.3,250.2,,,,,MAP_DKU_SCI2_5F,524,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_525,DKU_SCI2,5.0,room_anchor,273.3,217.4,,,,,MAP_DKU_SCI2_5F,525,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_526,DKU_SCI2,5.0,room_anchor,273.3,284.2,,,,,MAP_DKU_SCI2_5F,526,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_527,DKU_SCI2,5.0,room_anchor,273.3,339.1,,,,,MAP_DKU_SCI2_5F,527,,auto-generated room anchor from evacuation PDF room label
+SCI2_5_R_528,DKU_SCI2,5.0,room_anchor,273.3,399.4,,,,,MAP_DKU_SCI2_5F,528,,auto-generated room anchor from evacuation PDF room label
+SCI3_1_V001,DKU_SCI3,1.0,elevator,798.0,589.0,,,,,MAP_DKU_SCI3_1F,SCI3 1F vertical connector,SCI3_V001,auto-generated from evacuation PDF
+SCI3_1_R_101,DKU_SCI3,1.0,room_anchor,863.1,438.1,,,,,MAP_DKU_SCI3_1F,101,,auto-generated room anchor from evacuation PDF room label
+SCI3_1_R_102,DKU_SCI3,1.0,room_anchor,861.8,359.7,,,,,MAP_DKU_SCI3_1F,102,,auto-generated room anchor from evacuation PDF room label
+SCI3_1_R_103,DKU_SCI3,1.0,room_anchor,782.8,359.7,,,,,MAP_DKU_SCI3_1F,103,,auto-generated room anchor from evacuation PDF room label
+SCI3_1_R_104,DKU_SCI3,1.0,room_anchor,645.0,359.7,,,,,MAP_DKU_SCI3_1F,104,,auto-generated room anchor from evacuation PDF room label
+SCI3_1_R_105,DKU_SCI3,1.0,room_anchor,552.0,359.7,,,,,MAP_DKU_SCI3_1F,105,,auto-generated room anchor from evacuation PDF room label
+SCI3_1_R_106,DKU_SCI3,1.0,room_anchor,461.1,359.7,,,,,MAP_DKU_SCI3_1F,106,,auto-generated room anchor from evacuation PDF room label
+SCI3_1_R_107,DKU_SCI3,1.0,room_anchor,358.2,359.7,,,,,MAP_DKU_SCI3_1F,107,,auto-generated room anchor from evacuation PDF room label
+SCI3_1_R_108,DKU_SCI3,1.0,room_anchor,364.2,438.1,,,,,MAP_DKU_SCI3_1F,108,,auto-generated room anchor from evacuation PDF room label
+SCI3_1_R_109,DKU_SCI3,1.0,room_anchor,461.4,438.1,,,,,MAP_DKU_SCI3_1F,109,,auto-generated room anchor from evacuation PDF room label
+SCI3_1_R_110,DKU_SCI3,1.0,room_anchor,552.9,438.1,,,,,MAP_DKU_SCI3_1F,110,,auto-generated room anchor from evacuation PDF room label
+SCI3_1_R_111,DKU_SCI3,1.0,room_anchor,663.2,438.1,,,,,MAP_DKU_SCI3_1F,111,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_V001,DKU_SCI3,2.0,elevator,798.0,589.0,,,,,MAP_DKU_SCI3_2F,SCI3 2F vertical connector,SCI3_V001,auto-generated from evacuation PDF
+SCI3_2_R_201,DKU_SCI3,2.0,room_anchor,322.9,600.1,,,,,MAP_DKU_SCI3_2F,201,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_202,DKU_SCI3,2.0,room_anchor,364.2,600.1,,,,,MAP_DKU_SCI3_2F,202,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_203,DKU_SCI3,2.0,room_anchor,424.5,600.1,,,,,MAP_DKU_SCI3_2F,203,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_204,DKU_SCI3,2.0,room_anchor,515.7,600.1,,,,,MAP_DKU_SCI3_2F,204,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_205,DKU_SCI3,2.0,room_anchor,609.3,600.1,,,,,MAP_DKU_SCI3_2F,205,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_206,DKU_SCI3,2.0,room_anchor,670.6,600.1,,,,,MAP_DKU_SCI3_2F,206,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_207,DKU_SCI3,2.0,room_anchor,724.5,600.1,,,,,MAP_DKU_SCI3_2F,207,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_208,DKU_SCI3,2.0,room_anchor,826.5,600.1,,,,,MAP_DKU_SCI3_2F,208,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_209,DKU_SCI3,2.0,room_anchor,855.0,600.1,,,,,MAP_DKU_SCI3_2F,209,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_210,DKU_SCI3,2.0,room_anchor,885.7,600.1,,,,,MAP_DKU_SCI3_2F,210,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_211,DKU_SCI3,2.0,room_anchor,917.5,600.3,,,,,MAP_DKU_SCI3_2F,211,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_212,DKU_SCI3,2.0,room_anchor,916.3,513.6,,,,,MAP_DKU_SCI3_2F,212,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_213,DKU_SCI3,2.0,room_anchor,885.5,513.5,,,,,MAP_DKU_SCI3_2F,213,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_214,DKU_SCI3,2.0,room_anchor,854.9,513.6,,,,,MAP_DKU_SCI3_2F,214,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_215,DKU_SCI3,2.0,room_anchor,824.0,513.5,,,,,MAP_DKU_SCI3_2F,215,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_216,DKU_SCI3,2.0,room_anchor,794.3,513.5,,,,,MAP_DKU_SCI3_2F,216,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_217,DKU_SCI3,2.0,room_anchor,675.0,513.6,,,,,MAP_DKU_SCI3_2F,217,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_218,DKU_SCI3,2.0,room_anchor,579.4,513.5,,,,,MAP_DKU_SCI3_2F,218,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_219,DKU_SCI3,2.0,room_anchor,485.8,525.6,,,,,MAP_DKU_SCI3_2F,219,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_220,DKU_SCI3,2.0,room_anchor,424.6,513.5,,,,,MAP_DKU_SCI3_2F,220,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_221,DKU_SCI3,2.0,room_anchor,370.2,407.4,,,,,MAP_DKU_SCI3_2F,221,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_222,DKU_SCI3,2.0,room_anchor,368.9,346.6,,,,,MAP_DKU_SCI3_2F,222,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_223,DKU_SCI3,2.0,room_anchor,368.9,256.9,,,,,MAP_DKU_SCI3_2F,223,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_224,DKU_SCI3,2.0,room_anchor,289.5,222.6,,,,,MAP_DKU_SCI3_2F,224,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_224_1,DKU_SCI3,2.0,room_anchor,261.2,222.7,,,,,MAP_DKU_SCI3_2F,224-1,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_225,DKU_SCI3,2.0,room_anchor,273.4,285.3,,,,,MAP_DKU_SCI3_2F,225,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_226,DKU_SCI3,2.0,room_anchor,273.4,344.9,,,,,MAP_DKU_SCI3_2F,226,,auto-generated room anchor from evacuation PDF room label
+SCI3_2_R_227,DKU_SCI3,2.0,room_anchor,273.4,407.4,,,,,MAP_DKU_SCI3_2F,227,,auto-generated room anchor from evacuation PDF room label
+SCI3_3_V001,DKU_SCI3,3.0,elevator,798.0,589.0,,,,,MAP_DKU_SCI3_3F,SCI3 3F vertical connector,SCI3_V001,auto-generated from evacuation PDF
+SCI3_3_R_305_1,DKU_SCI3,3.0,room_anchor,673.9,610.8,,,,,MAP_DKU_SCI3_3F,305-1,,auto-generated room anchor from evacuation PDF room label
+SCI3_3_R_305_2,DKU_SCI3,3.0,room_anchor,704.1,591.4,,,,,MAP_DKU_SCI3_3F,305-2,,auto-generated room anchor from evacuation PDF room label
+SCI3_3_R_305_3,DKU_SCI3,3.0,room_anchor,703.1,626.7,,,,,MAP_DKU_SCI3_3F,305-3,,auto-generated room anchor from evacuation PDF room label
+SCI3_3_R_315_1,DKU_SCI3,3.0,room_anchor,687.6,511.3,,,,,MAP_DKU_SCI3_3F,315-1,,auto-generated room anchor from evacuation PDF room label
+SCI3_3_R_321_1,DKU_SCI3,3.0,room_anchor,289.0,340.2,,,,,MAP_DKU_SCI3_3F,321-1,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_V001,DKU_SCI3,4.0,elevator,798.0,589.0,,,,,MAP_DKU_SCI3_4F,SCI3 4F vertical connector,SCI3_V001,auto-generated from evacuation PDF
+SCI3_4_R_401,DKU_SCI3,4.0,room_anchor,324.4,597.6,,,,,MAP_DKU_SCI3_4F,401,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_402,DKU_SCI3,4.0,room_anchor,391.3,597.6,,,,,MAP_DKU_SCI3_4F,402,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_403,DKU_SCI3,4.0,room_anchor,485.9,597.6,,,,,MAP_DKU_SCI3_4F,403,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_404,DKU_SCI3,4.0,room_anchor,546.3,597.6,,,,,MAP_DKU_SCI3_4F,404,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_405,DKU_SCI3,4.0,room_anchor,640.7,597.6,,,,,MAP_DKU_SCI3_4F,405,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_406,DKU_SCI3,4.0,room_anchor,826.0,597.6,,,,,MAP_DKU_SCI3_4F,406,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_407,DKU_SCI3,4.0,room_anchor,856.6,597.6,,,,,MAP_DKU_SCI3_4F,407,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_408,DKU_SCI3,4.0,room_anchor,887.1,597.6,,,,,MAP_DKU_SCI3_4F,408,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_409,DKU_SCI3,4.0,room_anchor,917.7,597.6,,,,,MAP_DKU_SCI3_4F,409,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_410,DKU_SCI3,4.0,room_anchor,917.9,510.9,,,,,MAP_DKU_SCI3_4F,410,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_411,DKU_SCI3,4.0,room_anchor,888.2,510.9,,,,,MAP_DKU_SCI3_4F,411,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_412,DKU_SCI3,4.0,room_anchor,856.6,511.0,,,,,MAP_DKU_SCI3_4F,412,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_413,DKU_SCI3,4.0,room_anchor,825.5,510.9,,,,,MAP_DKU_SCI3_4F,413,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_414,DKU_SCI3,4.0,room_anchor,795.7,510.9,,,,,MAP_DKU_SCI3_4F,414,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_415,DKU_SCI3,4.0,room_anchor,640.7,510.7,,,,,MAP_DKU_SCI3_4F,415,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_416,DKU_SCI3,4.0,room_anchor,544.2,510.9,,,,,MAP_DKU_SCI3_4F,416,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_417,DKU_SCI3,4.0,room_anchor,486.5,510.9,,,,,MAP_DKU_SCI3_4F,417,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_418,DKU_SCI3,4.0,room_anchor,388.0,510.9,,,,,MAP_DKU_SCI3_4F,418,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_419,DKU_SCI3,4.0,room_anchor,369.6,406.8,,,,,MAP_DKU_SCI3_4F,419,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_420,DKU_SCI3,4.0,room_anchor,369.6,344.8,,,,,MAP_DKU_SCI3_4F,420,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_421,DKU_SCI3,4.0,room_anchor,370.8,283.2,,,,,MAP_DKU_SCI3_4F,421,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_422,DKU_SCI3,4.0,room_anchor,369.6,237.0,,,,,MAP_DKU_SCI3_4F,422,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_422_1,DKU_SCI3,4.0,room_anchor,367.8,204.9,,,,,MAP_DKU_SCI3_4F,422-1,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_423,DKU_SCI3,4.0,room_anchor,278.3,255.2,,,,,MAP_DKU_SCI3_4F,423,,auto-generated room anchor from evacuation PDF room label
+SCI3_4_R_424,DKU_SCI3,4.0,room_anchor,275.3,376.4,,,,,MAP_DKU_SCI3_4F,424,,auto-generated room anchor from evacuation PDF room label
+SCI3_5_V001,DKU_SCI3,5.0,elevator,798.0,589.0,,,,,MAP_DKU_SCI3_5F,SCI3 5F vertical connector,SCI3_V001,auto-generated from evacuation PDF
+SCI3_5_R_501,DKU_SCI3,5.0,room_anchor,324.9,586.7,,,,,MAP_DKU_SCI3_5F,501,,auto-generated room anchor from evacuation PDF room label
+SCI3_5_R_502,DKU_SCI3,5.0,room_anchor,380.9,586.9,,,,,MAP_DKU_SCI3_5F,502,,auto-generated room anchor from evacuation PDF room label
+SCI3_5_R_503,DKU_SCI3,5.0,room_anchor,474.4,586.9,,,,,MAP_DKU_SCI3_5F,503,,auto-generated room anchor from evacuation PDF room label
+SCI3_5_R_504,DKU_SCI3,5.0,room_anchor,564.3,586.7,,,,,MAP_DKU_SCI3_5F,504,,auto-generated room anchor from evacuation PDF room label
+SCI3_5_R_505,DKU_SCI3,5.0,room_anchor,656.1,586.7,,,,,MAP_DKU_SCI3_5F,505,,auto-generated room anchor from evacuation PDF room label
+SCI3_5_R_506,DKU_SCI3,5.0,room_anchor,826.0,586.9,,,,,MAP_DKU_SCI3_5F,506,,auto-generated room anchor from evacuation PDF room label
+SCI3_5_R_507,DKU_SCI3,5.0,room_anchor,856.6,586.7,,,,,MAP_DKU_SCI3_5F,507,,auto-generated room anchor from evacuation PDF room label
+SCI3_5_R_508,DKU_SCI3,5.0,room_anchor,887.1,586.7,,,,,MAP_DKU_SCI3_5F,508,,auto-generated room anchor from evacuation PDF room label
+SCI3_5_R_509,DKU_SCI3,5.0,room_anchor,917.7,586.7,,,,,MAP_DKU_SCI3_5F,509,,auto-generated room anchor from evacuation PDF room label
+SCI3_5_R_510,DKU_SCI3,5.0,room_anchor,917.9,500.2,,,,,MAP_DKU_SCI3_5F,510,,auto-generated room anchor from evacuation PDF room label
+SCI3_5_R_511,DKU_SCI3,5.0,room_anchor,888.2,500.1,,,,,MAP_DKU_SCI3_5F,511,,auto-generated room anchor from evacuation PDF room label
+SCI3_5_R_512,DKU_SCI3,5.0,room_anchor,856.6,500.2,,,,,MAP_DKU_SCI3_5F,512,,auto-generated room anchor from evacuation PDF room label
+SCI3_5_R_513,DKU_SCI3,5.0,room_anchor,825.5,500.2,,,,,MAP_DKU_SCI3_5F,513,,auto-generated room anchor from evacuation PDF room label
+SCI3_5_R_514,DKU_SCI3,5.0,room_anchor,795.7,500.1,,,,,MAP_DKU_SCI3_5F,514,,auto-generated room anchor from evacuation PDF room label
+SCI3_5_R_515,DKU_SCI3,5.0,room_anchor,654.5,500.1,,,,,MAP_DKU_SCI3_5F,515,,auto-generated room anchor from evacuation PDF room label
+SCI3_5_R_516,DKU_SCI3,5.0,room_anchor,563.6,500.2,,,,,MAP_DKU_SCI3_5F,516,,auto-generated room anchor from evacuation PDF room label
+SCI3_5_R_517,DKU_SCI3,5.0,room_anchor,473.2,500.1,,,,,MAP_DKU_SCI3_5F,517,,auto-generated room anchor from evacuation PDF room label
+SCI3_5_R_518,DKU_SCI3,5.0,room_anchor,379.9,500.2,,,,,MAP_DKU_SCI3_5F,518,,auto-generated room anchor from evacuation PDF room label
+SCI3_5_R_519,DKU_SCI3,5.0,room_anchor,369.5,362.7,,,,,MAP_DKU_SCI3_5F,519,,auto-generated room anchor from evacuation PDF room label
+SCI3_5_R_520,DKU_SCI3,5.0,room_anchor,370.8,244.1,,,,,MAP_DKU_SCI3_5F,520,,auto-generated room anchor from evacuation PDF room label
+SCI3_5_R_521,DKU_SCI3,5.0,room_anchor,275.3,242.5,,,,,MAP_DKU_SCI3_5F,521,,auto-generated room anchor from evacuation PDF room label
+SCI3_5_R_522,DKU_SCI3,5.0,room_anchor,273.0,363.9,,,,,MAP_DKU_SCI3_5F,522,,auto-generated room anchor from evacuation PDF room label

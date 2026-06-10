@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: dku-campus-route-backend
+    env: python
+    rootDir: backend
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python tools/start_server.py
+    envVars:
+      - key: APP_NAME
+        value: DKU Campus Map Week 8 Final API
+      - key: PYTHON_VERSION
+        value: 3.11.11
+      - key: DATABASE_URL
+        value: sqlite:///./week8_backend.db
+      - key: DEBUG
+        value: false
+      - key: FRONTEND_ORIGINS
+        value: https://tmimvp.vercel.app,http://tmimvp.vercel.app,http://localhost:5173,http://127.0.0.1:5173,http://localhost:5190,http://127.0.0.1:5190
+      - key: DEPLOYMENT_DATA_ROOT
+        value: data/final
+      - key: IMPORT_DATA_ON_START
+        value: true
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 60
+      - key: ADMIN_STUDENT_IDS
+        sync: false

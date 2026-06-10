@@ -1,0 +1,208 @@
+DKU Campus Map Backend - 5주차 작업 내용 정리
+
+5주차에는 프론트엔드가 실제 DB 데이터를 받아서 화면에 표시할 수 있도록 백엔드 API와 데이터 import 구조를 확장했습니다.
+
+
+1. 프론트엔드 연동용 API 구조 정리
+
+프론트엔드에서 Kakao Map, 강의실 검색, 층별 실내 지도 화면을 만들 수 있도록 API 응답 구조를 정리했습니다.
+
+주요 API는 다음과 같습니다.
+
+GET /api/buildings
+GET /api/buildings/{building_id}/floors
+GET /api/rooms/search?keyword=ICT401
+GET /api/buildings/{building_id}/floors/{floor}/indoor-map
+
+이 API들을 통해 프론트엔드는 건물 목록, 건물별 층 목록, 강의실 검색 결과, 층별 실내 지도 정보를 받을 수 있습니다.
+
+
+2. 건물별 층 목록 API 추가
+
+프론트엔드에서 건물을 선택했을 때 해당 건물의 층 목록을 표시할 수 있도록 API를 추가했습니다.
+
+추가한 API:
+
+GET /api/buildings/{building_id}/floors
+
+이 API는 층 번호, 층 라벨, 실내 지도 ID, 지도 파일 URL을 반환합니다.
+
+프론트엔드는 이 응답을 이용해 건물 선택 후 층 버튼이나 층 선택 드롭다운을 만들 수 있습니다.
+
+
+3. 층별 실내 지도 API 개선
+
+기존 실내 지도 API가 지도 정보와 좌표 중심으로 응답하던 구조에서, 해당 층의 강의실 목록도 함께 반환하도록 개선했습니다.
+
+개선한 API:
+
+GET /api/buildings/{building_id}/floors/{floor}/indoor-map
+
+이 API는 다음 정보를 반환합니다.
+
+- 실내 지도 ID
+- 건물 ID
+- 층 번호
+- 층 라벨
+- 지도 파일 URL
+- 지도 기준 canvas 크기
+- 해당 층 강의실 목록
+- 강의실 좌표 목록
+- 실내 노드 목록
+- 실내 간선 목록
+
+이를 통해 프론트엔드는 특정 층의 실내 지도와 강의실 목록을 함께 사용할 수 있습니다.
+
+
+4. 강의실 검색 API 개선
+
+강의실 검색 API가 프론트엔드에서 바로 사용하기 쉬운 형태로 응답하도록 정리했습니다.
+
+개선한 API:
+
+GET /api/rooms/search?keyword=ICT401
+
+지원하는 검색 예시는 다음과 같습니다.
+
+- ICT401
+- 소프트401
+- 소프트웨어ICT관401
+- ICT-4F-401
+- DKU_ICT_4_401
+
+검색 성공 시 다음 정보를 함께 반환하도록 구성했습니다.
+
+- 강의실 ID
+- 강의실 코드
+- 건물 ID
+- 건물명
+- 층 번호
+- 층 라벨
+- 실내 지도 정보
+- 강의실 좌표 정보
+- 가까운 실내 노드 ID
+
+room_positions 데이터가 아직 없는 경우 position은 null로 반환되고, 좌표 데이터가 import되면 실제 좌표 객체가 반환됩니다.
+
+
+5. 검색 실패 응답 정리
+
+프론트엔드에서 사용자에게 정확한 오류 메시지를 보여줄 수 있도록 검색 실패 응답을 정리했습니다.
+
+실패 응답 예시는 다음과 같습니다.
+
+{
+  "detail": {
+    "errorCode": "ROOM_NOT_FOUND",
+    "message": "검색한 강의실을 찾을 수 없습니다."
+  }
+}
+
+주요 errorCode는 다음과 같습니다.
+
+- EMPTY_KEYWORD
+- ROOM_NUMBER_NOT_FOUND
+- BUILDING_NOT_FOUND
+- ROOM_NOT_FOUND
+- INDOOR_MAP_NOT_FOUND
+
+이 구조를 통해 프론트엔드는 상황에 맞는 안내 메시지를 표시할 수 있습니다.
+
+
+6. room_positions 데이터 import 구조 추가
+
+강의실을 실내 지도 위에 표시하기 위해 room_positions.csv 또는 room_positions.xlsx를 검증하고 DB에 넣을 수 있는 코드를 추가했습니다.
+
+추가한 기능은 다음과 같습니다.
+
+- room_positions 파일 존재 여부 확인
+- 필수 컬럼 확인
+- room_id와 rooms 테이블 연결 확인
+- indoor_map_id 연결 확인
+- x, y, width, height 좌표값 검증
+- RoomPosition 테이블 import
+- 좌표 중심점 center_x, center_y 자동 계산
+
+필수 컬럼은 다음과 같습니다.
+
+room_id
+x
+y
+width
+height
+
+선택 컬럼은 다음과 같습니다.
+
+position_id
+room_position_id
+indoor_map_id
+polygon_points
+center_x
+center_y
+label_x
+label_y
+
+
+7. 추가한 실행 스크립트
+
+room_positions 데이터를 검증하고 import하기 위해 아래 스크립트를 추가했습니다.
+
+tools/validate_week5_positions.py
+tools/import_week5_positions.py
+
+검증 명령어:
+
+cd backend
+python tools/validate_week5_positions.py "room_positions.csv가 있는 폴더"
+
+import 명령어:
+
+cd backend
+python tools/import_week5_positions.py "room_positions.csv가 있는 폴더" --replace
+
+
+8. 프론트엔드 API 계약 문서 작성
+
+프론트엔드 담당자가 API를 쉽게 연결할 수 있도록 별도 문서를 작성했습니다.
+
+문서 파일:
+
+WEEK5_FRONTEND_API_CONTRACT.txt
+
+이 문서에는 API 목록, 요청 방식, 응답 예시, 프론트엔드 연결 순서를 정리했습니다.
+
+
+9. 확인한 동작
+
+5주차 작업 후 아래 흐름을 확인했습니다.
+
+- Python import 검사 성공
+- 4주차 DB 데이터 검증 성공
+- 4주차 DB 데이터 import 성공
+- 건물 목록 API 정상 응답
+- 건물별 층 목록 API 정상 응답
+- 강의실 검색 API 정상 응답
+- 층별 실내 지도 API 정상 응답
+- 임시 room_positions.csv로 좌표 import 성공
+- 검색 결과에서 position 좌표 반환 확인
+- 검색 실패 시 errorCode와 message 반환 확인
+
+
+10. 아직 남은 작업
+
+아직 실제 DB 담당자의 room_positions.csv가 없기 때문에, 현재는 좌표 데이터가 없는 강의실의 position은 null로 반환됩니다.
+
+추후 room_positions.csv가 전달되면 바로 검증/import해서 프론트엔드에서 강의실 하이라이트를 표시할 수 있습니다.
+
+또한 실내 경로 계산과 외부 경로 계산을 위해서는 다음 데이터가 추가로 필요합니다.
+
+- indoor_nodes.csv
+- indoor_edges.csv
+- outdoor_nodes.csv
+- outdoor_edges.csv
+- entrance_links.csv
+
+
+11. 5주차 한 줄 요약
+
+5주차에는 프론트엔드가 실제 DB 데이터를 받아 건물 마커, 강의실 검색, 층별 실내 지도 표시를 할 수 있도록 백엔드 API와 room_positions import 구조를 확장했습니다.
