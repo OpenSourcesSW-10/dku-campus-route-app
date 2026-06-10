@@ -12,7 +12,7 @@ from sqlalchemy.orm import Session
 from app.algorithms.cost_function import normalize_route_type
 from app.models import EntranceLink, Room
 from app.schemas.routes import RouteDetailResponse
-from app.services.indoor_graph import find_indoor_node_route
+from app.services.indoor_graph import find_cross_building_indoor_route, find_indoor_node_route
 from app.services.outdoor_graph import find_outdoor_route
 from app.services.resolver import resolve_room_keyword
 
@@ -53,6 +53,18 @@ def plan_integrated_route(db: Session, from_keyword: str, to_keyword: str, route
             preferences,
         )
         return RoutePlannerResult(payload=indoor_result.payload, error_code=indoor_result.error_code)
+
+    # 제1/2/3공학관 구름다리처럼 실내 그래프가 건물 간 직접 연결을 제공하는 경우 우선 사용.
+    # 실패하면 기존 출입구-외부보행로-출입구 조합으로 fallback.
+    cross_building_indoor = find_cross_building_indoor_route(
+        db,
+        from_room.nearest_indoor_node_id,
+        to_room.nearest_indoor_node_id,
+        normalized_route_type,
+        preferences,
+    )
+    if cross_building_indoor.payload:
+        return RoutePlannerResult(payload=cross_building_indoor.payload)
 
     start_links = _building_entrance_links(db, from_room.building_id)
     destination_links = _building_entrance_links(db, to_room.building_id)

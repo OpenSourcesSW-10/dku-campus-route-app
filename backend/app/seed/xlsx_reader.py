@@ -47,7 +47,9 @@ def _first_sheet_path(workbook: ZipFile) -> str:
     rels_root = ET.fromstring(workbook.read("xl/_rels/workbook.xml.rels"))
     rel_map = {rel.attrib["Id"]: rel.attrib["Target"] for rel in rels_root}
     first_sheet = workbook_root.find("main:sheets/main:sheet", MAIN_NS)
-    target = rel_map[first_sheet.attrib[REL_ID]]
+    # Some spreadsheet writers store workbook relationship targets as
+    # "/xl/worksheets/sheet1.xml"; normalize them before reading from zip.
+    target = rel_map[first_sheet.attrib[REL_ID]].lstrip("/")
     return target if target.startswith("xl/") else f"xl/{target}"
 
 

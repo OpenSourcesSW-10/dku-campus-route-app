@@ -99,6 +99,37 @@ def find_indoor_node_route(
     )
 
 
+def find_cross_building_indoor_route(
+    db: Session,
+    start_indoor_node_id: str,
+    end_indoor_node_id: str,
+    route_type: str = "DEFAULT",
+    preferences: Any | None = None,
+) -> IndoorRouteServiceResult:
+    # 공학관 구름다리처럼 건물 ID는 다르지만 indoor_edges로 직접 연결된 그래프를 탐색.
+    nodes = db.query(IndoorNode).all()
+    edges = db.query(IndoorEdge).all()
+    normalized_route_type = normalize_route_type(route_type)
+    context = build_route_cost_context(normalized_route_type, preferences)
+    result = dijkstra_result(nodes, edges, start_indoor_node_id, end_indoor_node_id, normalized_route_type, context)
+    if not result.found:
+        return IndoorRouteServiceResult(error_code="INDOOR_ROUTE_NOT_FOUND")
+    node_by_id = {node.indoor_node_id: node for node in nodes}
+    edge_by_id = {edge.indoor_edge_id: edge for edge in edges}
+    segments = _build_indoor_segments("", result, node_by_id, edge_by_id)
+    return IndoorRouteServiceResult(
+        payload=RouteDetailResponse(
+            routeType=normalized_route_type,
+            title=ROUTE_TITLES[normalized_route_type],
+            totalCost=result.total_cost,
+            totalDistance=result.total_distance,
+            totalEstimatedTime=result.total_estimated_time,
+            reason="건물 내부 경로와 구름다리 연결을 함께 사용한 실내 연결 경로입니다.",
+            segments=segments,
+        )
+    )
+
+
 def _build_indoor_segments(
     building_id: str,
     result: PathResult,
@@ -123,9 +154,13 @@ def _build_indoor_segments(
         if not from_node or not to_node:
             continue
 
-        is_vertical = from_node.floor_number != to_node.floor_number or from_node.indoor_map_id != to_node.indoor_map_id
+        is_vertical = (
+            from_node.floor_number != to_node.floor_number
+            or from_node.indoor_map_id != to_node.indoor_map_id
+            or from_node.building_id != to_node.building_id
+        )
         if is_vertical:
-            # 층 또는 지도 파일 변경 지점은 일반 실내 선이 아니라 별도 층간 이동 안내로 분리.
+            # 층/지도/건물 변경 지점은 일반 실내 선이 아니라 별도 이동 안내로 분리.
             segments.append(_build_floor_segment(building_id, current_node_ids, current_edge_ids, node_by_id))
             segments.append(_build_vertical_segment(building_id, from_node, to_node, edge_id, edge))
             current_node_ids = [to_node.indoor_node_id]
@@ -149,7 +184,7 @@ def _build_floor_segment(
     first_node = node_by_id[node_ids[0]]
     return RouteSegmentResponse(
         type="INDOOR",
-        buildingId=building_id,
+        buildingId=first_node.building_id or building_id,
         floorNumber=first_node.floor_number,
         indoorMapId=first_node.indoor_map_id,
         instruction=f"{first_node.floor_number}층 실내 경로를 따라 이동하세요.",
@@ -184,16 +219,21 @@ def _build_vertical_segment(
         "ELEVATOR": "엘리베이터",
         "STAIRS": "계단",
         "RAMP": "경사로",
+        "BRIDGE": "구름다리",
     }.get(transition_type, "층간 이동 통로")
+    if transition_type == "BRIDGE":
+        instruction = f"{transition_label}를 이용해 {from_node.floor_number}층에서 {to_node.floor_number}층 연결 구간으로 이동하세요."
+    else:
+        instruction = f"{transition_label}를 이용해 {from_node.floor_number}층에서 {to_node.floor_number}층으로 이동하세요."
     return RouteSegmentResponse(
         type="VERTICAL",
-        buildingId=building_id,
+        buildingId=from_node.building_id or building_id,
         floorNumber=from_node.floor_number,
         indoorMapId=from_node.indoor_map_id,
         toFloorNumber=to_node.floor_number,
         toIndoorMapId=to_node.indoor_map_id,
         transitionType=transition_type,
-        instruction=f"{transition_label}를 이용해 {from_node.floor_number}층에서 {to_node.floor_number}층으로 이동하세요.",
+        instruction=instruction,
         nodeIds=[from_node.indoor_node_id, to_node.indoor_node_id],
         edgeIds=[edge_id],
         pathPoints=[
@@ -213,6 +253,8 @@ def _transition_type(edge: IndoorEdge | None, from_node: IndoorNode, to_node: In
         return "STAIRS"
     if getattr(edge, "is_ramp", False) or edge_type == "RAMP" or "RAMP" in node_types:
         return "RAMP"
+    if edge_type in {"BRIDGE", "COVERED_BRIDGE"} or "BRIDGE" in node_types:
+        return "BRIDGE"
     return edge_type or "VERTICAL"
 
 
