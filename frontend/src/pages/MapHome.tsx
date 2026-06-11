@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Drawer from '../components/Drawer'
 import CampusMap from '../features/map/CampusMap'
 import { MenuIcon, SearchIcon, ChevronRight, LocateIcon, PinIcon } from '../components/Icons'
-import type { Building } from '../lib/data'
-import { indoorMapsOf } from '../lib/data'
+import type { Building, IndoorMap } from '../lib/data'
+import { indoorMapsOf, loadIndoorMaps } from '../lib/data'
 import { useApp } from '../store/useApp'
 import type { LatLng } from '../data/mock'
 import { CAMPUS_CENTER } from '../features/map/useKakao'
@@ -14,13 +14,37 @@ export default function MapHome() {
   const [drawer, setDrawer] = useState(false)
   const [selected, setSelected] = useState<Building | null>(null)
   const [showFloors, setShowFloors] = useState(false)
+  const [floorOptions, setFloorOptions] = useState<IndoorMap[]>([])
+  const [loadingFloors, setLoadingFloors] = useState(false)
   const [myLoc, setMyLoc] = useState<LatLng | null>(null)
   const setRoute = useApp((s) => s.setRoute)
 
   const selectBuilding = (b: Building) => {
     setSelected(b)
     setShowFloors(false)
+    setFloorOptions(indoorMapsOf(b.id))
   }
+
+  useEffect(() => {
+    if (!selected) {
+      setFloorOptions([])
+      return
+    }
+
+    let alive = true
+    setLoadingFloors(true)
+    void loadIndoorMaps(selected.id)
+      .then((maps) => {
+        if (alive) setFloorOptions(maps)
+      })
+      .finally(() => {
+        if (alive) setLoadingFloors(false)
+      })
+
+    return () => {
+      alive = false
+    }
+  }, [selected])
 
   const locate = () => {
     if (!navigator.geolocation) {
@@ -34,7 +58,10 @@ export default function MapHome() {
     )
   }
 
-  const hasIndoor = selected ? indoorMapsOf(selected.id).length > 0 : false
+  const knownIndoorBuildingIds = new Set(['DKU_ICT', 'DKU_LIB', 'DKU_SCI1', 'DKU_SCI2', 'DKU_SCI3'])
+  const hasIndoor = selected
+    ? selected.hasIndoorMap || knownIndoorBuildingIds.has(selected.id) || floorOptions.length > 0
+    : false
 
   return (
     <div className="relative flex h-full flex-col bg-white">
@@ -107,17 +134,27 @@ export default function MapHome() {
             (hasIndoor ? (
               <div className="mt-4 animate-fade-up">
                 <p className="mb-2 text-[13px] font-semibold text-ink-soft">층을 선택하세요</p>
-                <div className="grid grid-cols-4 gap-2">
-                  {indoorMapsOf(selected.id).map((m) => (
-                    <button
-                      key={m.floor}
-                      onClick={() => nav(`/indoor/${selected.id}/${m.floor}`)}
-                      className="press rounded-lg border border-line py-2.5 text-center text-[15px] font-semibold text-ink active:border-primary active:text-primary"
-                    >
-                      {m.floorLabel}
-                    </button>
-                  ))}
-                </div>
+                {loadingFloors && floorOptions.length === 0 ? (
+                  <p className="rounded-lg bg-gray-50 py-3 text-center text-[13px] text-ink-faint">
+                    층 정보를 불러오는 중입니다
+                  </p>
+                ) : floorOptions.length > 0 ? (
+                  <div className="grid grid-cols-4 gap-2">
+                    {floorOptions.map((m) => (
+                      <button
+                        key={m.floor}
+                        onClick={() => nav(`/indoor/${selected.id}/${m.floor}`)}
+                        className="press rounded-lg border border-line py-2.5 text-center text-[15px] font-semibold text-ink active:border-primary active:text-primary"
+                      >
+                        {m.floorLabel}
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="rounded-lg bg-gray-50 py-3 text-center text-[13px] text-ink-faint">
+                    강의실 정보를 불러오지 못했습니다. 잠시 후 다시 선택해주세요
+                  </p>
+                )}
               </div>
             ) : (
               <p className="mt-4 animate-fade-up rounded-lg bg-gray-50 py-3 text-center text-[13px] text-ink-faint">
