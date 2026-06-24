@@ -1,0 +1,209 @@
+,room_id,building_id,floor_number,floor_label,room_code,room_name,room_type
+,DKU_ICT_-1_101,DKU_ICT,-1,B1,101,일반물리실험준비실1,prep_room
+,DKU_ICT_-1_102,DKU_ICT,-1,B1,102,일반물리실험실1,laboratory
+,DKU_ICT_-1_103,DKU_ICT,-1,B1,103,반도체SW 실습 리빙랩,laboratory
+,DKU_ICT_-1_104,DKU_ICT,-1,B1,104,솔리드클라우드 실습 서버실,server_room
+,DKU_ICT_-1_105,DKU_ICT,-1,B1,105,솔리드클라우드 운영 준비실,prep_room
+,DKU_ICT_-1_106,DKU_ICT,-1,B1,106,e-Sports 실험실습실,laboratory
+,DKU_ICT_-1_107,DKU_ICT,-1,B1,107,사법대학 과학교육과 실험실습실,laboratory
+,DKU_ICT_-1_108,DKU_ICT,-1,B1,108,웨어러블 디아비스 실증 스튜디오,studio
+,DKU_ICT_-1_109,DKU_ICT,-1,B1,109,공공기기실,equipment_room
+,DKU_ICT_-1_110,DKU_ICT,-1,B1,110,일반물리실험준비실2,prep_room
+,DKU_ICT_-1_111,DKU_ICT,-1,B1,111,일반물리실험실2,laboratory
+,DKU_ICT_1_101,DKU_ICT,1,1F,101,강의실,classroom
+,DKU_ICT_1_102,DKU_ICT,1,1F,102,강의실,classroom
+,DKU_ICT_1_103,DKU_ICT,1,1F,103,상담학과 사무실,department_office
+,DKU_ICT_1_104,DKU_ICT,1,1F,104,강의실,classroom
+,DKU_ICT_1_105,DKU_ICT,1,1F,105,자동녹화강의실,classroom
+,DKU_ICT_1_106,DKU_ICT,1,1F,106,unknown,unknown
+,DKU_ICT_1_107,DKU_ICT,1,1F,107,AI융합대학 서버실,server_room
+,DKU_ICT_1_108,DKU_ICT,1,1F,108,동물생리학실험실,laboratory
+,DKU_ICT_1_109,DKU_ICT,1,1F,109,ND-COSS 물리과학실험실,laboratory
+,DKU_ICT_1_110,DKU_ICT,1,1F,110,ND-COSS 물리과학실험준비실,prep_room
+,DKU_ICT_1_111,DKU_ICT,1,1F,111,융합전자바이오실험실,laboratory
+,DKU_ICT_1_111_1,DKU_ICT,1,1F,111-1,유기재료전자실험실,laboratory
+,DKU_ICT_1_112,DKU_ICT,1,1F,112,생태학 실험실,laboratory
+,DKU_ICT_1_112_1,DKU_ICT,1,1F,112-1,생태학 실험준비실,prep_room
+,DKU_ICT_1_113,DKU_ICT,1,1F,113,기계공작실,laboratory
+,DKU_ICT_1_114,DKU_ICT,1,1F,114,unknown,unknown
+,DKU_ICT_1_115,DKU_ICT,1,1F,115,편의점,convenience_store
+,DKU_ICT_1_116,DKU_ICT,1,1F,116,unknown,unknown
+,DKU_ICT_1_117,DKU_ICT,1,1F,117,unknown,unknown
+,DKU_ICT_1_118,DKU_ICT,1,1F,118,라수현,professor_office
+,DKU_ICT_1_119,DKU_ICT,1,1F,119,동물생리학실험실(사무실),laboratory
+,DKU_ICT_1_120,DKU_ICT,1,1F,120,정책과학연구소,research_lab
+,DKU_ICT_1_121,DKU_ICT,1,1F,121,이주영,professor_office
+,DKU_ICT_1_122,DKU_ICT,1,1F,122,김수임,professor_office
+,DKU_ICT_1_123,DKU_ICT,1,1F,123,유현실,professor_office
+,DKU_ICT_1_124,DKU_ICT,1,1F,124,임은주,professor_office
+,DKU_ICT_1_125,DKU_ICT,1,1F,125,노지현,professor_office
+,DKU_ICT_1_126,DKU_ICT,1,1F,126,최나연,professor_office
+,DKU_ICT_1_127,DKU_ICT,1,1F,127,AI융합연구원/원장실,office
+,DKU_ICT_1_128,DKU_ICT,1,1F,128,AI융합대학 학생회실,student_room
+,DKU_ICT_2_201,DKU_ICT,2,2F,201,단국G-RISE사업단 사업지원팀,office
+,DKU_ICT_2_202,DKU_ICT,2,2F,202,단국G-RISE사업단장실,office
+,DKU_ICT_2_203,DKU_ICT,2,2F,203,단국G-RISE사업단 산학협력중점교수연구실,office
+,DKU_ICT_2_204,DKU_ICT,2,2F,204,단국G-RISE사업단 서고,office
+,DKU_ICT_2_205,DKU_ICT,2,2F,205,단국G-RISE사업단 러닝팩토리,office
+,DKU_ICT_2_206,DKU_ICT,2,2F,206,단국G-RISE사업단 하이브리드강의실,office
+,DKU_ICT_2_207,DKU_ICT,2,2F,207,unknown,unknown
+,DKU_ICT_2_208,DKU_ICT,2,2F,208,동물실험실,laboratory
+,DKU_ICT_2_209,DKU_ICT,2,2F,209,unknown,unknown
+,DKU_ICT_2_210,DKU_ICT,2,2F,210,강의실,classroom
+,DKU_ICT_2_211,DKU_ICT,2,2F,211,unknown,unknown
+,DKU_ICT_2_212,DKU_ICT,2,2F,212,휴먼 데이터 랩,laboratory
+,DKU_ICT_2_213,DKU_ICT,2,2F,213,세미나실,seminar_room
+,DKU_ICT_2_214,DKU_ICT,2,2F,214,천연물식의약소재산업화센터 연구센터,office
+,DKU_ICT_2_214_1,DKU_ICT,2,2F,214-1,세미나실,seminar_room
+,DKU_ICT_2_215,DKU_ICT,2,2F,215,직원노동조합 사무실,office
+,DKU_ICT_2_215_1,DKU_ICT,2,2F,215-1,직원노동조합 세미나실,seminar_room
+,DKU_ICT_2_216,DKU_ICT,2,2F,216,상담학과 학생회실,student_room
+,DKU_ICT_2_216_1,DKU_ICT,2,2F,216-1,상담학과 스터디룸,studyroom
+,DKU_ICT_2_217,DKU_ICT,2,2F,217,unknown,unknown
+,DKU_ICT_2_218,DKU_ICT,2,2F,218,단국G-RISE사업단 경기북부지원실,office
+,DKU_ICT_2_219,DKU_ICT,2,2F,219,경기도 단국-삼성모바일연구소,office
+,DKU_ICT_2_220,DKU_ICT,2,2F,220,김용진,professor_office
+,DKU_ICT_2_221,DKU_ICT,2,2F,221,산학협력중점교수 연구실,office
+,DKU_ICT_2_222,DKU_ICT,2,2F,222,정유한,professor_office
+,DKU_ICT_2_223,DKU_ICT,2,2F,223,산학협력중점교수 연구실,office
+,DKU_ICT_2_224,DKU_ICT,2,2F,224,과학기술성과실용화사업단 사무실,office
+,DKU_ICT_2_225,DKU_ICT,2,2F,225,과학기술성과실용화사업단 교육과정지원센터,office
+,DKU_ICT_2_226,DKU_ICT,2,2F,226,과학기술성과실용화사업단 실용화지원센터,office
+,DKU_ICT_2_227,DKU_ICT,2,2F,227,강의실,classroom
+,DKU_ICT_3_301,DKU_ICT,3,3F,301,OSS실습실,laboratory
+,DKU_ICT_3_302,DKU_ICT,3,3F,302,Solid Cloud 서버실,server_room
+,DKU_ICT_3_303,DKU_ICT,3,3F,303,OSS실습실,laboratory
+,DKU_ICT_3_304,DKU_ICT,3,3F,304,강의실,classroom
+,DKU_ICT_3_305,DKU_ICT,3,3F,305,강의실,classroom
+,DKU_ICT_3_306,DKU_ICT,3,3F,306,OSS실습실,laboratory
+,DKU_ICT_3_307,DKU_ICT,3,3F,307,첨단강의실,classroom
+,DKU_ICT_3_308,DKU_ICT,3,3F,308,unknown,unknown
+,DKU_ICT_3_309,DKU_ICT,3,3F,309,SW융합대학학장실,office
+,DKU_ICT_3_310,DKU_ICT,3,3F,310,첨단강의실,classroom
+,DKU_ICT_3_311,DKU_ICT,3,3F,311,AI융합대학 통합사무실 / SW중심대학사업단 행정실,office
+,DKU_ICT_3_312,DKU_ICT,3,3F,312,분자유전학실험실1,laboratory
+,DKU_ICT_3_313,DKU_ICT,3,3F,313,세포배양 및 무균실험실,laboratory
+,DKU_ICT_3_314,DKU_ICT,3,3F,314,암실,laboratory
+,DKU_ICT_3_315,DKU_ICT,3,3F,315,방사선실,laboratory
+,DKU_ICT_3_316,DKU_ICT,3,3F,316,분자세포학실험실,laboratory
+,DKU_ICT_3_317,DKU_ICT,3,3F,317,현미경실험실,laboratory
+,DKU_ICT_3_318,DKU_ICT,3,3F,318,국가지정연구실(세포생물연구실),laboratory
+,DKU_ICT_3_319,DKU_ICT,3,3F,319,unknown,unknown
+,DKU_ICT_3_320,DKU_ICT,3,3F,320,공동(남) 2-1 / 김연중(공학교육),mixed-use
+,DKU_ICT_3_321,DKU_ICT,3,3F,321,unknown,unknown
+,DKU_ICT_3_322,DKU_ICT,3,3F,322,정선주,professor_office
+,DKU_ICT_3_323,DKU_ICT,3,3F,323,unknown,unknown
+,DKU_ICT_3_324,DKU_ICT,3,3F,324,교육대학원 상담실,counseling_room
+,DKU_ICT_3_325,DKU_ICT,3,3F,325,이성욱,professor_office
+,DKU_ICT_3_326,DKU_ICT,3,3F,326,분자유전학실험준비실,prep_room
+,DKU_ICT_3_327,DKU_ICT,3,3F,327,분자유전학실험실2,laboratory
+,DKU_ICT_3_328,DKU_ICT,3,3F,328,단국G-RISE사업단 지역상생협력센터,office
+,DKU_ICT_3_329,DKU_ICT,3,3F,329,SW중심대학사업단 회의실,office
+,DKU_ICT_3_330,DKU_ICT,3,3F,330,SW중심대학사업단 서고,office
+,DKU_ICT_3_331,DKU_ICT,3,3F,331,SW중심대학사업단 행정실,office
+,DKU_ICT_3_332,DKU_ICT,3,3F,332,강의실,classroom
+,DKU_ICT_4_401,DKU_ICT,4,4F,401,박용범,professor_office
+,DKU_ICT_4_402,DKU_ICT,4,4F,402,오세종,professor_office
+,DKU_ICT_4_403,DKU_ICT,4,4F,403,조남수,professor_office
+,DKU_ICT_4_404,DKU_ICT,4,4F,404,최현민,professor_office
+,DKU_ICT_4_405,DKU_ICT,4,4F,405,황두성,professor_office
+,DKU_ICT_4_406,DKU_ICT,4,4F,406,PC멀티실습실,laboratory
+,DKU_ICT_4_407,DKU_ICT,4,4F,407,PC멀티실습실,laboratory
+,DKU_ICT_4_408,DKU_ICT,4,4F,408,컴네트윅/지능자료분석연구실,research_lab
+,DKU_ICT_4_409,DKU_ICT,4,4F,409,지능형 교통 시스템 보안연구실,research_lab
+,DKU_ICT_4_410,DKU_ICT,4,4F,410,생명정보기술실험실,laboratory
+,DKU_ICT_4_411,DKU_ICT,4,4F,411,지능형보안기술연구실,research_lab
+,DKU_ICT_4_412,DKU_ICT,4,4F,412,멀티미디어/모바일연구실,research_lab
+,DKU_ICT_4_413,DKU_ICT,4,4F,413,AI스마트 강의실,classroom
+,DKU_ICT_4_414,DKU_ICT,4,4F,414,강의실,classroom
+,DKU_ICT_4_415,DKU_ICT,4,4F,415,unknown,unknown
+,DKU_ICT_4_416,DKU_ICT,4,4F,416,사이버보안학과 실습실1,laboratory
+,DKU_ICT_4_417,DKU_ICT,4,4F,417,사이버보안학과 학생회실,student_room
+,DKU_ICT_4_418,DKU_ICT,4,4F,418,멘토링 룸,mentor_room
+,DKU_ICT_4_419,DKU_ICT,4,4F,419,공동(여) 4-1 / 황윤지(공학교육혁신센터),mixed-use
+,DKU_ICT_4_420,DKU_ICT,4,4F,420,인간과 인공지능 연구실,research_lab
+,DKU_ICT_4_421,DKU_ICT,4,4F,421,unknown,unknown
+,DKU_ICT_4_422,DKU_ICT,4,4F,422,인문사회융합인재양성사업 공동연구실,office
+,DKU_ICT_4_423,DKU_ICT,4,4F,423,인문사회융합인재양성사업단 행정실,office
+,DKU_ICT_4_424,DKU_ICT,4,4F,424,김동재,professor_office
+,DKU_ICT_4_425,DKU_ICT,4,4F,425,이건석,professor_office
+,DKU_ICT_4_426,DKU_ICT,4,4F,426,공동(여)4-박소현,mixed-use
+,DKU_ICT_4_427,DKU_ICT,4,4F,427,인공지능부트캠프사업단 산학중점교수연구실,research_lab
+,DKU_ICT_4_428,DKU_ICT,4,4F,428,Red Beanz,club_room
+,DKU_ICT_4_429,DKU_ICT,4,4F,429,박태근,professor_office
+,DKU_ICT_4_430,DKU_ICT,4,4F,430,송현민,professor_office
+,DKU_ICT_5_501,DKU_ICT,5,5F,501,코딩존,club_room
+,DKU_ICT_5_502,DKU_ICT,5,5F,502,소프트웨어학과 학생회실,student_room
+,DKU_ICT_5_503,DKU_ICT,5,5F,503,강필성,professor_office
+,DKU_ICT_5_504,DKU_ICT,5,5F,504,최종무,professor_office
+,DKU_ICT_5_505,DKU_ICT,5,5F,505,이재동,professor_office
+,DKU_ICT_5_506,DKU_ICT,5,5F,506,김보은,professor_office
+,DKU_ICT_5_507,DKU_ICT,5,5F,507,김하연,professor_office
+,DKU_ICT_5_508,DKU_ICT,5,5F,508,서지원,professor_office
+,DKU_ICT_5_509,DKU_ICT,5,5F,509,우사무엘,professor_office
+,DKU_ICT_5_510,DKU_ICT,5,5F,510,조성제,professor_office
+,DKU_ICT_5_511,DKU_ICT,5,5F,511,설진석,professor_office
+,DKU_ICT_5_512,DKU_ICT,5,5F,512,AI융합학부 실습실,laboratory
+,DKU_ICT_5_513,DKU_ICT,5,5F,513,XR-AI 연구실,research_lab
+,DKU_ICT_5_514,DKU_ICT,5,5F,514,빅데이터/AI실습실,laboratory
+,DKU_ICT_5_515,DKU_ICT,5,5F,515,시스템 소프트웨어 연구실,research_lab
+,DKU_ICT_5_516,DKU_ICT,5,5F,516,PC멀티실습실,laboratory
+,DKU_ICT_5_517,DKU_ICT,5,5F,517,PC멀티실습실,laboratory
+,DKU_LIB_1_103,DKU_LIB,1,1F,103,1열람실,reading_room
+,DKU_LIB_1_110,DKU_LIB,1,1F,110,1보존서고,archive
+,DKU_LIB_2_201,DKU_LIB,2,2F,201,대학원열람실,reading_room
+,DKU_LIB_2_202,DKU_LIB,2,2F,202,4열람실,reading_room
+,DKU_LIB_2_205,DKU_LIB,2,2F,205,휴게실,restroom
+,DKU_LIB_2_206,DKU_LIB,2,2F,206,편의점,convenience_store
+,DKU_LIB_2_207,DKU_LIB,2,2F,207,저수조,?
+,DKU_LIB_2_211,DKU_LIB,2,2F,211,2열람실,reading_room
+,DKU_LIB_2_212,DKU_LIB,2,2F,212,3열람실,reading_room
+,DKU_LIB_3_301,DKU_LIB,3,3F,301,도산라운지,lounge
+,DKU_LIB_3_302,DKU_LIB,3,3F,302,자율 학습 라운지,lounge
+,DKU_LIB_3_303,DKU_LIB,3,3F,303,세미나실 / ALC,seminar_room
+,DKU_LIB_3_304,DKU_LIB,3,3F,304,취창업진로1팀,office
+,DKU_LIB_3_305,DKU_LIB,3,3F,305,대학일자리플러스센터 사업운영팀,office
+,DKU_LIB_3_306,DKU_LIB,3,3F,306,취창업지원처장실,office
+,DKU_LIB_3_307,DKU_LIB,3,3F,307,잡카페/고교 재학생 맞춤형 고용서비스 사무실,office
+,DKU_LIB_3_308,DKU_LIB,3,3F,308,수위실,secuirty_office
+,DKU_LIB_3_309,DKU_LIB,3,3F,309,unknown,unknown
+,DKU_LIB_3_310,DKU_LIB,3,3F,310,출판미디어운영팀,office
+,DKU_LIB_3_311,DKU_LIB,3,3F,311,사서장실,office
+,DKU_LIB_3_312,DKU_LIB,3,3F,312,도서관장실,office
+,DKU_LIB_3_313,DKU_LIB,3,3F,313,부속실,equipment_room
+,DKU_LIB_3_314,DKU_LIB,3,3F,314,창고,equipment_room
+,DKU_LIB_3_315,DKU_LIB,3,3F,315,방송실,broadcast_room
+,DKU_LIB_3_316,DKU_LIB,3,3F,316,다목적실,multi_room
+,DKU_LIB_3_317,DKU_LIB,3,3F,317,수서창고,?
+,DKU_LIB_3_318,DKU_LIB,3,3F,318,3보존서고,archive
+,DKU_LIB_3_319,DKU_LIB,3,3F,319,대출실,circulation_room
+,DKU_LIB_3_320,DKU_LIB,3,3F,320,도서관사무실,office
+,DKU_LIB_4_401,DKU_LIB,4,4F,401,자연과학실,archive
+,DKU_LIB_4_402,DKU_LIB,4,4F,402,2인문과학실,archive
+,DKU_LIB_4_403,DKU_LIB,4,4F,403,팀프로젝트룸,studyroom
+,DKU_LIB_4_404,DKU_LIB,4,4F,404,그룹스터디룸 4-3,studyroom
+,DKU_LIB_4_405,DKU_LIB,4,4F,405,그룹스터디룸 4-2,studyroom
+,DKU_LIB_4_406,DKU_LIB,4,4F,406,그룹스터디룸 4-1,studyroom
+,DKU_LIB_4_407,DKU_LIB,4,4F,407,1인문과학실,archive
+,DKU_LIB_4_408,DKU_LIB,4,4F,408,4보존서고,archive
+,DKU_LIB_4_409,DKU_LIB,4,4F,409,학위논문실,archive
+,DKU_LIB_5_501,DKU_LIB,5,5F,501,예체능실,archive
+,DKU_LIB_5_502,DKU_LIB,5,5F,502,2사회과학실,archive
+,DKU_LIB_5_503,DKU_LIB,5,5F,503,그룹스터디룸 5-4,studyroom
+,DKU_LIB_5_504,DKU_LIB,5,5F,504,그룹스터디룸 5-3,studyroom
+,DKU_LIB_5_505,DKU_LIB,5,5F,505,그룹스터디룸 5-2,studyroom
+,DKU_LIB_5_506,DKU_LIB,5,5F,506,그룹스터디룸 5-1,studyroom
+,DKU_LIB_5_507,DKU_LIB,5,5F,507,1사회과학실,archive
+,DKU_LIB_5_508,DKU_LIB,5,5F,508,5보존서고,archive
+,DKU_LIB_5_509,DKU_LIB,5,5F,509,고문헌실,archive
+,DKU_LIB_6_601,DKU_LIB,6,6F,601,동양학자료실,archive
+,DKU_LIB_6_602,DKU_LIB,6,6F,602,2정기간행물실,office
+,DKU_LIB_6_603,DKU_LIB,6,6F,603,"동양학연구원장실, 연구실, 행정지원팀",office
+,DKU_LIB_6_604,DKU_LIB,6,6F,604,"편찬실, 연구기획팀",office
+,DKU_LIB_6_605,DKU_LIB,6,6F,605,고전번역연구실,research_lab
+,DKU_LIB_6_606,DKU_LIB,6,6F,606,그룹스터디룸 6-4,studyroom
+,DKU_LIB_6_607,DKU_LIB,6,6F,607,그룹스터디룸 6-3,studyroom
+,DKU_LIB_6_608,DKU_LIB,6,6F,608,그룹스터디룸 6-2,studyroom
+,DKU_LIB_6_609,DKU_LIB,6,6F,609,그룹스터디룸 6-1,studyroom
+,DKU_LIB_6_610,DKU_LIB,6,6F,610,열린도서관,library
+,DKU_LIB_6_611,DKU_LIB,6,6F,611,1정기간행물실,?

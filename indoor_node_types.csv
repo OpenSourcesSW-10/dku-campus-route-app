@@ -1,0 +1,8 @@
+,,,
+,node_type,display_name,description
+,hallway,복도,일반 복도 이동 노드
+,stairs,계단,층간 이동 계단
+,elevator,엘리베이터,엘리베이터 위치
+,entrance,출입구,건물 출입구
+,room_front,강의실 앞,강의실 입구 앞
+,junction,교차점,복도 분기점
